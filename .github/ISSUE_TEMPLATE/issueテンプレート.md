@@ -1,5 +1,5 @@
 ---
-name: issue template
+name: issueテンプレート
 about: issue作成時のテンプレです。
 title: ''
 labels: 未着手
