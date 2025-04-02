@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# メッセージテンプレートを表示
+TEMPLATE=".github/.gitmessage.txt"
+
+if [ -f "$TEMPLATE" ]; then
+  echo
+  echo "📝 以下のテンプレートを参考にしてください:"
+  echo "---------------------------------------------"
+  cat "$TEMPLATE"
+  echo "---------------------------------------------"
+  echo
+fi
