@@ -1,7 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# メッセージテンプレートを表示
+echo "✅ commit-msg hook が実行されました！"
+
 TEMPLATE=".github/.gitmessage.txt"
 
 if [ -f "$TEMPLATE" ]; then
@@ -11,4 +12,6 @@ if [ -f "$TEMPLATE" ]; then
   cat "$TEMPLATE"
   echo "---------------------------------------------"
   echo
+else
+  echo "⚠️ テンプレートが見つかりませんでした: $TEMPLATE"
 fi
