@@ -1,0 +1,24 @@
+{
+    "name": "WordPress Dev",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "wordpress",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            // "settings": {
+                
+            // },
+            "extensions": [
+                "adrianwilczynski.alpine-js-intellisense",
+                "csstools.postcss",
+                "esbenp.prettier-vscode",
+                "bradlc.vscode-tailwindcss",
+                "mblode.twig-language-2"
+            ]
+        }
+    },
+    "forwardPorts": [8080],
+    "remoteUser": "root",
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "composer install || true"
+}

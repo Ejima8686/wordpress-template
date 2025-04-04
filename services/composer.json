@@ -1,0 +1,27 @@
+{
+	"require": {
+		"composer/installers": "^1.0",
+		"wpengine/advanced-custom-fields-pro": "^6.0"
+	},
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://connect.advancedcustomfields.com"
+		}
+	],
+	"allow-plugins": {
+		"composer/installers": true
+	},
+	"extra": {
+		"installer-paths": {
+			"wp-content/plugins/{$name}/": [
+				"wpengine/advanced-custom-fields-pro"
+			]
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
+	}
+}
