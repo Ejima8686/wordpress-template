@@ -2,12 +2,9 @@
     "name": "WordPress Dev",
     "dockerComposeFile": "docker-compose.yml",
     "service": "wordpress",
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/var/www/html/wp-content/themes/",
     "customizations": {
         "vscode": {
-            // "settings": {
-                
-            // },
             "extensions": [
                 "adrianwilczynski.alpine-js-intellisense",
                 "csstools.postcss",
@@ -19,6 +16,5 @@
     },
     "forwardPorts": [8080],
     "remoteUser": "root",
-    "shutdownAction": "stopCompose",
-    "postCreateCommand": "composer install || true"
+    "postCreateCommand": "/usr/local/bin/entrypoint.sh"
 }

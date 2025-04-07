@@ -1,27 +1,26 @@
 services:
   wordpress:
-    container_name: wp-container
-    build: "Dockerfile"
+    container_name: ${THEME_NAME}-wp
+    build:
+      context: ./
+      dockerfile: Dockerfile
     depends_on:
       - db
     ports:
       - 8080:80
     volumes:
-      - "./.env:/var/www/html/.env"
-      - "./auth.json:/var/www/html/auth.json"
-      - "./services/wordpress/composer.json:/var/www/html/composer.json"
-      - "./${THEME_NAME}:/var/www/html/wp-content/themes/${THEME_NAME}"
-    environment:
-      WORDPRESS_THEME_NAME: "${THEME_NAME}"
-      ACF_PRO_KEY: "${ACF_PRO_KEY}"
+      - "./plugins:/var/www/html/wp-content/plugins"
+      - "./themes:/var/www/html/wp-content/themes"
     env_file:
       - ./.env
-
+ 
   db:
+    container_name: ${THEME_NAME}-db
     image: mariadb:latest
     ports:
       - "3306:3306"
     environment:
+      WORDPRESS_THEME_NAME: "${THEME_NAME}"
       MYSQL_ROOT_PASSWORD: wordpress
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
