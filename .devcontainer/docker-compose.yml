@@ -1,6 +1,7 @@
+name: "${THEME_NAME}"
 services:
   wordpress:
-    container_name: ${THEME_NAME}-wp
+    container_name: wp-${THEME_NAME}
     build:
       context: ./
       dockerfile: Dockerfile
@@ -15,7 +16,7 @@ services:
       - ./.env
  
   db:
-    container_name: ${THEME_NAME}-db
+    container_name: db-${THEME_NAME}
     image: mariadb:latest
     ports:
       - "3306:3306"

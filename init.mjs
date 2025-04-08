@@ -36,9 +36,28 @@ async function renameTheme(themeName) {
 	console.log(`📁 Theme folder renamed to '${themeName}'`);
 }
 
+async function updateDevcontainerFiles(themeName) {
+	const devcontainerPath = path.resolve(root, ".devcontainer/devcontainer.json");
+	const composePath = path.resolve(root, ".devcontainer/docker-compose.yml");
+
+	let devcontainerData = await fs.readFile(devcontainerPath, "utf8");
+	devcontainerData = devcontainerData.replace(/mytheme/g, themeName);
+	await fs.writeFile(devcontainerPath, devcontainerData);
+	console.log("🛠️ devcontainer.json updated");
+
+	let composeData = await fs.readFile(composePath, "utf8");
+	composeData = composeData.replace(/\.\.\/mytheme/g, `../${themeName}`);
+	composeData = composeData.replace(/\/var\/www\/html\/wp-content\/themes\/mytheme/g, `/var/www/html/wp-content/themes/${themeName}`);
+	await fs.writeFile(composePath, composeData);
+	console.log("🛠️ docker-compose.yml updated");
+}
+
 async function generateThemeStyle(themeName) {
 	const themeStylePath = path.resolve(root, themeName, "style.css");
-	const content = `/* Theme Name: ${themeName} */`;
+	const content = `
+	/* 
+	Theme Name: ${themeName} 
+	*/`;
 	await fs.writeFile(themeStylePath, content);
 	console.log("📝 style.css generated");
 }
@@ -76,36 +95,31 @@ async function generateAuthJson(token) {
 // Main Interaction
 // ========================
 async function main() {
-	// STEP 1: Initialization confirmation
 	console.log("\n🟦 STEP 1: Initialization");
 	const confirmInit = await confirm({ message: `Initialize?`, default: false });
 	if (!confirmInit) {
 		console.log("❌ Initialization cancelled.");
 		process.exit(0);
 	}
-
-	// STEP 2: Generate initial .env
-	console.log("\n🟦 STEP 2: Generating initial .env file");
 	let themeName = getThemeDirName();
 	await generateEnvFile(themeName);
 
-	// STEP 3: Rename theme if needed
-	console.log("\n🟦 STEP 3: Rename theme directory (if needed)");
+	console.log("\n🟦 STEP 2: Rename theme directory");
 	const confirmRename = await confirm({
-		message: `Rename theme folder? Current name: ${themeName}`,
+		message: `Rename theme directory? Current name: ${themeName}`,
 		default: false,
 	});
 
 	if (confirmRename) {
 		themeName = await input({ message: "New theme name:", default: themeName });
 		await renameTheme(themeName);
+		await updateDevcontainerFiles(themeName);
 		await generateThemeStyle(themeName);
 		await updateEnvFile("THEME_NAME", themeName);
 		await updateEnvFile("VITE_THEME_NAME", themeName);
 	}
 
-	// STEP 4: ACF PRO Token Setup
-	console.log("\n🟦 STEP 4: ACF PRO license setup");
+	console.log("\n🟦 STEP 3: ACF PRO license setup");
 	const confirmAuth = await confirm({ message: `Do you want to generate auth.json?` });
 	if (confirmAuth) {
 		const token = await password({ message: "Enter your ACF PRO license key:" });
