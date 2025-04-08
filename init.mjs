@@ -26,21 +26,21 @@ function getThemeDirName() {
 async function generateEnvFile(themeName) {
 	const content = `THEME_NAME=${themeName}\nVITE_THEME_NAME=${themeName}`;
 	await fs.writeFile(envFilePath, content);
-	console.log("✅ .env を生成しました:", themeName);
+	console.log("✅ .env file generated:", themeName);
 }
 
 async function renameTheme(themeName) {
 	const oldDir = path.resolve(root, "mytheme");
 	const newDir = path.resolve(root, themeName);
 	await fs.rename(oldDir, newDir);
-	console.log(`📁 テーマフォルダを '${themeName}' にリネームしました`);
+	console.log(`📁 Theme folder renamed to '${themeName}'`);
 }
 
 async function generateThemeStyle(themeName) {
 	const themeStylePath = path.resolve(root, themeName, "style.css");
 	const content = `/* Theme Name: ${themeName} */`;
 	await fs.writeFile(themeStylePath, content);
-	console.log("📝 style.css を生成しました");
+	console.log("📝 style.css generated");
 }
 
 async function updateEnvFile(key, value) {
@@ -55,7 +55,7 @@ async function updateEnvFile(key, value) {
 		.join("\n");
 
 	await fs.writeFile(envFilePath, newContent);
-	console.log("🔧 .env ファイルを更新しました。");
+	console.log("🔧 .env file updated.");
 }
 
 async function generateAuthJson(token) {
@@ -69,31 +69,30 @@ async function generateAuthJson(token) {
   }
 }`;
 	await fs.writeFile(authJsonFilePath, content);
-	console.log("✅ auth.json を生成しました");
+	console.log("✅ auth.json generated");
 }
 
 // ========================
 // Main Interaction
 // ========================
 async function main() {
-
 	// STEP 1: Initialization confirmation
 	console.log("\n🟦 STEP 1: Initialization");
 	const confirmInit = await confirm({ message: `Initialize?`, default: false });
 	if (!confirmInit) {
-		console.log("❌ 初期化をキャンセルしました");
+		console.log("❌ Initialization cancelled.");
 		process.exit(0);
 	}
 
 	// STEP 2: Generate initial .env
-	console.log("\n🟦 STEP 2: .envファイルの初期生成");
+	console.log("\n🟦 STEP 2: Generating initial .env file");
 	let themeName = getThemeDirName();
 	await generateEnvFile(themeName);
 
 	// STEP 3: Rename theme if needed
-	console.log("\n🟦 STEP 3: テーマ名のリネーム確認");
+	console.log("\n🟦 STEP 3: Rename theme directory (if needed)");
 	const confirmRename = await confirm({
-		message: `Rename theme name? current: ${themeName}`,
+		message: `Rename theme folder? Current name: ${themeName}`,
 		default: false,
 	});
 
@@ -106,15 +105,15 @@ async function main() {
 	}
 
 	// STEP 4: ACF PRO Token Setup
-	console.log("\n🟦 STEP 4: ACF PRO 認証情報の設定");
-	const confirmAuth = await confirm({ message: `Generate auth.json?` });
+	console.log("\n🟦 STEP 4: ACF PRO license setup");
+	const confirmAuth = await confirm({ message: `Do you want to generate auth.json?` });
 	if (confirmAuth) {
-		const token = await password({ message: "Input ACF PRO LICENCE KEY..." });
+		const token = await password({ message: "Enter your ACF PRO license key:" });
 		await generateAuthJson(token);
 		await updateEnvFile("ACF_PRO_KEY", token);
 	}
 
-	console.log("\n✅ 初期化が完了しました！");
+	console.log("\n✅ Initialization complete!");
 }
 
 await main();
