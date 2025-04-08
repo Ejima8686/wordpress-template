@@ -2,7 +2,7 @@
     "name": "WordPress Dev",
     "dockerComposeFile": "docker-compose.yml",
     "service": "wordpress",
-    "workspaceFolder": "/var/www/html/wp-content/themes/",
+    "workspaceFolder": "/var/www/html/wp-content/themes/mytheme",
     "customizations": {
         "vscode": {
             "extensions": [

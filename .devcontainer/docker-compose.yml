@@ -9,8 +9,8 @@ services:
     ports:
       - 8080:80
     volumes:
-      - "./plugins:/var/www/html/wp-content/plugins"
-      - "./themes:/var/www/html/wp-content/themes"
+      - "../plugins:/var/www/html/wp-content/plugins"
+      - "../mytheme:/var/www/html/wp-content/themes/mytheme"
     env_file:
       - ./.env
  
