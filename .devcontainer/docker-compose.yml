@@ -10,8 +10,11 @@ services:
     ports:
       - 8080:80
     volumes:
+      - "./.env:/var/www/html/.env"
+      - "./auth.json:/var/www/html/auth.json"
+      - "./composer.json:/var/www/html/composer.json"
       - "../plugins:/var/www/html/wp-content/plugins"
-      - "../mytheme:/var/www/html/wp-content/themes/mytheme"
+      - "../${THEME_NAME}:/var/www/html/wp-content/themes/${THEME_NAME}"
     env_file:
       - ./.env
  

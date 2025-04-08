@@ -38,18 +38,11 @@ async function renameTheme(themeName) {
 
 async function updateDevcontainerFiles(themeName) {
 	const devcontainerPath = path.resolve(root, ".devcontainer/devcontainer.json");
-	const composePath = path.resolve(root, ".devcontainer/docker-compose.yml");
 
 	let devcontainerData = await fs.readFile(devcontainerPath, "utf8");
 	devcontainerData = devcontainerData.replace(/mytheme/g, themeName);
 	await fs.writeFile(devcontainerPath, devcontainerData);
 	console.log("🛠️ devcontainer.json updated");
-
-	let composeData = await fs.readFile(composePath, "utf8");
-	composeData = composeData.replace(/\.\.\/mytheme/g, `../${themeName}`);
-	composeData = composeData.replace(/\/var\/www\/html\/wp-content\/themes\/mytheme/g, `/var/www/html/wp-content/themes/${themeName}`);
-	await fs.writeFile(composePath, composeData);
-	console.log("🛠️ docker-compose.yml updated");
 }
 
 async function generateThemeStyle(themeName) {
@@ -78,7 +71,7 @@ async function updateEnvFile(key, value) {
 }
 
 async function generateAuthJson(token) {
-	const authJsonFilePath = path.resolve(root, "auth.json");
+	const authJsonFilePath = path.resolve(root, ".devcontainer/auth.json");
 	const content = `{
   "http-basic": {
     "connect.advancedcustomfields.com": {
