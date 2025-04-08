@@ -19,8 +19,10 @@ git config commit.template "$(pwd)/.github/.gitmessage.txt"
 ```bash
 git config --unset commit.template
 ```
+<br>
 
-## コミットメッセージの編集エディタを変える場合
+<details>
+<summary style="font-size: 16px; font-weight: bold;">※エディタがCursorの場合</summary>
 
 VSCode の場合、`git commit`を実行すると既存の設定で`.github/.gitmessage.txt`の内容が VSCode 上で展開されますが、Cursor の場合 Vim で展開されます。
 編集エディタを変える場合以下の手順で変更してください。
@@ -66,3 +68,4 @@ git config --global --replace-all core.editor "「アプリケーションまで
 ```
 
 で編集エディタの設定を書き換えられます。
+</details>
