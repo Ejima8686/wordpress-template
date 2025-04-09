@@ -12,9 +12,21 @@ services:
     volumes:
       - "./.env:/var/www/html/.env"
       - "./auth.json:/var/www/html/auth.json"
-      - "./composer.json:/var/www/html/composer.json"
+      - "../${THEME_NAME}/composer.json:/var/www/html/composer.json"
       - "../plugins:/var/www/html/wp-content/plugins"
       - "../${THEME_NAME}:/var/www/html/wp-content/themes/${THEME_NAME}"
+    environment:
+      IS_DEVELOPMENT: 1
+      COMPOSER_ALLOW_SUPERUSER: 1
+      COMPOSER_NO_INTERACTION: 1
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_THEME_NAME: "${THEME_NAME}"
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_PORT: 3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      ACF_PRO_KEY: "${ACF_PRO_KEY}"
     env_file:
       - ./.env
  
