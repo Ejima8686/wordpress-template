@@ -12,7 +12,7 @@ services:
     volumes:
       - "./.env:/var/www/html/.env"
       - "./auth.json:/var/www/html/auth.json"
-      - "../${THEME_NAME}/composer.json:/var/www/html/composer.json"
+      - "./composer.json:/var/www/html/composer.json"
       - "../plugins:/var/www/html/wp-content/plugins"
       - "../${THEME_NAME}:/var/www/html/wp-content/themes/${THEME_NAME}"
     environment:
