@@ -36,7 +36,6 @@ services:
     ports:
       - "3306:3306"
     environment:
-      WORDPRESS_THEME_NAME: "${THEME_NAME}"
       MYSQL_ROOT_PASSWORD: wordpress
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress

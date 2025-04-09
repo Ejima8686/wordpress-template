@@ -29,10 +29,8 @@ VSCode を使用してコンテナを起動：
   **"Dev Containers: Reopen in Container"** を選択
 
 ### 3. 開発スタート
-- テーマの作業フォルダ：  
-  `/var/www/html/wp-content/themes/$THEME_NAME`
-- ブラウザから WordPress を確認：  
-  [http://localhost:8080](http://localhost:8080)
+ブラウザから WordPress を確認：  
+  [http://localhost:8080/wp-admin](http://localhost:8080)
 
 
 ## コミットテンプレートのセットアップ

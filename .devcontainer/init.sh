@@ -1,10 +1,7 @@
 #!/bin/bash
 
 # ========================================
-# WordPress開発環境を自動で初期化します。
-#
-# 初期化をしないと、WordPress を開いたときに
-# 「データベース接続情報の入力」画面が表示されます。
+# wp-config.phpの初期化を行います。
 #
 # - wp-config.php の自動生成
 # - WordPress のインストールと初期設定（パーマリンク、日本語化など）
@@ -16,14 +13,16 @@ theme_path="$root_path/wp-content/themes/$WORDPRESS_THEME_NAME"
 host="$WORDPRESS_DB_HOST"
 port="$WORDPRESS_DB_PORT"
 
-if [ ! -e "$root_path/wp-config.php" ]; then
+docker-entrypoint.sh apache2-foreground &
+
+if [ ! -e "$root_path/index.php" ]; then
     echo "WordPress files not found. Installing WordPress..."
 
 	echo "Waiting for mysql"
 	until (echo >/dev/tcp/$host/$port) &>/dev/null
 	do
-  	>&2 echo -n "."
-  	sleep 1
+		>&2 echo -n "."
+		sleep 1
 	done
 	>&2 echo "MySQL is up - executing command"
 
