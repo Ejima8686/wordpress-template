@@ -16,8 +16,6 @@ theme_path="$root_path/wp-content/themes/$WORDPRESS_THEME_NAME"
 host="$WORDPRESS_DB_HOST"
 port="$WORDPRESS_DB_PORT"
 
-docker-entrypoint.sh apache2-foreground &
-
 if [ ! -e "$root_path/wp-config.php" ]; then
     echo "WordPress files not found. Installing WordPress..."
 
