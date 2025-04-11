@@ -13,6 +13,8 @@ services:
       - "./.env:/var/www/html/.env"
       - "./auth.json:/var/www/html/auth.json"
       - "./composer.json:/var/www/html/composer.json"
+      - "./package.json:/var/www/html/package.json"
+      - "./package-lock.json:/var/www/html/package-lock.json"
       - "../plugins:/var/www/html/wp-content/plugins"
       - "../${THEME_NAME}:/var/www/html/wp-content/themes/${THEME_NAME}"
       - "../:/workspaces"

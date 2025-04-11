@@ -1,7 +1,7 @@
 FROM wordpress:php8.2-apache
 
 RUN apt-get update \
-    && apt-get -y install vim wget zip unzip less default-mysql-client \
+    && apt-get -y install vim wget zip unzip less nodejs npm git default-mysql-client \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version
     
