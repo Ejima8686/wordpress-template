@@ -57,3 +57,20 @@ wp theme activate "$WORDPRESS_THEME_NAME" --allow-root
 chown www-data:www-data -R /var/www/html/wp-content
 
 wait
+
+# テーマ名取得後に...
+echo "🧷 テーマディレクトリをシンボリックリンクで接続します..."
+# ↑ここに上記の ln -s 処理を挿入
+
+# init.sh の中に追加
+workspace_theme_dir="/workspaces/$WORDPRESS_THEME_NAME"
+
+# すでにテーマディレクトリがあれば削除（上書き防止）
+if [ -L "$theme_path" ] || [ -d "$theme_path" ]; then
+  echo "🔁 既存のテーマディレクトリを削除: $theme_path"
+  rm -rf "$theme_path"
+fi
+
+# シンボリックリンク作成
+ln -s "$workspace_theme_dir" "$theme_path" 
+echo "✅ シンボリックリンク作成: $theme_path → $workspace_theme_dir"
