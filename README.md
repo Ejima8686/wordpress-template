@@ -45,7 +45,7 @@ VSCode を使用してコンテナを起動します。<br>
 Dev Container 内での作業を終了し、VS Code がローカル環境に戻ります。
 
 - コマンドパレット（`Cmd+Shift+P`）を開き、  
-  **「Dev Containers: Reopen Folder Locally」** を選択します。
+  **"Dev Containers: Reopen Folder Locally"** を選択
 
 ## コミットテンプレートのセットアップ
 
@@ -72,13 +72,13 @@ git config --unset commit.template
 VSCode の場合、`git commit`を実行すると既存の設定で`.github/.gitmessage.txt`の内容が VSCode 上で展開されますが、Cursor の場合 Vim で展開されます。
 編集エディタを変える場合以下の手順で変更してください。
 
-1, アプリケーションまでのフルパスを取得する
+1. アプリケーションまでのフルパスを取得する
 
 ```bash
 find /Applications -name "Cursor”
 ```
 
-2, コミットメッセージを編集するエディタをアプリケーションまでのフルパスで指定
+2. コミットメッセージを編集するエディタをアプリケーションまでのフルパスで指定
 
 ```bash
 git config --global core.editor “「アプリケーションまでのフルパス」 -—wait”
@@ -86,25 +86,25 @@ git config --global core.editor “「アプリケーションまでのフルパ
 
 上記のコマンドでエディタの設定ができずエラーになる場合、以下のコマンドで設定してください。
 
-1, 現在の git の編集エディタの設定を確認
+1. 現在の git の編集エディタの設定を確認
 
 ```bash
 git config --global --get-all core.editor
 ```
 
-2, 現在の git の編集エディタの設定を削除
+2. 現在の git の編集エディタの設定を削除
 
 ```bash
 git config --global --unset-all core.editor
 ```
 
-3, git の編集エディタを設定
+3. git の編集エディタを設定
 
 ```bash
 git config --global core.editor “「アプリケーションまでのフルパス」 -—wait”
 ```
 
-4, 再度`git config --global --get-all core.editor`を実行し、設定が反映されているか確認。
+4. 再度`git config --global --get-all core.editor`を実行し、設定が反映されているか確認。
 
 または、
 
