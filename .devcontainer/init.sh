@@ -28,6 +28,7 @@ if [ ! -e "$root_path/index.php" ]; then
 
 	cd $root_path
 
+	wp core download https://wordpress.org/latest.zip --force --allow-root
 	wp config create --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --allow-root
 	wp core install --url=http://localhost:8080 --title="WordPress Site" --admin_user=admin --admin_password=password --admin_email=wordpress@example.com --path="$root_path" --allow-root
 
@@ -57,19 +58,3 @@ wp theme activate "$WORDPRESS_THEME_NAME" --allow-root
 chown www-data:www-data -R /var/www/html/wp-content
 
 wait
-
-# ========================================
-# テーマディレクトリを/workspaces/[テーマ名]へとシンボリックリンクで接続します。
-#
-# - wp-config.php の自動生成
-# - WordPress のインストールと初期設定（パーマリンク、日本語化など）
-# - よく使うプラグインのインストールと有効化
-# ========================================
-
-workspace_theme_dir="/workspaces/$WORDPRESS_THEME_NAME"
-
-if [ -L "$theme_path" ] || [ -d "$theme_path" ]; then
-  rm -rf "$theme_path"
-fi
-
-ln -s "$workspace_theme_dir" "$theme_path" 

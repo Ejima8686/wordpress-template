@@ -12,12 +12,18 @@ services:
     volumes:
       - "./.env:/var/www/html/.env"
       - "./auth.json:/var/www/html/auth.json"
-      - "./composer.json:/var/www/html/composer.json"
-      - "./package.json:/var/www/html/package.json"
-      - "./package-lock.json:/var/www/html/package-lock.json"
-      - "../plugins:/var/www/html/wp-content/plugins"
+
       - "../${THEME_NAME}:/var/www/html/wp-content/themes/${THEME_NAME}"
+      - "../plugins:/var/www/html/wp-content/plugins"
+
+      - "../package.json:/var/www/html/package.json"
+      - "../package-lock.json:/var/www/html/package-lock.json"
+      - "../composer.json:/var/www/html/composer.json"
+
       - "../:/workspaces"
+      
+      - "../wordpress/wp-config.php:/var/www/html/wp-config.php"
+      - "../wordpress/.htaccess:/var/www/html/.htaccess"
     environment:
       IS_DEVELOPMENT: 1
       COMPOSER_ALLOW_SUPERUSER: 1
