@@ -1,14 +1,20 @@
 # wordpress-template-v3
-wordpressのテーマ開発用テンプレートです。
+**Visual Studio Code の DevContainer 機能を活用した WordPress 開発環境テンプレート**です。
+
+## 必要なソフト・拡張機能
+以下をローカルにインストールしてください。
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Node.js（v18 以上推奨）](https://nodejs.org/)
+- [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)<br>（VS Code で DevContainer を使用するために必須）
 
 ## 構成
 
 | 項目 | 内容 |
 |------|------|
-| WordPress | PHP 8.2 + Apache |
+| WordPress | 最新版 + PHP 8.2 + Apache |
 | DB | MariaDB |
 | Dev Container | `.devcontainer/` フォルダ |
-| テーマ | `mytheme → セットアップ時に任意のテーマ名にリネーム` |
 
 ## 導入
 
@@ -19,19 +25,27 @@ npm run setup:init
 
 - `init.mjs` が対話形式で以下を行います：
   - テーマ名の確認（またはリネーム）
-  - `.devcontainer/env` の作成（THEME_NAME, VITE_THEME_NAME）
-  - `auth.json` の作成（ACF PRO キー入力）
+  - `.devcontainer/.env` の作成（THEME_NAME, VITE_THEME_NAME）
+  - `auth.json` の作成（ACF PRO用ファイル）
 
 ### 2. Dev Container の起動
-VSCode を使用してコンテナを起動：
+VSCode を使用してコンテナを起動します。<br>
+`.devcontainer/init.sh` に基づいて、wordpress環境が構築されます。<br>
+開発を再開する場合もこちらを実行してください。
 
 - コマンドパレット（`Cmd+Shift+P`）から  
   **"Dev Containers: Reopen in Container"** を選択
 
 ### 3. 開発スタート
-ブラウザから WordPress を確認：  
-  [http://localhost:8080/wp-admin](http://localhost:8080)
+ブラウザから WordPressの管理画面にアクセスし、開発を開始してください。  
 
+[http://localhost:8080/wp-admin](http://localhost:8080/wp-admin)
+
+### 4. ローカル環境に戻る（Dev Container の終了）
+Dev Container 内での作業を終了し、VS Code がローカル環境に戻ります。
+
+- コマンドパレット（`Cmd+Shift+P`）を開き、  
+  **「Dev Containers: Reopen Folder Locally」** を選択します。
 
 ## コミットテンプレートのセットアップ
 

@@ -1,11 +1,11 @@
 #!/bin/bash
-
 # ========================================
 # wp-config.phpの初期化を行います。
 #
 # - wp-config.php の自動生成
 # - WordPress のインストールと初期設定（パーマリンク、日本語化など）
 # - よく使うプラグインのインストールと有効化
+# - ACF PROのアクティベート
 # ========================================
 
 root_path="/var/www/html"
@@ -46,6 +46,13 @@ fi
 cd $root_path
 composer config --no-plugins allow-plugins.composer/installers true
 composer install
+
+# https://www.advancedcustomfields.com/resources/how-to-activate/#activating-acf-pro-in-wp-configphp
+if ! grep -q "ACF_PRO_LICENSE" "$root_path/wp-config.php"; then
+	echo "ACF PRO activate!!"
+	echo "define( 'ACF_PRO_LICENSE', '${ACF_PRO_KEY}' );" >> "$root_path/wp-config.php"
+fi
+
 wp plugin activate advanced-custom-fields-pro --allow-root
 
 cd $theme_path
