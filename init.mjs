@@ -4,12 +4,14 @@ import path from "path";
 import { input, password, confirm } from "@inquirer/prompts";
 
 const root = path.dirname(new URL(import.meta.url).pathname);
+const envSampleFilePath = path.resolve(root, ".devcontainer/.env.sample");
 const envFilePath = path.resolve(root, ".devcontainer/.env");
 
-// ========================
-// Functions
-// ========================
-
+/**
+ * 現在のテーマディレクトリ名を取得する。
+ * ディレクトリ内に theme.json が存在するディレクトリを対象とする。
+ * @returns {string} テーマディレクトリ名（例: "mytheme"）
+ */
 function getThemeDirName() {
 	const dirs = f.readdirSync(root).filter((file) =>
 		f.statSync(path.join(root, file)).isDirectory()
@@ -23,28 +25,45 @@ function getThemeDirName() {
 	return "";
 }
 
+/**
+ * .env ファイルを生成する。
+ * @param {string} themeName - テーマ名
+ * @returns {Promise<void>}
+ */
 async function generateEnvFile(themeName) {
 	const content = `THEME_NAME=${themeName}\nVITE_THEME_NAME=${themeName}`;
+	if (f.existsSync(envSampleFilePath)) {
+		f.unlinkSync(envSampleFilePath);
+		console.log("🗑️ .env.sample file deleted");
+	}
 	await fs.writeFile(envFilePath, content);
 	console.log("✅ .env file generated:", themeName);
 }
 
+/**
+ * テーマディレクトリの名称を変更する。
+ * @param {string} themeName - 新しいテーマ名
+ * @returns {Promise<void>}
+ */
 async function renameTheme(themeName) {
-	const oldDir = path.resolve(root, "mytheme");
+	const currentDirName = getThemeDirName(); 
+	const oldDir = path.resolve(root, currentDirName);
 	const newDir = path.resolve(root, themeName);
+
+	if (currentDirName === themeName) {
+		console.log("🚫 New name matches the current theme name. Skipping rename.");
+		return;
+	}
+
 	await fs.rename(oldDir, newDir);
 	console.log(`📁 Theme folder renamed to '${themeName}'`);
 }
 
-async function updateDevcontainerFiles(themeName) {
-	const devcontainerPath = path.resolve(root, ".devcontainer/devcontainer.json");
-
-	let devcontainerData = await fs.readFile(devcontainerPath, "utf8");
-	devcontainerData = devcontainerData.replace(/mytheme/g, themeName);
-	await fs.writeFile(devcontainerPath, devcontainerData);
-	console.log("🛠️ devcontainer.json updated");
-}
-
+/**
+ * テーマディレクトリ内に style.css を生成する。
+ * @param {string} themeName - テーマ名
+ * @returns {Promise<void>}
+ */
 async function generateThemeStyle(themeName) {
 	const themeStylePath = path.resolve(root, themeName, "style.css");
 	const content = `
@@ -55,6 +74,12 @@ async function generateThemeStyle(themeName) {
 	console.log("📝 style.css generated");
 }
 
+/**
+ * .env ファイル内のキーの値を更新する。
+ * @param {string} key - 環境変数のキー名
+ * @param {string} value - 設定する値
+ * @returns {Promise<void>}
+ */
 async function updateEnvFile(key, value) {
 	const data = await fs.readFile(envFilePath, "utf8");
 	const envData = Object.fromEntries(
@@ -70,6 +95,11 @@ async function updateEnvFile(key, value) {
 	console.log("🔧 .env file updated.");
 }
 
+/**
+ * ACF PRO用の auth.json を生成する。
+ * @param {string} token - ACF PRO ライセンスキー
+ * @returns {Promise<void>}
+ */
 async function generateAuthJson(token) {
 	const authJsonFilePath = path.resolve(root, ".devcontainer/auth.json");
 	const content = `{
@@ -84,9 +114,11 @@ async function generateAuthJson(token) {
 	console.log("✅ auth.json generated");
 }
 
-// ========================
-// Main Interaction
-// ========================
+/**
+ * 対話的に初期化処理を実行するメイン関数。
+ * テーマ名取得 → テーマのリネーム → style.css 生成 → .envとauth.jsonを生成。
+ * @returns {Promise<void>}
+ */
 async function main() {
 	console.log("\n🟦 STEP 1: Initialization");
 	const confirmInit = await confirm({ message: `Initialize?`, default: false });
@@ -106,7 +138,6 @@ async function main() {
 	if (confirmRename) {
 		themeName = await input({ message: "New theme name:", default: themeName });
 		await renameTheme(themeName);
-		await updateDevcontainerFiles(themeName);
 		await generateThemeStyle(themeName);
 		await updateEnvFile("THEME_NAME", themeName);
 		await updateEnvFile("VITE_THEME_NAME", themeName);
