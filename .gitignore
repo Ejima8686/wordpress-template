@@ -13,3 +13,7 @@ auth.json
 .idea
 
 .DS_Store
+
+plugins/*
+!plugins/myplugins/
+!plugins/myplugins/**
