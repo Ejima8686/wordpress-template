@@ -1,0 +1,56 @@
+name: "${THEME_NAME}"
+services:
+  wordpress:
+    container_name: wp-${THEME_NAME}
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 8080:80
+    volumes:
+      - "./.env:/var/www/html/.env"
+      - "./auth.json:/var/www/html/auth.json"
+
+      - "../${THEME_NAME}:/var/www/html/wp-content/themes/${THEME_NAME}"
+      - "../plugins:/var/www/html/wp-content/plugins"
+
+      - "../package.json:/var/www/html/package.json"
+      - "../package-lock.json:/var/www/html/package-lock.json"
+      - "../composer.json:/var/www/html/composer.json"
+
+      - "../:/workspaces"
+      
+      - "../wordpress/wp-config.php:/var/www/html/wp-config.php"
+    environment:
+      IS_DEVELOPMENT: 1
+      COMPOSER_ALLOW_SUPERUSER: 1
+      COMPOSER_NO_INTERACTION: 1
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_THEME_NAME: "${THEME_NAME}"
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_PORT: 3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      ACF_PRO_KEY: "${ACF_PRO_KEY}"
+    env_file:
+      - ./.env
+ 
+  db:
+    container_name: db-${THEME_NAME}
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
