@@ -1,9 +1,14 @@
 {
 	"scripts": {
-		"setup:init": "npm ci && node init.mjs"
+		"setup:init": "npm ci && node init.mjs",
+		"dev": "[ -f .devcontainer/.env ] && npm run base:dev || (echo '.env file not found' && exit 1)",
+		"build": "[ -f .devcontainer/.env ] && npm run base:build || (echo '.env file not found' && exit 1)",
+		"base:dev": "vite --host",
+		"base:build": "vite build"
 	},
 	"devDependencies": {
-		"@inquirer/prompts": "^4.3.2"
+		"@inquirer/prompts": "^4.3.2",
+		"vite": "^6.3.2"
 	},
 	"type": "module",
 	"private": true
