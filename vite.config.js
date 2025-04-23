@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: `./${THEME_NAME}/build`,
       assetsDir: "",
-      // manifest: true,
+      manifest: true,
       rollupOptions: {
         input: "./source/index.ts",
       },
