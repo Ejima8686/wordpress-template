@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => {
   const { THEME_NAME } = env;
 
   return {
+    root: './',
     build: {
       outDir: `./${THEME_NAME}/build`,
       assetsDir: "",
@@ -17,14 +18,9 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      port: 3000,
-      origin: "http://localhost:3000", // Vite自身を指す
-      proxy: {
-        "/": {
-          target: "http://localhost:8080", // WordPressのApache
-          changeOrigin: true,
-        },
-      },
-    }
+			hmr: true,
+			port: 3000,
+			origin: "http://localhost:8080",
+		},
   };
 });

@@ -4,7 +4,23 @@ namespace WordPressStarter\Theme;
 
 define("THEME_NAME", basename(__DIR__));
 
+/**
+ * 開発環境かどうかを判定
+ */
+function is_dev(): bool {
+    $host = $_SERVER['HTTP_HOST'] ?? '';
+    return str_contains($host, 'localhost') || str_contains($host, '.local');
+}
+
 function build_assets(): string {
+    if (is_dev()) {
+        return <<<HTML
+        <!-- development (Vite) -->
+        <script type="module" src="http://localhost:3000/@vite/client"></script>
+        <script type="module" src="http://localhost:3000/source/index.ts"></script>
+        HTML;
+    }
+
     $manifest_path = __DIR__ . "/build/.vite/manifest.json";
     if (!file_exists($manifest_path)) {
         return "<!-- vite manifest not found -->";
@@ -39,6 +55,5 @@ function build_assets(): string {
 }
 
 add_action('wp_head', function () {
-	error_log('wp_head hook fired!');
     echo \WordPressStarter\Theme\build_assets();
 });
