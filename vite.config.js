@@ -13,13 +13,18 @@ export default defineConfig(({ mode }) => {
       assetsDir: "",
       // manifest: true,
       rollupOptions: {
-        input: "./source/main.css",
+        input: "./source/index.ts",
       },
     },
     server: {
-      hmr: true,
       port: 3000,
-      origin: "http://localhost:8080",
-    },
+      origin: "http://localhost:3000", // Vite自身を指す
+      proxy: {
+        "/": {
+          target: "http://localhost:8080", // WordPressのApache
+          changeOrigin: true,
+        },
+      },
+    }
   };
 });
