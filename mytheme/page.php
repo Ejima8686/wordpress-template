@@ -13,7 +13,7 @@
 				'full',
 				false,
 				[
-					'class' => 'w-full min-h-[14rem] object-cover aspect-[3/1]'
+					'class' => 'w-full min-h-[14rem] object-cover aspect-3/1'
 				]
 			);
 		}
