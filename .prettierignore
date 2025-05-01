@@ -1,0 +1,8 @@
+acf-json/
+build/
+composer.lock
+
+/source/wp-content/*
+!/source/wp-content/mu-plugins
+!/source/wp-content/themes
+.github/
