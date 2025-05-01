@@ -1,25 +1,10 @@
 @import "tailwindcss";
 @import "./base/base.css";
 
-/* @config '../../tailwind.config.cjs'; */
-
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
+/* tailwind.config.cjsを使う場合は、以下の記述のコメントアウトをはずしてください。
+  　不要であれば記述を削除し、tailwind.config.cjsのファイルも削除してください。
 */
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-}
+/* @config '../../tailwind.config.cjs'; */
 
 @theme {
   --color-black: #333333;
