@@ -1,8 +1,6 @@
-acf-json/
-build/
-composer.lock
+/**/build/
+/**/vendor/
+/**/composer.lock
 
-/source/wp-content/*
-!/source/wp-content/mu-plugins
-!/source/wp-content/themes
+wordpress/
 .github/
