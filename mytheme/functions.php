@@ -5,7 +5,8 @@ namespace WordPressStarter\Theme;
 define("THEME_NAME", basename(__DIR__));
 
 /**
- * 開発環境かどうかを判定
+ * 開発環境であるか判定し、真偽値を返す
+ * @return bool
  */
 function is_dev(): bool {
     $host = $_SERVER['HTTP_HOST'] ?? '';
