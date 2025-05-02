@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"setup:init": "npm ci && node init.mjs"
+		"setup:init": "npm ci && node setup/init.mjs"
 	},
 	"devDependencies": {
 		"@inquirer/prompts": "^4.3.2"

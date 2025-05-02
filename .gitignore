@@ -1,6 +1,8 @@
 .env
 auth.json
 
+setup/ssh.env
+
 /node_modules/
 /vendor/
 
