@@ -1,9 +1,12 @@
 import fs from "fs/promises";
 import f from "fs";
 import path from "path";
+import { fileURLToPath } from 'url';
 import { input, password, confirm } from "@inquirer/prompts";
 
-const root = path.dirname(new URL(import.meta.url).pathname);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const root = path.resolve(__dirname, "..");
 const envSampleFilePath = path.resolve(root, ".devcontainer/.env.sample");
 const envFilePath = path.resolve(root, ".devcontainer/.env");
 

@@ -1,10 +1,9 @@
 #!/bin/bash
 # ================================
-# SSH設定スクリプト（ホスト用）
+# コンテナでgit pushを実行するために、SSHの設定をします。（ホスト用）
 # - setup/ssh.env を読み込み
 # - ssh-agent を起動
 # - SSH鍵を ssh-agent に登録
-# - ~/.ssh/config を初回のみ生成
 # ================================
 
 ENV_PATH="$(dirname "$0")/ssh.env"
@@ -27,35 +26,15 @@ if [[ -z "$KEY_PATH" ]]; then
 fi
 echo "🔐 Using SSH key: $KEY_PATH"
 
-eval "$(ssh-agent -s)"
-echo "Starting ssh-agent..."
-
-if [[ -f "$KEY_PATH" ]]; then
-  ssh-add "$KEY_PATH"
-  echo "✅ SSH key added to agent: $KEY_PATH"
-else
-  echo "❌ SSH key not found: $KEY_PATH"
-  exit 1
+# ssh-agent が使えるように初期化します。
+# https://code.visualstudio.com/remote/advancedcontainers/sharing-git-credentials#_using-ssh-keys:~:text=Copy-,Linux%3A,-First%2C%20start%20the
+if [ -z "$SSH_AUTH_SOCK" ]; then
+   RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
+   if [ "$RUNNING_AGENT" = "0" ]; then
+        ssh-agent -s &> $KEY_PATH
+   fi
+   eval `cat $KEY_PATH`
 fi
 
-SSH_CONFIG_PATH="${SSH_CONFIG_PATH:-}"
-if [[ ! -f "$SSH_CONFIG_PATH" ]]; then
-  echo "❌ SSH_CONFIG_PATH is not set (in ssh.env)"
-  exit 1
-fi
-echo "⚙️ SSH config path: $SSH_CONFIG_PATH"
-
-if ! grep -qE "^Host github\.com$" "$SSH_CONFIG_PATH"; then
-  echo "🛠 Adding Host github.com to SSH config"
-  cat <<EOF >> "$SSH_CONFIG_PATH"
-
-Host github.com
-  HostName github.com
-  User git
-  IdentityFile $KEY_PATH
-  ForwardAgent yes
-  AddKeysToAgent yes
-EOF
-fi
-
+ssh-add $KEY_PATH
 echo "🎉 SSH setup complete."

@@ -1,6 +1,7 @@
 {
 	"scripts": {
-		"setup:init": "npm ci && node setup/init.mjs"
+		"setup:init": "npm ci && node setup/init.mjs",
+		"setup:ssh": "node setup/ssh-init.mjs && bash setup/ssh.sh"
 	},
 	"devDependencies": {
 		"@inquirer/prompts": "^4.3.2"
