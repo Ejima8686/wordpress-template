@@ -6,10 +6,8 @@ import { input, confirm } from "@inquirer/prompts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const root = path.resolve(__dirname, "..");
-const setupDir = path.resolve(root, "setup");
-const sshEnvSamplePath = path.resolve(setupDir, ".env.sample");
-const sshEnvPath = path.resolve(setupDir, "ssh.env");
+const sshEnvSamplePath = path.join(__dirname, ".env.sample");
+const sshEnvPath = path.join(__dirname, "ssh.env");
 
 /**
  * SSH設定ファイルを作成する。
