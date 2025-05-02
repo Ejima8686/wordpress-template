@@ -1,6 +1,7 @@
 # wordpress-template-v3
 **Visual Studio Code の DevContainer 機能を活用した WordPress 開発環境テンプレート**です。
 
+
 ## 必要なソフト・拡張機能
 以下をローカルにインストールしてください。
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
