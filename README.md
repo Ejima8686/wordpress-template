@@ -48,17 +48,15 @@ Dev Container 内での作業を終了し、VS Code がローカル環境に戻�
   **"Dev Containers: Reopen Folder Locally"** を選択
 
 ## コミットテンプレートのセットアップ
-
-まずはプロジェクトルートで以下のコマンドを実行し、`.github/.gitmessage.txt`をコミットの初期表示に設定します。
+コミットメッセージの一貫性を保つ手段として、コミットメッセージのテンプレートを用意しています。
+使用するには、プロジェクトルートで以下のコマンドを実行し、`.github/.gitmessage.txt`をコミットの初期表示に設定します。
 
 ```bash
 git init
-git config commit.template "$(pwd)/.github/.gitmessage.txt"
+git config commit.template .github/.gitmessage.txt
 ```
 
 `git commit`を実行すると、`.github/.gitmessage.txt`の内容が展開します。
-コミットメッセージの一貫性を保つために、このルールに従ってコミットメッセージを記述してください。
-
 設定を削除する際は以下を実行してください。
 
 ```bash
