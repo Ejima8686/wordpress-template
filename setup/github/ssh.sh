@@ -1,6 +1,6 @@
 #!/bin/bash
 # ================================
-# コンテナでgit pushを実行するために、SSHの設定をします。（ホスト用）
+# gitの鍵情報をコンテナに渡せるようにします。
 # - setup/github/ssh.env を読み込み
 # - ssh-agent を起動
 # - SSH鍵を ssh-agent に登録
