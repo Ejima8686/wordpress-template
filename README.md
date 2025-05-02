@@ -49,10 +49,14 @@ Dev Container 内での作業を終了し、VS Code がローカル環境に戻�
   **"Dev Containers: Reopen Folder Locally"** を選択
 
 ## DevContainerでのGit操作のためのSSHセットアップ
-DevContainer環境内で`git push`等のGitリモート操作をSSH経由で行えるように設定できます。<br>
-※ 通常はコンテナに鍵が共有されないため、SSH接続はできません。<br>
-※ ローカル環境に戻ればGitリモート操作は可能です。
+ただコンテナを立ち上げても、ホストの持つ鍵情報はコンテナに共有されないため、SSH接続ができません。
+コンテナ内で`git push`等のGitリモート操作をSSH経由で行えるように設定できます。<br>
+```
+セットアップは必須ではありません。コンテナで作業後、ローカル環境に戻ればGitリモート操作自体は可能です。
 
+また、このセットアップはGit側に公開鍵を登録済みであり、ホスト側に秘密鍵を所持していることが前提となります。
+```
+以下のコマンドを実行してください。
 ```bash
 npm run setup:git
 ```
@@ -63,8 +67,9 @@ npm run setup:git
 セットアップ後、[コンテナを立ち上げ](#2-dev-container-の起動)、以下を実行してssh-agentの起動状況を確認してください。
 ```bash
 ssh-add -l 
-// 出力例：3072 SHA256:xxxx... your-key-name (RSA)
 ```
+出力例 → `3072 SHA256:xxxx... your-key-name (RSA)`
+
 これでGitのリモート操作が可能になります。
 
 ## コミットテンプレートのセットアップ
