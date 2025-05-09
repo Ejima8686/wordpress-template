@@ -2,5 +2,7 @@
 /**/vendor/
 /**/composer.lock
 
+package-lock.json
+
 wordpress/
 .github/
