@@ -2,7 +2,7 @@
   "scripts": {
     "setup:init": "npm ci && node init.mjs",
     "dev": "npm run base:dev",
-    "build": "[ -f /workspaces/.devcontainer/.env ] && npm run base:build || (echo '.env file not found' && exit 1)",
+    "build": "npm run base:build",
     "base:dev": "vite --host",
     "base:build": "vite build",
     "format": "prettier . --write"
