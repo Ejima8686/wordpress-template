@@ -1,9 +1,12 @@
 # wordpress-template-v3
+
 **Visual Studio Code の DevContainer 機能を活用した WordPress 開発環境テンプレート**です。
 
 
 ## 必要なソフト・拡張機能
+
 以下をローカルにインストールしてください。
+
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js（v18 以上推奨）](https://nodejs.org/)
@@ -11,15 +14,17 @@
 
 ## 構成
 
-| 項目 | 内容 |
-|------|------|
-| WordPress | 最新版 + PHP 8.2 + Apache |
-| DB | MariaDB |
-| Dev Container | `.devcontainer/` フォルダ |
+| 項目          | 内容                                                    |
+| ------------- | ------------------------------------------------------- |
+| WordPress     | 最新版 + PHP 8.2 + Apache                               |
+| DB            | MariaDB                                                 |
+| Dev Container | `.devcontainer/` フォルダ                               |
+| Vite          | `source/` フォルダ内のCSS、JSのホットリロード及びビルド |
 
 ## 導入
 
 ### 1. 初期化スクリプトの実行
+
 ```bash
 npm run setup:init
 ```
@@ -30,32 +35,60 @@ npm run setup:init
   - `auth.json` の作成（ACF PRO用ファイル）
 
 ### 2. Dev Container の起動
+
 VSCode を使用してコンテナを起動します。<br>
 `.devcontainer/init.sh` に基づいて、wordpress環境が構築されます。<br>
 開発を再開する場合もこちらを実行してください。
 
-- コマンドパレット（`Cmd+Shift+P`）から  
+- コマンドパレット（`Cmd+Shift+P`）から
   **"Dev Containers: Reopen in Container"** を選択
 
-### 3. 開発スタート
-ブラウザから WordPressの管理画面にアクセスし、開発を開始してください。  
+### 3. Vite の起動
+
+起動前に依存パッケージのインストールを行います。
+
+```bash
+npm i
+```
+
+インストールが完了したらViteを起動させます。
+
+```bash
+npm run dev
+```
+
+これで、開発中のCSS、JSの変更が再起動することなく反映されます。
+<br>
+起動時にポート番号が3000で表示されますが、開発用のポートは8080なので、開発中は[http://localhost:8080/](http://localhost:8080/)にアクセスしてください
+
+### 4. 開発スタート
+
+ブラウザから WordPressの管理画面にアクセスし、開発を開始してください。
 
 [http://localhost:8080/wp-admin](http://localhost:8080/wp-admin)
 
-### 4. ローカル環境に戻る（Dev Container の終了）
+### 5. ローカル環境に戻る（Dev Container の終了）
+
 Dev Container 内での作業を終了し、VS Code がローカル環境に戻ります。
 
-- コマンドパレット（`Cmd+Shift+P`）を開き、  
+- コマンドパレット（`Cmd+Shift+P`）を開き、
   **"Dev Containers: Reopen Folder Locally"** を選択
+
+## 本番用ビルド
+
+次のコマンドを実行すると、ビルド済みのファイルが [テーマ名]/build ディレクトリに出力されます。
+
+```bash
+npm run build
+```
 
 ## DevContainerでのGit操作のためのSSHセットアップ
 ただコンテナを立ち上げても、ホストの持つ鍵情報はコンテナに共有されないため、SSH接続ができません。
 コンテナ内で`git push`等のGitリモート操作をSSH経由で行えるように設定できます。<br>
-```
-セットアップは必須ではありません。コンテナで作業後、ローカル環境に戻ればGitリモート操作自体は可能です。
+- セットアップは必須ではありません。コンテナで作業後、ローカル環境に戻ればGitリモート操作自体は可能です。
 
-また、このセットアップはGit側に公開鍵を登録済みであり、ホスト側に秘密鍵を所持していることが前提となります。
-```
+- また、このセットアップはGit側に公開鍵を登録済みであり、ホスト側に秘密鍵を所持していることが前提となります。
+
 以下のコマンドを実行してください。
 ```bash
 npm run setup:git
@@ -66,7 +99,7 @@ npm run setup:git
 
 セットアップ後、[コンテナを立ち上げ](#2-dev-container-の起動)、以下を実行してssh-agentの起動状況を確認してください。
 ```bash
-ssh-add -l 
+ssh-add -l
 ```
 出力例 → `3072 SHA256:xxxx... your-key-name (RSA)`
 
@@ -86,6 +119,7 @@ git config commit.template .github/.gitmessage.txt
 ```bash
 git config --unset commit.template
 ```
+
 <br>
 
 <details>
@@ -135,4 +169,5 @@ git config --global --replace-all core.editor "「アプリケーションまで
 ```
 
 で編集エディタの設定を書き換えられます。
+
 </details>

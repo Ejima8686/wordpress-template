@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "./base/base.css";
+
+/* tailwind.config.cjsを使う場合は、以下の記述のコメントアウトをはずしてください。
+  　不要であれば記述を削除し、tailwind.config.cjsのファイルも削除してください。
+*/
+/* @config '../../tailwind.config.cjs'; */
+
+@theme {
+  --color-black: #333333;
+}

@@ -1,0 +1,6 @@
+{
+	"tabWidth": 2,
+	"printWidth": 100,
+	"tailwindConfig": "./tailwind.config.cjs",
+	"plugins": ["prettier-plugin-css-order", "prettier-plugin-tailwindcss", "@prettier/plugin-php"]
+}
