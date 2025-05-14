@@ -1,10 +1,24 @@
 {
-	"scripts": {
-		"setup:init": "npm ci && node init.mjs"
-	},
-	"devDependencies": {
-		"@inquirer/prompts": "^4.3.2"
-	},
-	"type": "module",
-	"private": true
+  "scripts": {
+    "setup:init": "npm ci && node init.mjs",
+    "dev": "npm run base:dev",
+    "build": "npm run base:build",
+    "base:dev": "vite --host",
+    "base:build": "vite build",
+    "format": "prettier . --write"
+  },
+  "devDependencies": {
+    "@inquirer/prompts": "^4.3.2",
+    "@prettier/plugin-php": "^0.22.2",
+    "@tailwindcss/postcss": "^4.1.4",
+    "dotenv": "^16.4.5",
+    "postcss": "^8.4.39",
+    "prettier": "^3.2.5",
+    "prettier-plugin-css-order": "^2.1.2",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^4.1.4",
+    "vite": "^6.3.2"
+  },
+  "type": "module",
+  "private": true
 }
