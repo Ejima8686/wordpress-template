@@ -1,6 +1,8 @@
 .env
 auth.json
 
+setup/**/*.env
+
 /node_modules/
 /vendor/
 

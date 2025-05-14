@@ -2,6 +2,7 @@
 
 **Visual Studio Code の DevContainer 機能を活用した WordPress 開発環境テンプレート**です。
 
+
 ## 必要なソフト・拡張機能
 
 以下をローカルにインストールしてください。
@@ -81,18 +82,38 @@ Dev Container 内での作業を終了し、VS Code がローカル環境に戻�
 npm run build
 ```
 
-## コミットテンプレートのセットアップ
+## DevContainerでのGit操作のためのSSHセットアップ
+ただコンテナを立ち上げても、ホストの持つ鍵情報はコンテナに共有されないため、SSH接続ができません。
+コンテナ内で`git push`等のGitリモート操作をSSH経由で行えるように設定できます。<br>
+- セットアップは必須ではありません。コンテナで作業後、ローカル環境に戻ればGitリモート操作自体は可能です。
 
-まずはプロジェクトルートで以下のコマンドを実行し、`.github/.gitmessage.txt`をコミットの初期表示に設定します。
+- また、このセットアップはGit側に公開鍵を登録済みであり、ホスト側に秘密鍵を所持していることが前提となります。
+
+以下のコマンドを実行してください。
+```bash
+npm run setup:git
+```
+- `setup/github/ssh-init.mjs`により、対話形式で`ssh.env`を作成します。**githubの秘密鍵のパスが必要になります。**
+<br>
+- `setup/github/ssh.sh`により、ssh-agent を起動し、SSH鍵を ssh-agent に登録します。
+
+セットアップ後、[コンテナを立ち上げ](#2-dev-container-の起動)、以下を実行してssh-agentの起動状況を確認してください。
+```bash
+ssh-add -l
+```
+出力例 → `3072 SHA256:xxxx... your-key-name (RSA)`
+
+これでGitのリモート操作が可能になります。
+
+## コミットテンプレートのセットアップ
+コミットメッセージの一貫性を保つ手段として、コミットメッセージのテンプレートを用意しています。
+使用するには、プロジェクトルートで以下のコマンドを実行し、`.github/.gitmessage.txt`をコミットの初期表示に設定します。
 
 ```bash
-git init
-git config commit.template "$(pwd)/.github/.gitmessage.txt"
+git config commit.template .github/.gitmessage.txt
 ```
 
 `git commit`を実行すると、`.github/.gitmessage.txt`の内容が展開します。
-コミットメッセージの一貫性を保つために、このルールに従ってコミットメッセージを記述してください。
-
 設定を削除する際は以下を実行してください。
 
 ```bash

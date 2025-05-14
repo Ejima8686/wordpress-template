@@ -1,6 +1,7 @@
 {
   "scripts": {
     "setup:init": "npm ci && node init.mjs",
+		"setup:git": "node setup/github/ssh-init.mjs && bash setup/github/ssh.sh",
     "dev": "npm run base:dev",
     "build": "npm run base:build",
     "base:dev": "vite --host",
