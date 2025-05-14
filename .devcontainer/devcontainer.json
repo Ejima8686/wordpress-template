@@ -1,21 +1,21 @@
 {
-    "name": "WordPress Dev",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "wordpress",
-    "workspaceFolder": "/workspaces",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "adrianwilczynski.alpine-js-intellisense",
-                "csstools.postcss",
-                "esbenp.prettier-vscode",
-                "bradlc.vscode-tailwindcss",
-                "mblode.twig-language-2",
-                "eamodio.gitlens",  
-                "mhutchie.git-graph"
-            ]
-        }
-    },
-    "forwardPorts": [8080],
-    "remoteUser": "root"
+	"name": "WordPress Dev",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "wordpress",
+	"workspaceFolder": "/workspaces",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"adrianwilczynski.alpine-js-intellisense",
+				"csstools.postcss",
+				"esbenp.prettier-vscode",
+				"bradlc.vscode-tailwindcss",
+				"mblode.twig-language-2",
+				"eamodio.gitlens",
+				"mhutchie.git-graph"
+			]
+		}
+	},
+	"forwardPorts": [8080],
+	"remoteUser": "root"
 }

@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import f from "fs";
 import path from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import { input, password, confirm } from "@inquirer/prompts";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,9 +16,9 @@ const envFilePath = path.resolve(root, ".devcontainer/.env");
  * @returns {string} テーマディレクトリ名（例: "mytheme"）
  */
 function getThemeDirName() {
-	const dirs = f.readdirSync(root).filter((file) =>
-		f.statSync(path.join(root, file)).isDirectory()
-	);
+	const dirs = f
+		.readdirSync(root)
+		.filter((file) => f.statSync(path.join(root, file)).isDirectory());
 
 	for (const dir of dirs) {
 		if (f.existsSync(path.join(root, dir, "theme.json"))) {
@@ -49,7 +49,7 @@ async function generateEnvFile(themeName) {
  * @returns {Promise<void>}
  */
 async function renameTheme(themeName) {
-	const currentDirName = getThemeDirName(); 
+	const currentDirName = getThemeDirName();
 	const oldDir = path.resolve(root, currentDirName);
 	const newDir = path.resolve(root, themeName);
 
@@ -86,7 +86,10 @@ async function generateThemeStyle(themeName) {
 async function updateEnvFile(key, value) {
 	const data = await fs.readFile(envFilePath, "utf8");
 	const envData = Object.fromEntries(
-		data.trim().split("\n").map((line) => line.split("="))
+		data
+			.trim()
+			.split("\n")
+			.map((line) => line.split("=")),
 	);
 	envData[key] = value;
 

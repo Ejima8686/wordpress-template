@@ -21,7 +21,7 @@ services:
       - "../composer.json:/var/www/html/composer.json"
 
       - "../:/workspaces"
-      
+
       - "../wordpress/wp-config.php:/var/www/html/wp-config.php"
     environment:
       IS_DEVELOPMENT: 1
@@ -37,7 +37,7 @@ services:
       ACF_PRO_KEY: "${ACF_PRO_KEY}"
     env_file:
       - ./.env
- 
+
   db:
     container_name: db-${THEME_NAME}
     image: mariadb:latest

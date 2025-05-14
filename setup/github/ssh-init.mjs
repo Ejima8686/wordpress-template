@@ -15,20 +15,23 @@ const sshEnvPath = path.join(__dirname, "ssh.env");
  * @returns {Promise<void>}
  */
 async function generateSshEnv(keyPath) {
-  if (f.existsSync(sshEnvSamplePath)) {
-    await fs.unlink(sshEnvSamplePath);
-    console.log("🗑️ .env.sample file deleted");
-  }
+	if (f.existsSync(sshEnvSamplePath)) {
+		await fs.unlink(sshEnvSamplePath);
+		console.log("🗑️ .env.sample file deleted");
+	}
 
-  const content = `SSH_KEY_PATH=${keyPath}\n`;
-  await fs.writeFile(sshEnvPath, content);
-  console.log("✅ ssh.env file created at:", sshEnvPath);
+	const content = `SSH_KEY_PATH=${keyPath}\n`;
+	await fs.writeFile(sshEnvPath, content);
+	console.log("✅ ssh.env file created at:", sshEnvPath);
 }
 
 async function main() {
-  console.log("🔐 Setup SSH Key");
-  const sshKeyPath = await input({ message: "Enter path to your SSH private key:", default: "$HOME/.ssh/id_rsa" });
-  await generateSshEnv(sshKeyPath);
+	console.log("🔐 Setup SSH Key");
+	const sshKeyPath = await input({
+		message: "Enter path to your SSH private key:",
+		default: "$HOME/.ssh/id_rsa",
+	});
+	await generateSshEnv(sshKeyPath);
 }
 
 await main();
