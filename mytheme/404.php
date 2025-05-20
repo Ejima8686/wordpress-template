@@ -1,10 +1,11 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template for the 404 page
+ */
 
-<main>
-	<?php
- set_query_var("title", "ページが見つかりません。");
- get_template_part("partials/page-title");
- ?>
-</main>
+namespace App;
 
-<?php get_footer(); ?>
+use Timber\Timber;
+
+$context = Timber::context();
+Timber::render( 'templates/404.twig', $context );

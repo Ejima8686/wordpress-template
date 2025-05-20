@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html {{ site.language_attributes }}>
+    {% block head %}
+        {% include 'partials/head.twig' %}
+    {% endblock %}
+
+    <body class="{{ body_class }}">
+        {{ function('wp_body_open') }}
+        
+        {% include 'partials/frame/header.twig' %}
+	    {% block content %}
+
+		{% endblock %}
+        {% include 'partials/frame/footer.twig' %}
+
+        {# https://atfzl.com/don-t-attach-tooltips-to-document-body #}
+		<div id="js-overlay-container"></div>
+
+        {{ function('wp_footer') }}
+    </body>
+</html>

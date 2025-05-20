@@ -1,0 +1,25 @@
+{% extends 'layouts/base.twig' %}
+
+{% block content %}
+    		{{
+			include(
+				'partials/page-title.twig',
+				{
+					title: site.name,
+					description: site.description
+				}
+			)
+		}}
+    
+    {% for post in posts %}
+        {% include ['partials/tease-' ~ post.type ~ '.twig', 'partials/tease.twig'] %}
+    {% endfor %}
+
+    {% include 'partials/pagination.twig' with {
+        pagination: posts.pagination({
+            show_all: false,
+            mid_size: 3,
+            end_size: 2
+        })
+    } %}
+{% endblock %}
