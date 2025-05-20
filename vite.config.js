@@ -1,15 +1,24 @@
 import { defineConfig, loadEnv } from "vite";
 import path from "path";
 
-export default defineConfig(({ mode }) => {
+function mergeEnv(mode) {
 	const env = loadEnv(mode, path.resolve(process.cwd(), ".devcontainer"), "");
 
-	const { THEME_NAME } = env;
+	return {
+		...env,
+	};
+}
+
+export default defineConfig(({ mode }) => {
+	const env = mergeEnv(mode);
 
 	return {
 		root: "./",
+		define: {
+			__THEME__: JSON.stringify(env.VITE_THEME_NAME),
+		},
 		build: {
-			outDir: `./${THEME_NAME}/build`,
+			outDir: `./${env.VITE_THEME_NAME}/build`,
 			assetsDir: "",
 			manifest: true,
 			rollupOptions: {
