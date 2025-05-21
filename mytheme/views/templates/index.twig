@@ -11,6 +11,8 @@
 		)
 	}}
 
+	<div x-data="example"></div>
+
 	{% for post in posts %}
 		{% include ['partials/tease-' ~ post.type ~ '.twig', 'partials/tease.twig'] %}
 	{% endfor %}
