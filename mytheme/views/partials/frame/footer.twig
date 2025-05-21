@@ -1,16 +1,16 @@
-		<footer class="sticky top-full mt-20 py-2 text-sm bg-slate-100">
-			<nav>
-				<ul class="container flex gap-x-6">
-					{% for item in [
-						['ホーム', site.url],
-						[about_post.title, about_post.link],
-						[
-							function('get_post_type_object', 'mytheme_news').labels.name,
-							function('get_post_type_archive_link', 'mytheme_news')
-						]
-					] %}
-						<li><a class="block py-3" href="{{ item[1] }}">{{ item[0] }}</a></li>
-					{% endfor %}
-				</ul>
-			</nav>
-		</footer>
+<footer class="sticky top-full mt-20 py-2 text-sm bg-slate-100">
+	<nav>
+		<ul class="container flex gap-x-6">
+			{% for item in [
+				['ホーム', site.url],
+				[about_post.title, about_post.link],
+				[
+					function('get_post_type_object', 'mytheme_news').labels.name,
+					function('get_post_type_archive_link', 'mytheme_news')
+				]
+			] %}
+				<li><a class="block py-3" href="{{ item[1] }}">{{ item[0] }}</a></li>
+			{% endfor %}
+		</ul>
+	</nav>
+</footer>
