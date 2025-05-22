@@ -1,0 +1,16 @@
+<nav aria-label="パンくずリスト">
+	<ul class="breadcrumb" style="display: flex; gap: 0.5em; flex-wrap: wrap;">
+		{% for item in breadcrumb(post.id) %}
+			<li>
+				{% if item.link %}
+					<a href="{{ item.link }}">{{ item.name }}</a>
+				{% else %}
+					<span aria-current="page">{{ item.name }}</span>
+				{% endif %}
+			</li>
+			{% if not loop.last %}
+				<li>&gt;</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</nav>

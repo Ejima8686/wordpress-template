@@ -1,4 +1,8 @@
 @layer base {
+	:root {
+		--page-header-height: 44px;
+	}
+
 	/* https://schepp.dev/posts/smooth-scrolling-and-page-search/ */
 	html:focus-within {
 		@media (prefers-reduced-motion: no-preference) {

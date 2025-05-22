@@ -1,9 +1,13 @@
-<div x-dialog x-model="open">
-	<div class="fixed inset-0 z-50 bg-black/50" x-dialog:overlay x-transition.opacity></div>
-
+<div class="fixed inset-0 z-50" :class="{ 'pointer-events-none': !open }">
 	<div
-		class="fixed inset-0 left-16 z-50 overflow-auto max-w-2xl ml-auto py-5 bg-white"
-		x-dialog:panel
+		class="absolute inset-0 z-10 bg-black/50"
+		x-show="open"
+		x-transition.opacity
+		@click="open = false"
+	></div>
+	<div
+		class="absolute inset-0 left-16 z-20 overflow-auto max-w-2xl ml-auto p-5 bg-white"
+		x-show="open"
 		x-transition:enter="transition duration-200"
 		x-transition:enter-start="translate-x-full"
 		x-transition:enter-end="translate-x-0"
@@ -11,14 +15,8 @@
 		x-transition:leave-start="translate-x-0"
 		x-transition:leave-end="translate-x-full"
 	>
-		<div hidden x-dialog:title>
-			メニュー
-		</div>
-
-		<div class="px-5">
-			<button class="px-2 py-1 border rounded" type="button" @click="$dialog.close()">
-				閉じる
-			</button>
+		<div>
+			<button class="px-2 py-1 border rounded" type="button" @click="open = false">閉じる</button>
 		</div>
 
 		<ul class="divide-y">

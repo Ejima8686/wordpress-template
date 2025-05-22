@@ -1,5 +1,14 @@
 {% extends 'layouts/base.twig' %}
 
 {% block content %}
-	Sorry, we couldn't find what you're looking for.
+	<main>
+		{{
+			include(
+				'partials/page-title.twig',
+				{
+					title: 'ページが見つかりません'
+				}
+			)
+		}}
+	</main>
 {% endblock %}

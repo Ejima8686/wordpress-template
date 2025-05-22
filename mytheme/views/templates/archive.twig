@@ -1,15 +1,45 @@
 {% extends 'layouts/base.twig' %}
 
 {% block content %}
-	{% for post in posts %}
-		{% include ['partials/tease-' ~ post.type ~ '.twig', 'partials/tease.twig'] %}
-	{% endfor %}
+	{{
+		include(
+			'partials/page-title.twig',
+			{
+				title: title,
+			}
+		)
+	}}
+		<div class="container mx-auto max-w-4xl">
+			<ol class="divide-y">
+				{% for post in posts %}
+				<li class="py-3">
+					<div class="flex flex-wrap gap-2">
+						{% for term in post.terms({ taxonomy: 'mytheme_news_category' }) %}<a href="{{ term.link }}">{{ term.title }}</a>{% endfor %}
+					</div>
+					<a class="flex justify-between items-center gap-x-6 pt-3" href="{{ post.link }}">
+						<p>
+							{{ post.title }}
+						</p>
+						<div class="w-auto shrink-0">
+							<time class="text-sm" datetime="{{ post.date('Y-m-d H:i:s') }}">{{ post.date }}</time>
+						</div>
+					</a>
+				</li>
+				{% endfor %}
+			</ol>
+		</div>
+	</main>
 
-	{% include 'partials/pagination.twig' with {
-		pagination: posts.pagination({
-			show_all: false,
-			mid_size: 3,
-			end_size: 2
-		})
-	} %}
+	{{
+		include(
+			'partials/pagination.twig',
+			{
+				pagination: posts.pagination({
+					show_all: false,
+					mid_size: 2,
+					end_size: 2
+				})
+			}
+		)
+	}}
 {% endblock %}

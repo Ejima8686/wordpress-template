@@ -1,41 +1,28 @@
 {% extends 'layouts/base.twig' %}
 
 {% block content %}
-	<div class="content-wrapper">
-		<article class="post-type-{{ post.type }}" id="post-{{ post.id }}">
-			<img src="{{ post.thumbnail.src|resize(1200, 300) }}" />
-			<section class="article-content">
-				<h1 class="article-h1">{{ post.title }}</h1>
-				<p class="blog-author">
-					<span>By</span>
-					<a href="{{ post.author.path }}">{{ post.author.name }}</a>
-					<span>&bull;</span>
-					<time datetime="{{ post.date|date('Y-m-d H:i:s') }}">{{ post.date }}</time>
+	<main>
+		{{ include('partials/breadcrumbs.twig') }}
+		<article class="mt-16 container max-w-[1280px] mx-auto">
+			<div class="mb-2 flex flex-wrap gap-2">
+				{% for term in post.terms({
+					taxonomy: 'mytheme_news_category'
+				}) %}
+					<a href="{{ term.link }}">{{ term.name }}</a>
+				{% endfor %}
+			</div>
+			<header>
+				<h1 class="text-xl font-bold kerning">{{ post.title }}</h1>
+				<p class="mt-2 text-sm">
+					<time datetime="{{ post.date('Y-m-d H:i:s') }}">{{ post.date }}</time>
 				</p>
-				<div class="article-body">
-					{{ post.content }}
-				</div>
-			</section>
-			<section class="comment-box">
-				<div class="comments">
-					{% if post.comments %}
-						<h3>comments</h3>
-						{% for cmt in post.comments %}
-							{% include 'partials/comment.twig' with {
-								comment: cmt
-							} %}
-						{% endfor %}
-					{% endif %}
-				</div>
+			</header>
 
-				{% if post.comment_status == 'closed' %}
-					<p>
-						comments for this post are closed
-					</p>
-				{% else %}
-					{% include 'partials/comment-form.twig' %}
-				{% endif %}
-			</section>
+			<div class="mt-8 mb-12 border-t"></div>
+
+			<div class="prose">
+				{{ post.content }}
+			</div>
 		</article>
-	</div>
+	</main>
 {% endblock %}

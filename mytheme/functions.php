@@ -6,6 +6,9 @@ define("THEME_NAME", basename(__DIR__));
 
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/inc/vite-assets.php";
+require_once __DIR__ . "/inc/timber/context.php";
+require_once __DIR__ . "/inc/timber/function.php";
+require_once __DIR__ . "/inc/posts/mytheme_news.php";
 
 /**
  * ログイン中かつ開発環境の場合、管理バー（Admin Bar）を非表示にする。
