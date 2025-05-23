@@ -23,6 +23,8 @@ services:
       - "../:/workspaces"
 
       - "../wordpress/wp-config.php:/var/www/html/wp-config.php"
+
+      - "../services/faker:/var/www/html/faker"
     environment:
       IS_DEVELOPMENT: 1
       COMPOSER_ALLOW_SUPERUSER: 1
