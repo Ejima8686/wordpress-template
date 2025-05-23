@@ -34,6 +34,7 @@ if [ ! -e "$root_path/index.php" ]; then
 
 	wp option update permalink_structure "/%postname%/" --allow-root
 	wp option update timezone_string "Asia/Tokyo" --allow-root
+	wp option update blogdescription "Visual Studio Code の DevContainer 機能を活用した WordPress 開発環境テンプレートです。" --allow-root
 
 	wp language core install ja --allow-root
 	wp site switch-language ja --allow-root
