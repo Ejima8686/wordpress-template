@@ -23,40 +23,39 @@
 			{{ function('get_post_type_object', 'mytheme_news').labels.name }}
 		</h2>
 
-		<ol class="mt-8 divide-y">
-			{% for post in get_posts({
+		{% set mytheme_news_posts =
+			get_posts({
 				post_type: 'mytheme_news'
-			}) %}
-				<li class="py-3">
-					<div class="flex flex-wrap gap-2">
-						{% for term in post.terms({
+			})
+		%}
+		<ol class="mt-8 divide-y">
+			{% for post in mytheme_news_posts %}
+				{{
+					include(
+						'partials/post-list-item.twig',
+						{
+							post: post,
 							taxonomy: 'mytheme_news_category'
-						}) %}
-							<a href="{{ term.link }}">{{ term.title }}</a>
-						{% endfor %}
-					</div>
-					<a class="flex justify-between items-center gap-x-6 pt-3" href="{{ post.link }}">
-						<p>
-							{{ post.title }}
-						</p>
-						<div class="w-auto shrink-0">
-							<time class="text-sm" datetime="{{ post.date('Y-m-d H:i:s') }}">{{ post.date }}</time>
-						</div>
-					</a>
-				</li>
+						}
+					)
+				}}
+			{% else %}
+				<li class="text-center">記事がありません。</li>
 			{% endfor %}
 		</ol>
 
-		<div class="flex justify-center mt-8">
-			{{
-				include(
-					'partials/base-button.twig',
-					{
-						content: 'さらに表示',
-						attrs: 'href="%s"'|format(function('get_post_type_archive_link', 'mytheme_news'))
-					}
-				)
-			}}
-		</div>
+		{% if (mytheme_news_posts|length) > 0 %}
+			<div class="flex justify-center mt-8">
+				{{
+					include(
+						'partials/base-button.twig',
+						{
+							content: 'さらに表示',
+							attrs: 'href="%s"'|format(function('get_post_type_archive_link', 'mytheme_news'))
+						}
+					)
+				}}
+			</div>
+		{% endif %}
 	</section>
 {% endblock %}
