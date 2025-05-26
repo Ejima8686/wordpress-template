@@ -8,8 +8,9 @@ add_action("init", function () {
 		"public" => true,
 		"has_archive" => true,
 		"show_in_rest" => true,
+		"hierarchical" => true,
 		"rewrite" => ["slug" => "mytheme_news"],
-		"supports" => ["title", "editor", "thumbnail", "revisions"],
+		"supports" => ["title", "editor", "thumbnail", "revisions", "page-attributes"],
 	]);
 
 	register_taxonomy(
