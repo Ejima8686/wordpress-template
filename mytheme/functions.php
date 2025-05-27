@@ -24,3 +24,41 @@ if (is_user_logged_in() && is_dev()) {
 add_action("wp_enqueue_scripts", function () {
 	wp_dequeue_style("global-styles");
 });
+
+if (!isset($content_width)) {
+	$content_width = 1280;
+}
+
+/**
+ * テーマ設定の初期化
+ */
+add_action("after_setup_theme", function () {
+	load_theme_textdomain(THEME_NAME, __DIR__ . "/languages");
+
+	add_theme_support("title-tag");
+
+	add_theme_support("post-thumbnails");
+
+	// register_nav_menus([
+	// 	"primary" => "Primary",
+	// ]);
+
+	add_theme_support("html5", [
+		"comment-form",
+		"comment-list",
+		"search-form",
+		"gallery",
+		"caption",
+		"style",
+		"script",
+		"navigation-widgets",
+	]);
+
+	add_theme_support("customize-selective-refresh-widgets");
+
+	add_theme_support("editor-styles");
+	add_editor_style();
+
+	add_theme_support("align-wide");
+	add_theme_support("responsive-embeds");
+});

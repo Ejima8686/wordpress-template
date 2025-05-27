@@ -1,88 +1,123 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . "/vendor/autoload.php";
 
-function generate_dummy_posts($post_type, $taxonomy, $post_count = 10, $taxonomy_data = []) {
-    $faker = Faker\Factory::create('ja_JP');
+function generate_dummy_posts($post_type, $taxonomy, $post_count = 10, $taxonomy_data = [])
+{
+	$faker = Faker\Factory::create("ja_JP");
 
-    // カテゴリー作成
-    $term_ids = [];
-    foreach ($taxonomy_data as [$name, $slug]) {
-        $term = get_term_by('slug', $slug, $taxonomy);
-        if (!$term) {
-            $term_id = wp_insert_term($name, $taxonomy, ['slug' => $slug]);
-            if (!is_wp_error($term_id)) {
-                $term_ids[] = $term_id['term_id'];
-            }
-        } else {
-            $term_ids[] = $term->term_id;
-        }
-    }
+	// カテゴリー作成
+	$term_ids = [];
+	$term_messages = [];
 
-    // アイキャッチ画像作成
-    $image_urls = array_map(fn() => "https://picsum.photos/800/600.jpg?random=" . uniqid(), range(1, 5));
-    $image_ids = [];
-    foreach ($image_urls as $url) {
-        $tmp = download_url($url);
-        if (is_wp_error($tmp)) continue;
+	foreach ($taxonomy_data as [$name, $slug]) {
+		$slug = sanitize_title($slug);
 
-        $file = [
-            'name'     => basename($url),
-            'type'     => 'image/jpeg',
-            'tmp_name' => $tmp,
-            'error'    => 0,
-            'size'     => filesize($tmp),
-        ];
+		$term = get_term_by("slug", $slug, $taxonomy);
+		if (!$term) {
+			$term_id = wp_insert_term($name, $taxonomy, ["slug" => $slug]);
+			if (!is_wp_error($term_id)) {
+				$term_ids[] = $term_id["term_id"];
+				$term_messages[] = "✅ 「{$name}」を追加しました（スラッグ: {$slug}）";
+			} else {
+				$term_messages[] =
+					"⚠️ 「{$name}」の追加に失敗しました（" . $term_id->get_error_message() . "）";
+			}
+		} else {
+			$term_ids[] = $term->term_id;
+			$term_messages[] = "ℹ️ 「{$name}」は既に存在しています（スラッグ: {$slug}）";
+		}
+	}
 
-        $overrides = ['test_form' => false];
-        $results = wp_handle_sideload($file, $overrides);
+	// アイキャッチ画像作成
+	$image_ids = [];
+	$upload_dir = wp_upload_dir();
 
-        if (!isset($results['url'])) continue;
+	foreach (range(1, 5) as $i) {
+		$filename = "sample_{$i}.jpg";
+		$plugin_image_path = plugin_dir_path(__FILE__) . "assets/{$filename}";
+		$target_path = $upload_dir["path"] . "/" . $filename;
 
-        $attachment = [
-            'post_mime_type' => $results['type'],
-            'post_title'     => sanitize_file_name($results['file']),
-            'post_content'   => '',
-            'post_status'    => 'inherit',
-        ];
+		$existing = get_posts([
+			"post_type" => "attachment",
+			"post_status" => "inherit",
+			"posts_per_page" => 1,
+			"title" => sanitize_file_name($filename),
+		]);
 
-        $attach_id = wp_insert_attachment($attachment, $results['file']);
-        require_once ABSPATH . 'wp-admin/includes/image.php';
-        $attach_data = wp_generate_attachment_metadata($attach_id, $results['file']);
-        wp_update_attachment_metadata($attach_id, $attach_data);
+		if (!empty($existing)) {
+			$image_ids[] = $existing[0]->ID;
+			continue;
+		}
 
-        $image_ids[] = $attach_id;
-    }
+		// コピー元ファイルがなければスキップ
+		if (!file_exists($plugin_image_path)) {
+			error_log("❌ Not found: $plugin_image_path");
+			continue;
+		}
 
-    // 投稿作成
-    for ($i = 1; $i <= $post_count; $i++) {
-        $title = "#{$i}. " . $faker->realText(random_int(50, 150));
+		if (!file_exists($target_path)) {
+			copy($plugin_image_path, $target_path);
+		}
 
-        $post_id = wp_insert_post([
-            'post_type'    => $post_type,
-            'post_title'   => $title,
-            'post_content' => generate_dummy_content($faker),
-            'post_status'  => 'publish',
-        ]);
+		$filetype = wp_check_filetype($filename);
 
-        if (is_wp_error($post_id)) continue;
+		$attachment = [
+			"post_mime_type" => $filetype["type"],
+			"post_title" => sanitize_file_name($filename),
+			"post_content" => "",
+			"post_status" => "inherit",
+		];
 
-        if (!empty($image_ids)) {
-            set_post_thumbnail($post_id, $image_ids[array_rand($image_ids)]);
-        }
+		$attach_id = wp_insert_attachment($attachment, $target_path);
 
-        if (!empty($term_ids)) {
-            $selected = array_rand(array_flip($term_ids), random_int(1, min(3, count($term_ids))));
-            wp_set_object_terms($post_id, (array) $selected, $taxonomy);
-        }
-    }
+		require_once ABSPATH . "wp-admin/includes/image.php";
+		$attach_data = wp_generate_attachment_metadata($attach_id, $target_path);
+		wp_update_attachment_metadata($attach_id, $attach_data);
+
+		$image_ids[] = $attach_id;
+	}
+
+	// 投稿作成
+	for ($i = 1; $i <= $post_count; $i++) {
+		$title = "#{$i}. " . $faker->realText(random_int(50, 150));
+
+		$post_id = wp_insert_post([
+			"post_type" => $post_type,
+			"post_title" => $title,
+			"post_content" => generate_dummy_content($faker),
+			"post_status" => "publish",
+		]);
+
+		if (is_wp_error($post_id)) {
+			continue;
+		}
+
+		if (!empty($image_ids)) {
+			set_post_thumbnail($post_id, $image_ids[array_rand($image_ids)]);
+		}
+
+		if (!empty($term_ids)) {
+			$selected = array_rand(array_flip($term_ids), random_int(1, min(3, count($term_ids))));
+			wp_set_object_terms($post_id, (array) $selected, $taxonomy);
+		}
+	}
+
+	// カテゴリー作成の結果表示
+	foreach ($term_messages as $msg) {
+		echo '<div class="notice notice-info"><p>' . esc_html($msg) . "</p></div>";
+	}
 }
 
-function generate_dummy_content($faker) {
-    $paragraphs = [];
-    $num_paragraphs = random_int(3, 5);
-    for ($i = 0; $i < $num_paragraphs; $i++) {
-        $paragraphs[] = '<!-- wp:paragraph --><p>' . $faker->realText(random_int(100, 300)) . '</p><!-- /wp:paragraph -->';
-    }
-    $paragraphs[] = "<p><a href='https://example.com' target='_blank'>詳しくはこちら</a></p>";
-    return implode("\n", $paragraphs);
+function generate_dummy_content($faker)
+{
+	$paragraphs = [];
+	$num_paragraphs = random_int(3, 5);
+	for ($i = 0; $i < $num_paragraphs; $i++) {
+		$paragraphs[] =
+			"<!-- wp:paragraph --><p>" .
+			$faker->realText(random_int(100, 300)) .
+			"</p><!-- /wp:paragraph -->";
+	}
+	$paragraphs[] = "<p><a href='https://example.com' target='_blank'>詳しくはこちら</a></p>";
+	return implode("\n", $paragraphs);
 }
