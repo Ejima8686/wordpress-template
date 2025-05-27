@@ -92,6 +92,8 @@ function generate_dummy_posts($post_type, $taxonomy, $post_count = 10, $taxonomy
 			continue;
 		}
 
+		update_post_meta($post_id, '_created_by_dummy_post_generator', true);
+
 		if (!empty($image_ids)) {
 			set_post_thumbnail($post_id, $image_ids[array_rand($image_ids)]);
 		}
