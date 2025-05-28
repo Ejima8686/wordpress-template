@@ -18,3 +18,5 @@ setup/**/*.env
 
 plugins/*
 !plugins/custom_*/
+!plugins/custom_*/**/vendor/
+
