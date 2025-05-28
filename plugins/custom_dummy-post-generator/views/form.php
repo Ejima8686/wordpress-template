@@ -1,5 +1,5 @@
 <div class="wrap">
-    <h1>Dummy Post Manager</h1>
+    <h1>ダミー記事・カテゴリー生成</h1>
     <form method="post">
         <?php wp_nonce_field("generate_dummy_posts"); ?>
         <table class="form-table">
