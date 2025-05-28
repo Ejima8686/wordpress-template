@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
 function generate_dummy_posts($post_type, $taxonomy, $post_count = 10, $taxonomy_data = [])
 {
@@ -35,7 +35,7 @@ function generate_dummy_posts($post_type, $taxonomy, $post_count = 10, $taxonomy
 
 	foreach (range(1, 5) as $i) {
 		$filename = "sample_{$i}.jpg";
-		$plugin_image_path = plugin_dir_path(__FILE__) . "assets/{$filename}";
+		$plugin_image_path = plugin_dir_path(__FILE__) . "../assets/{$filename}";
 		$target_path = $upload_dir["path"] . "/" . $filename;
 
 		$existing = get_posts([

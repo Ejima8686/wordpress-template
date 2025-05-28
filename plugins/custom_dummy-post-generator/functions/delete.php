@@ -10,7 +10,7 @@ function dummy_delete_posts_by_type($post_type)
 	]);
 
 	foreach ($posts as $post) {
-		wp_delete_post($post->ID, true); // 完全削除
+		wp_delete_post($post->ID, true);
 	}
 
 	return count($posts);

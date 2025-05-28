@@ -1,5 +1,5 @@
 <div class="wrap">
-    <h1>ダミー記事作成ツール</h1>
+    <h1>Dummy Post Manager</h1>
     <form method="post">
         <?php wp_nonce_field("generate_dummy_posts"); ?>
         <table class="form-table">
@@ -7,7 +7,7 @@
                 <th><label>投稿タイプ</label></th>
                 <td>
                     <input type="text" name="post_type" placeholder="mytheme_news" required>
-                    <p class="description">生成対象の投稿タイプを入力してください。</p>
+                    <p class="description">記事を生成する投稿タイプを入力してください。</p>
                 </td>
             </tr>
             <tr>
@@ -15,7 +15,7 @@
                 <td>
                     <input type="text" name="taxonomy" placeholder="mytheme_news_category">
                     <p class="description">
-                        カテゴリーのタクソノミースラッグを入力してください。<br>
+                        カテゴリーを生成するタクソノミー名を入力してください。<br>
                         空欄の場合はカテゴリの作成・割当はスキップされます。
                     </p>
                 </td>
@@ -45,7 +45,7 @@
         </p>
     </form>
 </div>
-<div style="width: 50%; height: 1px; border-top: 1px solid #000; margin: 40px 0;"></div>
+<div style="width: 50%; height: 1px; border-top: 1px solid #000; margin: 20px 0;"></div>
 <div class="wrap">
     <h2>ダミー記事一括削除</h2>
     <form method="post">
@@ -57,7 +57,7 @@
         </p>
     </form>
 </div>
-<div style="width: 50%; height: 1px; border-top: 1px solid #000; margin: 40px 0;"></div>
+<div style="width: 50%; height: 1px; border-top: 1px solid #000; margin: 20px 0;"></div>
 <div class="wrap">
     <h2>ダミーカテゴリ一括削除</h2>
     <form method="post">

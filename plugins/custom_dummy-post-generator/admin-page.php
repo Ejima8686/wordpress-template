@@ -1,8 +1,8 @@
 <?php
 add_action("admin_menu", function () {
 	add_menu_page(
-		"Dummy Post Generator",
-		"ダミー",
+		"Dummy Post Manager",
+		"Dummy Post Manager",
 		"manage_options",
 		"dummy-post-generator",
 		"render_dummy_post_manager_page"
