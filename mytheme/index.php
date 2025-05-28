@@ -1,18 +1,23 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ */
 
-<main>
-	<?php
- set_query_var("title", get_bloginfo("name"));
- set_query_var("description", get_bloginfo("description"));
- get_template_part("partials/page-title");
- ?>
+use Timber\Timber;
 
-	<img
-		style="width: 100%; min-height: 14rem; object-fit: cover; aspect-ratio: 3 / 1;"
-		src="https://picsum.photos//768/400?grayscale"
-		alt=""
-		decoding="async"
-	/>
-</main>
+$templates = ["templates/index.twig"];
 
-<?php get_footer(); ?>
+if (is_home()) {
+	array_unshift($templates, "templates/front-page.twig", "templates/home.twig");
+}
+
+$context = Timber::context();
+
+Timber::render($templates, $context);

@@ -1,0 +1,41 @@
+{% extends 'layouts/base.twig' %}
+
+{% block content %}
+	{{
+		include(
+			'partials/page-title.twig',
+			{
+				title: title
+			}
+		)
+	}}
+	<div class="container mx-auto max-w-4xl">
+		<ol class="divide-y">
+			{% for post in posts %}
+				{{
+					include(
+						'partials/post-list-item.twig',
+						{
+							post: post
+						}
+					)
+				}}
+			{% else %}
+				<li class="text-center">記事がありません。</li>
+			{% endfor %}
+		</ol>
+	</div>
+
+	{{
+		include(
+			'partials/pagination.twig',
+			{
+				pagination: posts.pagination({
+					show_all: false,
+					mid_size: 2,
+					end_size: 2
+				})
+			}
+		)
+	}}
+{% endblock %}

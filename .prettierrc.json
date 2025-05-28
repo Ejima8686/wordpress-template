@@ -2,5 +2,10 @@
 	"tabWidth": 2,
 	"printWidth": 100,
 	"tailwindConfig": "./tailwind.config.cjs",
-	"plugins": ["prettier-plugin-css-order", "prettier-plugin-tailwindcss", "@prettier/plugin-php"]
+	"plugins": [
+		"prettier-plugin-css-order",
+		"prettier-plugin-tailwindcss",
+		"@prettier/plugin-php",
+		"@zackad/prettier-plugin-twig"
+	]
 }

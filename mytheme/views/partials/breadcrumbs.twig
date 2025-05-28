@@ -1,0 +1,33 @@
+{#
+  パンくずリストのコンポーネントです。
+
+	Arguments:
+    	- items: パンくずリストの中間リンク（`[{ name: '', link: '' }, ...]`）
+
+	Note:
+		- TwigFunction `breadcrumb(post.id)` を使うことで
+		指定した投稿IDを起点に、投稿タイプやカテゴリ情報に基づくリテラル形式のリストを
+		自動生成することができます。
+		例：
+			{{ include('partials/breadcrumbs.twig', {
+				items: breadcrumb(post.id)
+			}) }}
+#}
+
+<nav aria-label="パンくずリスト">
+	<ul class="flex flex-wrap items-center gap-2">
+		<li><a href="{{ site.url }}">トップ</a></li><span>&gt;</span>
+		{% for item in items %}
+			<li>
+				{% if item.link %}
+					<a href="{{ item.link }}">{{ item.name }}</a>
+				{% else %}
+					<span aria-current="page">{{ item.name }}</span>
+				{% endif %}
+			</li>
+			{% if not loop.last %}
+				<span>&gt;</span>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</nav>

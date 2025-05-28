@@ -1,20 +1,17 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template for displaying all pages.
+ *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site will use a
+ * different template.
+ */
 
-<main>
-	<?php
- set_query_var("title", get_the_title());
- get_template_part("partials/page-title");
- ?>
+namespace App;
 
-	<?php if (has_post_thumbnail()) {
- 	echo wp_get_attachment_image(get_post_thumbnail_id(), "full", false, [
- 		"class" => "w-full min-h-[14rem] object-cover aspect-3/1",
- 	]);
- } ?>
+use Timber\Timber;
 
-	<div class="container mt-16 prose">
-		<?php the_content(); ?>
-	</div>
-</main>
+$context = Timber::context();
 
-<?php get_footer(); ?>
+Timber::render("templates/page.twig", $context);

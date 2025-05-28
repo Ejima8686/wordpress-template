@@ -17,5 +17,6 @@ setup/**/*.env
 .DS_Store
 
 plugins/*
-!plugins/myplugins/
-!plugins/myplugins/**
+!plugins/custom_*/
+!plugins/custom_*/**/vendor/
+

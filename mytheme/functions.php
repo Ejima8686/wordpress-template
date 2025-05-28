@@ -4,63 +4,61 @@ namespace WordPressStarter\Theme;
 
 define("THEME_NAME", basename(__DIR__));
 
+require_once __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/inc/vite-assets.php";
+require_once __DIR__ . "/inc/timber/context.php";
+require_once __DIR__ . "/inc/timber/function.php";
+require_once __DIR__ . "/inc/posts/mytheme_news.php";
+
 /**
- * 開発環境であるか判定し、真偽値を返す
- * @return bool
+ * ログイン中かつ開発環境の場合、管理バー（Admin Bar）を非表示にする。
  */
-function is_dev(): bool
-{
-	$host = $_SERVER["HTTP_HOST"] ?? "";
-	return str_contains($host, "localhost") || str_contains($host, ".local");
+if (is_user_logged_in() && is_dev()) {
+	add_filter("show_admin_bar", "__return_false");
 }
 
-function build_assets(): string
-{
-	if (is_dev()) {
-		return <<<HTML
-<!-- development (Vite) -->
-<script type="module" src="http://localhost:3000/@vite/client"></script>
-<script type="module" src="http://localhost:3000/source/index.ts"></script>
-HTML;
-	}
+/**
+ * WordPressが自動的に出力する `global-styles-inline-css` を読み込みから除外する。
+ * - Tailwind CSS や base.css のスタイルを上書きしてしまうため。
+ */
+add_action("wp_enqueue_scripts", function () {
+	wp_dequeue_style("global-styles");
+});
 
-	$manifest_path = __DIR__ . "/build/.vite/manifest.json";
-	if (!file_exists($manifest_path)) {
-		return "<!-- vite manifest not found -->";
-	}
-
-	$manifest = json_decode(file_get_contents($manifest_path), true);
-	if (!$manifest || !isset($manifest["source/index.ts"])) {
-		return "<!-- invalid vite manifest -->";
-	}
-
-	$entry = $manifest["source/index.ts"];
-	$base_uri = get_template_directory_uri() . "/build/";
-
-	$html = "<!-- production build -->\n";
-	$html .= sprintf('<script type="module" src="%s"></script>', $base_uri . $entry["file"]) . "\n";
-
-	if (!empty($entry["dynamicImports"])) {
-		foreach ($entry["dynamicImports"] as $dynamicImport) {
-			if (!empty($manifest[$dynamicImport]["file"])) {
-				$html .=
-					sprintf(
-						'<script type="module" src="%s"></script>',
-						$base_uri . $manifest[$dynamicImport]["file"]
-					) . "\n";
-			}
-		}
-	}
-
-	if (!empty($entry["css"])) {
-		foreach ($entry["css"] as $css) {
-			$html .= sprintf('<link rel="stylesheet" href="%s" />', $base_uri . $css) . "\n";
-		}
-	}
-
-	return $html;
+if (!isset($content_width)) {
+	$content_width = 1280;
 }
 
-add_action("wp_head", function () {
-	echo \WordPressStarter\Theme\build_assets();
+/**
+ * テーマ設定の初期化
+ */
+add_action("after_setup_theme", function () {
+	load_theme_textdomain(THEME_NAME, __DIR__ . "/languages");
+
+	add_theme_support("title-tag");
+
+	add_theme_support("post-thumbnails");
+
+	// register_nav_menus([
+	// 	"primary" => "Primary",
+	// ]);
+
+	add_theme_support("html5", [
+		"comment-form",
+		"comment-list",
+		"search-form",
+		"gallery",
+		"caption",
+		"style",
+		"script",
+		"navigation-widgets",
+	]);
+
+	add_theme_support("customize-selective-refresh-widgets");
+
+	add_theme_support("editor-styles");
+	add_editor_style();
+
+	add_theme_support("align-wide");
+	add_theme_support("responsive-embeds");
 });
