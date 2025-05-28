@@ -11,10 +11,13 @@
                 </td>
             </tr>
             <tr>
-                <th><label>タクソノミー</label></th>
+                <th><label>タクソノミー（任意）</label></th>
                 <td>
-                    <input type="text" name="taxonomy" placeholder="mytheme_news_category" required>
-                    <p class="description">カテゴリーのタクソノミースラッグを入力してください。</p>
+                    <input type="text" name="taxonomy" placeholder="mytheme_news_category">
+                    <p class="description">
+                        カテゴリーのタクソノミースラッグを入力してください。<br>
+                        空欄の場合はカテゴリの作成・割当はスキップされます。
+                    </p>
                 </td>
             </tr>
             <tr>
@@ -37,6 +40,32 @@
                 </td>
             </tr>
         </table>
-        <p><input type="submit" class="button button-primary" value="生成する"></p>
+       <p>
+            <input type="submit" name="generate_dummy_posts" class="button button-primary" value="生成する">
+        </p>
+    </form>
+</div>
+<div style="width: 50%; height: 1px; border-top: 1px solid #000; margin: 40px 0;"></div>
+<div class="wrap">
+    <h2>ダミー記事一括削除</h2>
+    <form method="post">
+        <p style="margin-bottom: 20px;" class="description">削除対象となる投稿タイプを入力してください。<br>このプラグインで生成した記事をすべて削除します。</p>
+        <input type="text" name="delete_post_type" placeholder="mytheme_news" required>
+        <?php wp_nonce_field("delete_dummy_posts_action"); ?>
+        <p>
+            <input type="submit" name="delete_dummy_posts" class="button button-primary" value="削除する">
+        </p>
+    </form>
+</div>
+<div style="width: 50%; height: 1px; border-top: 1px solid #000; margin: 40px 0;"></div>
+<div class="wrap">
+    <h2>ダミーカテゴリ一括削除</h2>
+    <form method="post">
+        <p style="margin-bottom: 20px;" class="description">削除対象となるタクソノミースラッグを入力してください。<br>このプラグインで生成したカテゴリーをすべて削除します。</p>
+        <input type="text" name="delete_taxonomy" placeholder="mytheme_news_category" required>
+        <?php wp_nonce_field("delete_dummy_terms_action"); ?>
+        <p>
+            <input type="submit" name="delete_dummy_terms" class="button button-primary" value="削除する">
+        </p>
     </form>
 </div>

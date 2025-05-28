@@ -16,6 +16,7 @@ function generate_dummy_posts($post_type, $taxonomy, $post_count = 10, $taxonomy
 		if (!$term) {
 			$term_id = wp_insert_term($name, $taxonomy, ["slug" => $slug]);
 			if (!is_wp_error($term_id)) {
+				add_term_meta($term_id["term_id"], "_created_by_dummy_post_manager", true, true);
 				$term_ids[] = $term_id["term_id"];
 				$term_messages[] = "✅ 「{$name}」を追加しました（スラッグ: {$slug}）";
 			} else {
@@ -92,7 +93,7 @@ function generate_dummy_posts($post_type, $taxonomy, $post_count = 10, $taxonomy
 			continue;
 		}
 
-		update_post_meta($post_id, '_created_by_dummy_post_generator', true);
+		update_post_meta($post_id, "_created_by_dummy_post_manager", true);
 
 		if (!empty($image_ids)) {
 			set_post_thumbnail($post_id, $image_ids[array_rand($image_ids)]);
@@ -120,6 +121,5 @@ function generate_dummy_content($faker)
 			$faker->realText(random_int(100, 300)) .
 			"</p><!-- /wp:paragraph -->";
 	}
-	$paragraphs[] = "<p><a href='https://example.com' target='_blank'>詳しくはこちら</a></p>";
 	return implode("\n", $paragraphs);
 }
