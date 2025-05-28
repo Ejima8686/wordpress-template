@@ -7,8 +7,8 @@
  */
 
 require_once plugin_dir_path(__FILE__) . "admin-page.php";
-require_once plugin_dir_path(__FILE__) . "generator.php";
-require_once plugin_dir_path(__FILE__) . "delete.php";
+require_once plugin_dir_path(__FILE__) . "functions/delete.php";
+require_once plugin_dir_path(__FILE__) . "functions/generate.php";
 
 // プラグイン管理画面に設定リンクを追加
 add_filter("plugin_action_links_" . plugin_basename(__FILE__), "dummy_post_manager_action_links");
