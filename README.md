@@ -73,6 +73,12 @@ Dev Container 内での作業を終了し、VS Code がローカル環境に戻�
 ```bash
 npm run build
 ```
+## フォーマット
+
+```bash
+npm run format
+```
+
 
 ## DevContainerでのGit操作のためのSSHセットアップ
 
