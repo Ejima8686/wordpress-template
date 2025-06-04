@@ -107,6 +107,11 @@ ACFPRO用のカスタムブロックを作成できます。<br>
 	- embed
 	- デフォルトは `text`
 
+### 作成したブロックの登録の仕方
+
+1. `mytheme/inc/blocks.php` の　`allowed_block_types_all`の中で、使用するブロックを配列に追加してください。使用できるブロックは[こちら](https://wphelpers.dev/blocks)から確認してください。
+2. ACFブロックを追加する場合は、nameに入力した値に `acf/` プレフィクスをつけたものを指定してください。eg. `heading` → `acf/heading`
+
 ## DevContainerでのGit操作のためのSSHセットアップ
 
 ただコンテナを立ち上げても、ホストの持つ鍵情報はコンテナに共有されないため、SSH接続ができません。
