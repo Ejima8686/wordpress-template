@@ -50,6 +50,14 @@ questions:
 	"acf": {
 		"mode": "edit",
 		"renderCallback": "my_acf_block_render_callback"
+	},
+	"example": {
+		"attributes": {
+			"mode": "preview",
+			"data": {
+				"__is_preview": true
+			}
+		}
 	}
 }
 ```
@@ -57,27 +65,26 @@ questions:
 # `./{{ theme }}/views/blocks/{{ name }}.twig`
 
 ```twig
-{%#
+{#
 
-Available props
+	Available props
 
-block
-fields
-is_preview
+	block
+	block_slug
+	fields
+	is_preview
 
-#%}
-
-<div>
-Example
+#}
+<div class="block_{{ name }}">
+	Example
 </div>
-
 ```
 
-# `./{{ theme }}/acf-json/group_sb_{{ name }}.json`
+# `./{{ theme }}/acf-json/group_custom_{{ name }}.json`
 
 ```json
 {
-	"key": "group_sb_{{ name }}",
+	"key": "group_custom_{{ name }}",
 	"title": "Block: {{ inputs.name | pascal }}",
 	"fields": [],
 	"location": [

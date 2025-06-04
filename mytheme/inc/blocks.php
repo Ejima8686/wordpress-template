@@ -2,6 +2,11 @@
 
 namespace WordPressStarter\Theme;
 
+use Timber\Timber;
+
+/**
+ * カスタムブロックのレンダリング
+ */
 add_action(
 	"init",
 	function () {

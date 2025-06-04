@@ -79,6 +79,33 @@ npm run build
 ```bash
 npm run format
 ```
+## ブロックの作成の仕方
+
+```bash
+npx scaffdog generate acf-block
+```
+ACFPRO用のカスタムブロックを作成できます。<br>
+対話に沿って生成してください。
+
+- name
+  - ブロックの slug を入れてください
+- title
+  - エディタ側で表示する名前を入れてください。日本語でも OK です
+- description
+  - エディタ側で表示する詳細文を書いてください
+- icon
+  - エディタ側で表示するアイコンを書いてください
+  - [このサイト](https://developer.wordpress.org/resource/dashicons/)から選んください
+  - `dashicons-` というプレフィクスはのぞいて指定してください eg. `dashicons-menu-alt3` なら `menu-alt3`
+- category
+  - エディタ側で表示するカテゴリを指定してください。
+	- text
+	- media
+	- design
+	- widgets
+	- theme
+	- embed
+	- デフォルトは `text`
 
 ## DevContainerでのGit操作のためのSSHセットアップ
 
