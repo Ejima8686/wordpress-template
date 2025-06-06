@@ -6,6 +6,9 @@ define("THEME_NAME", basename(__DIR__));
 
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/inc/vite-assets.php";
+require_once __DIR__ . "/inc/blocks.php";
+require_once __DIR__ . "/inc/_helper.php";
+require_once __DIR__ . "/inc/acf-blocks.php";
 require_once __DIR__ . "/inc/timber/context.php";
 require_once __DIR__ . "/inc/timber/function.php";
 require_once __DIR__ . "/inc/posts/mytheme_news.php";
@@ -62,3 +65,10 @@ add_action("after_setup_theme", function () {
 	add_theme_support("align-wide");
 	add_theme_support("responsive-embeds");
 });
+
+/**
+ * デフォルトの投稿を削除
+ */
+// add_action("admin_menu", function () {
+// 	remove_menu_page("edit.php");
+// });

@@ -73,12 +73,46 @@ Dev Container 内での作業を終了し、VS Code がローカル環境に戻�
 ```bash
 npm run build
 ```
+
 ## フォーマット
 
 ```bash
 npm run format
 ```
 
+## ブロックの作成の仕方
+
+```bash
+npx scaffdog generate acf-block
+```
+
+ACFPRO用のカスタムブロックを作成できます。<br>
+対話に沿って生成してください。
+
+- name
+  - ブロックの slug を入れてください
+- title
+  - エディタ側で表示する名前を入れてください。日本語でも OK です
+- description
+  - エディタ側で表示する詳細文を書いてください
+- icon
+  - エディタ側で表示するアイコンを書いてください
+  - [このサイト](https://developer.wordpress.org/resource/dashicons/)から選んください
+  - `dashicons-` というプレフィクスはのぞいて指定してください eg. `dashicons-menu-alt3` なら `menu-alt3`
+- category
+  - エディタ側で表示するカテゴリを指定してください。
+  - text
+  - media
+  - design
+  - widgets
+  - theme
+  - embed
+  - デフォルトは `text`
+
+### 作成したブロックの登録の仕方
+
+1. `mytheme/inc/blocks.php` の　`allowed_block_types_all`の中で、使用するブロックを配列に追加してください。使用できるブロックは[こちら](https://wphelpers.dev/blocks)から確認してください。
+2. ACFブロックを追加する場合は、nameに入力した値に `acf/` プレフィクスをつけたものを指定してください。eg. `heading` → `acf/heading`
 
 ## DevContainerでのGit操作のためのSSHセットアップ
 

@@ -1,0 +1,43 @@
+{#
+
+Available props
+
+block
+block_slug
+fields
+is_preview
+
+#}
+
+{% set text = fields.testimonial ? : 'Your testimonial here...' %}
+{% set author = fields.author ? : 'Author name' %}
+{% set author_role = fields.role ? : 'Author role' %}
+{% set image = fields.image %}
+
+<div
+	class="block_{{ block_slug }} px-20 py-10 max-w-prose"
+	style="background-color: {{ fields.background_color }};"
+>
+	{{
+		function(
+			'wp_get_attachment_image',
+			image,
+			'lg',
+			false,
+			{
+				class: 'aspect-video mx-auto'
+			}
+		)
+	}}
+	<figure>
+		<blockquote class="mt-6 font-serif text-3xl">
+			<p>
+				{{ text|e('html') }}
+			</p>
+		</blockquote>
+		<figcaption class="mt-6 text-right opacity-90" style="color: {{ fields.text_color }};">
+			<span class="block font-bold">{{ author|e('html') }}</span>
+			<span class="block text-sm">{{ author_role|e('html') }}</span>
+		</figcaption>
+	</figure>
+</div>
