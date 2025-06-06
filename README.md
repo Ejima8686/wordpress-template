@@ -79,11 +79,13 @@ npm run build
 ```bash
 npm run format
 ```
+
 ## ブロックの作成の仕方
 
 ```bash
 npx scaffdog generate acf-block
 ```
+
 ACFPRO用のカスタムブロックを作成できます。<br>
 対話に沿って生成してください。
 
@@ -99,13 +101,13 @@ ACFPRO用のカスタムブロックを作成できます。<br>
   - `dashicons-` というプレフィクスはのぞいて指定してください eg. `dashicons-menu-alt3` なら `menu-alt3`
 - category
   - エディタ側で表示するカテゴリを指定してください。
-	- text
-	- media
-	- design
-	- widgets
-	- theme
-	- embed
-	- デフォルトは `text`
+  - text
+  - media
+  - design
+  - widgets
+  - theme
+  - embed
+  - デフォルトは `text`
 
 ### 作成したブロックの登録の仕方
 

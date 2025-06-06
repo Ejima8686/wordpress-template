@@ -69,6 +69,6 @@ add_action("after_setup_theme", function () {
 /**
  * デフォルトの投稿を削除
  */
-add_action('admin_menu', function () {
-  remove_menu_page( 'edit.php' ); 
-});
+// add_action("admin_menu", function () {
+// 	remove_menu_page("edit.php");
+// });

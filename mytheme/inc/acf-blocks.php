@@ -4,6 +4,8 @@ use Timber\Timber;
 
 /**
  * ACFブロックの表示用コールバック関数
+ * - エディタ上でのプレビュー画像の設定
+ * - ビューファイル（twig）のレンダリング
  *
  * @param array  $block      ブロックの設定と属性情報。
  * @param string $block_slug    ブロックの名前（acf/を除く）。
