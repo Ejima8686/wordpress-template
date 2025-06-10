@@ -2,7 +2,8 @@
 	"scripts": {
 		"setup:init": "npm ci && node setup/init.mjs",
 		"setup:git": "node setup/github/ssh-init.mjs && bash setup/github/ssh.sh",
-		"setup:faker": "/var/www/html/faker/entry.sh",
+		"import": "bash services/wordpress/import.sh",
+		"export": "bash services/wordpress/export.sh",
 		"dev": "npm run base:dev",
 		"build": "npm run base:build",
 		"base:dev": "vite --host",

@@ -7,7 +7,7 @@ use Timber\Timber;
 /**
  * 開発環境のときのみ、
  * ブロックエディタ上でホットリロードが有効になり、スタイル、スクリプトが即時反映されるようになります。
- *
+ *	 - ※これを有効にする場合、@vite/clientを参照するため、localhostが立ち上がってないとエディタが立ち上がりません。
  * @hook admin_enqueue_scripts
  */
 add_action("admin_enqueue_scripts", function () {

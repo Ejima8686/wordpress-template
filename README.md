@@ -66,6 +66,28 @@ Dev Container 内での作業を終了し、VS Code がローカル環境に戻�
 - コマンドパレット（`Cmd+Shift+P`）を開き、
   **"Dev Containers: Reopen Folder Locally"** を選択
 
+## データの復元
+
+すでに他開発者がエクスポートしたデータがある場合、データの復元ができます。
+`services/wordpress/portal`に以下があることを確認し、コマンドを実行してください。
+
+- `uploads.zip`
+- `wordpress.sql`
+
+```bash
+npm run import
+```
+
+## データのエクスポート
+
+データをエクスポートできます。以下のデータが出力されます。
+- `uploads.zip`
+- `wordpress.sql`
+
+```bash
+npm run export
+```
+
 ## 本番用ビルド
 
 次のコマンドを実行すると、ビルド済みのファイルが [テーマ名]/build ディレクトリに出力されます。
