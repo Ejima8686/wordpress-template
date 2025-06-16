@@ -7,6 +7,8 @@ define("THEME_NAME", basename(__DIR__));
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/inc/vite-assets.php";
 require_once __DIR__ . "/inc/blocks.php";
+require_once __DIR__ . "/inc/dashboard.php";
+require_once __DIR__ . "/inc/admin.php";
 require_once __DIR__ . "/inc/_helper.php";
 require_once __DIR__ . "/inc/acf-blocks.php";
 require_once __DIR__ . "/inc/timber/context.php";
@@ -14,15 +16,21 @@ require_once __DIR__ . "/inc/timber/function.php";
 require_once __DIR__ . "/inc/posts/mytheme_news.php";
 
 /**
- * ログイン中かつ開発環境の場合、管理バー（Admin Bar）を非表示にする。
+ * 埋め込む画像の最大表示幅
+ */
+if (!isset($content_width)) {
+	$content_width = 1280;
+}
+/**
+ * ログイン中かつ開発環境の場合、管理バー（Admin Bar）を非表示にする
  */
 if (is_user_logged_in() && is_dev()) {
 	add_filter("show_admin_bar", "__return_false");
 }
 
 /**
- * WordPressが自動的に出力する `global-styles-inline-css` を読み込みから除外する。
- * - Tailwind CSS や base.css のスタイルを上書きしてしまうため。
+ * WordPressが自動的に出力する `global-styles-inline-css` を読み込みから除外する
+ * - Tailwind CSS や base.css のスタイルを上書きしてしまうため
  */
 add_action("wp_enqueue_scripts", function () {
 	wp_dequeue_style("global-styles");
@@ -65,10 +73,3 @@ add_action("after_setup_theme", function () {
 	add_theme_support("align-wide");
 	add_theme_support("responsive-embeds");
 });
-
-/**
- * デフォルトの投稿を削除
- */
-// add_action("admin_menu", function () {
-// 	remove_menu_page("edit.php");
-// });
