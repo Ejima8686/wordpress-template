@@ -6,11 +6,10 @@ add_action("init", function () {
 	register_post_type("mytheme_news", [
 		"label" => "お知らせ",
 		"public" => true,
+		"supports" => ["title", "editor", "thumbnail", "revisions", "page-attributes"],
 		"has_archive" => true,
 		"show_in_rest" => true,
-		"hierarchical" => true,
 		"rewrite" => ["slug" => "mytheme_news"],
-		"supports" => ["title", "editor", "thumbnail", "revisions", "page-attributes"],
 	]);
 
 	register_taxonomy(
@@ -18,9 +17,8 @@ add_action("init", function () {
 		["mytheme_news"],
 		[
 			"label" => "カテゴリー",
-			"hierarchical" => true,
+			"has_archive" => true,
 			"show_in_rest" => true,
-			"rewrite" => ["slug" => "news/category"],
 		]
 	);
 });
