@@ -67,8 +67,13 @@ add_action(
 add_filter(
 	"allowed_block_types_all",
 	function ($allowed_block_types, $block_editor_context) {
-		$block_types = ["core/paragraph", "core/image", "core/heading", "acf/testimonial"];
-
+		$block_types = [
+			"core/paragraph",
+			"core/image",
+			"core/heading",
+			"acf/testimonial",
+			// ここにブロックを追加
+		];
 		return $block_types;
 	},
 	10,

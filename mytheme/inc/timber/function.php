@@ -214,6 +214,19 @@ function simple_logger($var, $prefix = "", $suffix = "\n")
 	);
 }
 
+/**
+ * ACFのカスタムフィールドの値を取得するget_field()をtwig上で使えるようにラップ
+ * - https://www.advancedcustomfields.com/resources/get_field/
+ *
+ * @param string $selector フィールドの名前（フィールドキーまたは名前）。
+ * @param int|string|null $id 投稿ID、オプションページの識別子(option)、または null（現在の投稿）。
+ * @return mixed フィールドの値。存在しない場合は null または false。
+ */
+function twig_acf_get_field($selector, $id = null)
+{
+	return get_field($selector, $id);
+}
+
 add_filter("timber/twig", function ($twig) {
 	$twig->addFunction(new TwigFunction("breadcrumb", "get_breadcrumb_items"));
 	$twig->addFunction(new TwigFunction("get_rel_uri", "get_rel_uri"));
@@ -224,5 +237,6 @@ add_filter("timber/twig", function ($twig) {
 	$twig->addFunction(new TwigFunction("debug", "debug"));
 	$twig->addFunction(new TwigFunction("check_vite_connection", "check_vite_connection"));
 	$twig->addFunction(new TwigFunction("simple_logger", "simple_logger"));
+	$twig->addFunction(new TwigFunction("get_field", "twig_acf_get_field"));
 	return $twig;
 });
