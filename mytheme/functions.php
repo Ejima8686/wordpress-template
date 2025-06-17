@@ -13,6 +13,7 @@ require_once __DIR__ . "/inc/acf-blocks.php";
 require_once __DIR__ . "/inc/timber/context.php";
 require_once __DIR__ . "/inc/timber/function.php";
 require_once __DIR__ . "/inc/posts/mytheme_news.php";
+require_once __DIR__ . "/inc/options/mytheme_option.php";
 
 /**
  * 埋め込む画像の最大表示幅
