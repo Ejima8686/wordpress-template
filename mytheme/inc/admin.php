@@ -36,7 +36,8 @@ add_filter("acf/fields/wysiwyg/toolbars", function ($toolbars) {
 	*/
 
 	$toolbars["Very Simple"] = [];
-	$toolbars["Very Simple"][1] = ["link", "bullist", "numlist"];
+	$toolbars["Very Simple"][1] = ["bold", "italic", "underline"]; // WYSIWYG 1行目
+	$toolbars['Very Simple' ][2] = ["link", "bullist", "numlist"]; // WYSIWYG 2行目
 
 	/*
 	"formatselect",
