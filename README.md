@@ -28,7 +28,7 @@
 npm run setup:init
 ```
 
-- `init.mjs` が対話形式で以下を行います：
+- `setup/init.mjs` が対話形式で以下を行います：
   - テーマ名の確認（またはリネーム）
   - `.devcontainer/.env` の作成（THEME_NAME, VITE_THEME_NAME）
   - `auth.json` の作成（ACF PRO用ファイル）
@@ -71,8 +71,8 @@ Dev Container 内での作業を終了し、VS Code がローカル環境に戻�
 すでに他開発者がエクスポートしたデータがある場合、データの復元ができます。
 `services/wordpress/portal`に以下があることを確認し、コマンドを実行してください。
 
-- `uploads.zip`
-- `wordpress.sql`
+- `uploads.zip`（アップロードした画像等のファイル）
+- `wordpress.sql`（投稿された記事などのデータ）
 
 ```bash
 npm run import
@@ -80,10 +80,10 @@ npm run import
 
 ## データのエクスポート
 
-データをエクスポートできます。以下のデータが出力されます。
+Wordpressのデータをエクスポートできます。以下のデータが出力されます。
 
-- `uploads.zip`
-- `wordpress.sql`
+- `uploads.zip`（アップロードした画像等のファイル）
+- `wordpress.sql`（投稿された記事などのデータ）
 
 ```bash
 npm run export
