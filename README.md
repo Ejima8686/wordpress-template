@@ -57,7 +57,9 @@ npm run dev
 
 ブラウザから WordPressの管理画面にアクセスし、開発を開始してください。
 
-[http://localhost:8080/wp-admin](http://localhost:8080/wp-admin)
+[http://localhost:8080/wp-admin](http://localhost:8080/wp-admin)<br>
+- ユーザー名: `admin`<br>
+- パスワード: `password`
 
 ### 5. ローカル環境に戻る（Dev Container の終了）
 
