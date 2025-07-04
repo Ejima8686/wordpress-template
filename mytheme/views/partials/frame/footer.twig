@@ -4,7 +4,7 @@
 			<ul class="container flex gap-x-6">
 				{% for item in [
 					['ホーム', site.url],
-					[about_post.title, about_post.link],
+					[get_page_post('about').title, get_page_post('about').link],
 					[
 						function('get_post_type_object', 'mytheme_news').labels.name,
 						function('get_post_type_archive_link', 'mytheme_news')

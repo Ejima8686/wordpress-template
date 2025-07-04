@@ -227,6 +227,23 @@ function twig_acf_get_field($selector, $id = null)
 	return get_field($selector, $id);
 }
 
+/**
+ * 指定されたスラッグ名の固定ページを取得。
+ *
+ * 例（Twig）:
+ *   {{ get_page('privacy').title }}
+ *
+ * @param \Twig\Environment
+ * @return \Twig\Environment
+ */
+function get_page_post($name)
+{
+	return Timber::get_post([
+		"name" => $name,
+		"post_type" => "page",
+	]);
+}
+
 add_filter("timber/twig", function ($twig) {
 	$twig->addFunction(new TwigFunction("breadcrumb", "get_breadcrumb_items"));
 	$twig->addFunction(new TwigFunction("get_rel_uri", "get_rel_uri"));
@@ -238,5 +255,6 @@ add_filter("timber/twig", function ($twig) {
 	$twig->addFunction(new TwigFunction("check_vite_connection", "check_vite_connection"));
 	$twig->addFunction(new TwigFunction("simple_logger", "simple_logger"));
 	$twig->addFunction(new TwigFunction("get_field", "twig_acf_get_field"));
+	$twig->addFunction(new TwigFunction("get_page_post", "get_page_post"));
 	return $twig;
 });
