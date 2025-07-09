@@ -6,6 +6,52 @@ use Twig\TwigFunction;
 use Timber\URLHelper;
 
 /**
+ * ViteによってビルドされたJS/CSSアセットをHTMLとして出力する
+ *
+ * @return string
+ */
+function build_assets()
+{
+	$manifest_path = get_template_directory() . "/build/.vite/manifest.json";
+
+	if (!file_exists($manifest_path)) {
+		return "<!-- vite manifest not found -->";
+	}
+
+	$manifest = json_decode(file_get_contents($manifest_path), true);
+
+	if (!$manifest || !isset($manifest["source/index.ts"])) {
+		return "<!-- invalid vite manifest -->";
+	}
+
+	$entry = $manifest["source/index.ts"];
+	$build_path = get_template_directory_uri() . "/build/";
+
+	$html = "<!-- production build -->\n";
+	$html .= sprintf('<script type="module" src="%s"></script>', $build_path . $entry["file"]) . "\n";
+
+	if (!empty($entry["dynamicImports"])) {
+		foreach ($entry["dynamicImports"] as $dynamicImport) {
+			if (!empty($manifest[$dynamicImport]["file"])) {
+				$html .=
+					sprintf(
+						'<script type="module" src="%s"></script>',
+						$build_path . $manifest[$dynamicImport]["file"]
+					) . "\n";
+			}
+		}
+	}
+
+	if (!empty($entry["css"])) {
+		foreach ($entry["css"] as $css) {
+			$html .= sprintf('<link rel="stylesheet" href="%s" />', $build_path . $css) . "\n";
+		}
+	}
+
+	return $html;
+}
+
+/**
  * 指定された投稿IDを基点に、パンくずリストの項目を取得します。
  *
  * @param int $post_id 現在の投稿ID。
@@ -256,5 +302,6 @@ add_filter("timber/twig", function ($twig) {
 	$twig->addFunction(new TwigFunction("simple_logger", "simple_logger"));
 	$twig->addFunction(new TwigFunction("get_field", "twig_acf_get_field"));
 	$twig->addFunction(new TwigFunction("get_page_post", "get_page_post"));
+	$twig->addFunction(new TwigFunction("build_assets", "build_assets"));
 	return $twig;
 });

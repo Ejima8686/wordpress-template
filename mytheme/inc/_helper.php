@@ -2,6 +2,16 @@
 use Timber\Timber;
 
 /**
+ * 開発環境であるか判定し、真偽値を返す
+ * @return bool
+ */
+function is_dev(): bool
+{
+	$host = $_SERVER["HTTP_HOST"] ?? "";
+	return str_contains($host, "localhost") || str_contains($host, ".local");
+}
+
+/**
  * Timberテンプレートを出力（ローカル開発環境用処理付き）
  *
  * @param array|string $templates テンプレート名 or 配列

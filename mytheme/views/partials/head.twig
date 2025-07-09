@@ -2,5 +2,12 @@
 	<meta charset="{{ site.charset }}" />
 	<meta name="viewport" content="width=device-width" />
 	<meta name="format-detection" content="telephone=no" />
+	{% if IS_DEVELOPMENT and IS_VITE_RUNNING %}
+		<!-- if development -->
+		<script type="module" src="http://localhost:3000/@vite/client"></script>
+		<script type="module" src="http://localhost:3000/source/index.ts"></script>
+	{% else %}
+		{{ build_assets() }}
+	{% endif %}
 	{{ function('wp_head') }}
 </head>
