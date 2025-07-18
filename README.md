@@ -32,6 +32,8 @@ npm run setup:init
   - テーマ名の確認（またはリネーム）
   - `.devcontainer/.env` の作成（THEME_NAME, VITE_THEME_NAME）
   - `auth.json` の作成（ACF PRO用ファイル）
+ 
+[弊社のACFキー](https://www.notion.so/ACF-23363dde3474804c930fdf39420470ba?v=c4c6c111eb58431ba4d62a9f416625f8&source=copy_link)
 
 ### 2. Dev Container の起動
 
@@ -49,6 +51,7 @@ VSCode を使用してコンテナを起動します。<br>
 ```bash
 npm run dev
 ```
+**※希にviteが動かないエラーが起きますが、その場合は`npm i` を実行の上、再度お試しください。**
 
 起動時にポート番号が3000で表示されますが、開発用のポートは8080なので、開発中は[http://localhost:8080/](http://localhost:8080/)にアクセスしてください。<br>
 これで、開発中のCSS、JSの変更が再起動することなく反映されます。
