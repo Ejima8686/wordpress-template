@@ -158,16 +158,10 @@ class ErrorInfo
 			timestamp: time(),
 			errorDetail: "詳細なエラー情報\n複数行のエラーメッセージ\n技術的な詳細情報\nデバッグ用の追加情報",
 			data: [
-				"company" => "テスト株式会社",
 				"name" => "テスト太郎",
 				"email" => "test@example.com",
 				"tel" => "09012345678",
-				"candidate_date_1" => "2025年7月15日 14:00",
-				"candidate_date_2" => "2025年7月16日 10:00",
-				"candidate_date_3" => "2025年7月17日 16:00",
-				"keyword" => "SEO対策,コンテンツマーケティング,Webマーケティング",
-				"message" =>
-					"記事作成代行サービスについて詳しく知りたいです。現在のWebサイトの課題や目標についても相談させていただきたいと思います。長文のテストメッセージです。",
+				"message" => "長文のテストメッセージです。\n長文のテストメッセージです。",
 				"privacy_policy" => "1",
 				"additional_info" => "追加のテスト情報",
 				"test_flag" => true,
