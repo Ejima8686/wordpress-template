@@ -5,6 +5,24 @@
 {% block main %}
 	<div class="l-container">
 		<div class="l-inner">
+			{# 動作検証用　動作確認できたら除去してください
+			<div x-data="example">
+				<h3>alpinejsの動作検証用（動作確認できたら除去してください）</h3>
+				<button @click="toggle" class="border-2 border-border rounded-lg px-2 py-1">
+					Toggle
+				</button>
+				<div x-show="show" x-cloak>
+					<button @click="$store.counter.decrement()" class="border-2 border-border rounded-lg px-2 py-1">
+						-
+					</button>
+					<span x-text="$store.counter.count"></span>
+					<button @click="$store.counter.increment()" class="border-2 border-border rounded-lg px-2 py-1">
+						+
+					</button>
+				</div>
+			</div>
+			動作確認できたら除去してください　動作検証用 #}
+
 			{% if validationErrors|length == 0 %}
 				{# エラーがない場合 #}
 				<h1 class="c-h1">お問い合わせ</h1>

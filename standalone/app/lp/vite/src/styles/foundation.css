@@ -5,3 +5,7 @@ body {
 	color: var(--color-text_black);
 	font-family: "Noto Sans JP", sans-serif;
 }
+
+[x-cloak] {
+	display: none;
+}

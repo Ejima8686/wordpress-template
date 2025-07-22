@@ -9,11 +9,9 @@
 	{% if isDevelopment %}
 		<script src="/@vite/client" type="module"></script>
 		<script src="/src/main.ts" type="module"></script>
-		<script>console.log("development");</script>
 	{% else %}
 		<link rel="stylesheet" href="/lp/dist/main.css">
 		<script src="/lp/dist/main.js" type="module"></script>
-		<script>console.log("production");</script>
 	{% endif %}
 
 	{{ gtm.gtm_head() }}
