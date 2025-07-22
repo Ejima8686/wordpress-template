@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
+      - mailpit
     ports:
       - 8080:80
     volumes:
@@ -24,8 +25,14 @@ services:
 
       - "../wordpress/wp-config.php:/var/www/html/wp-config.php"
       - "../services/wordpress/portal:/var/www/html/portal"
+
+      # WordPress外のサイトを配置
+      - "../standalone/app:/var/www/app" # アプリケーション
+      - "../standalone/lp:/var/www/html/lp" # フロントエンド（増やしていく）
+
     environment:
       IS_DEVELOPMENT: 1
+      DEBUG_MODE: 1
       COMPOSER_ALLOW_SUPERUSER: 1
       COMPOSER_NO_INTERACTION: 1
       WORDPRESS_DEBUG: 1
@@ -52,6 +59,22 @@ services:
     volumes:
       - db:/var/lib/mysql
 
+  mailpit:
+    container_name: mailpit-${THEME_NAME}
+    image: axllent/mailpit:latest
+    ports:
+      - 1025:1025 #SMTP
+      - 8025:8025 #Web UI
+    restart: unless-stopped
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    volumes:
+      - mailpit:/data
+
 volumes:
   wordpress:
   db:
+  mailpit:

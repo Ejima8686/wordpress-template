@@ -1,0 +1,36 @@
+/****************************************
+ * Component コンポーネント
+ * サイト内で共通して使用する部品
+ * 接頭時： c-
+ *****************************************/
+
+.c-h1 {
+	margin-bottom: 20px;
+	color: var(--color-ashirai_navy);
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 1.5;
+	text-align: center;
+
+	@variant md {
+		font-size: 40px;
+	}
+}
+
+.c-p {
+	color: var(--color-text_black);
+	font-size: var(--font-size-m-sp);
+	line-height: 1.8;
+
+	@variant md {
+		font-size: var(--font-size-m-pc);
+	}
+
+	&.--l {
+		font-size: var(--font-size-l-sp);
+
+		@variant md {
+			font-size: var(--font-size-l-pc);
+		}
+	}
+}
