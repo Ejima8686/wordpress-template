@@ -1,0 +1,51 @@
+{% import "Macros/gtm.twig" as gtm %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{ title }}</title>
+	{% if isDevelopment %}
+		<script src="/@vite/client" type="module"></script>
+		<script src="/src/main.ts" type="module"></script>
+		<script>console.log("development");</script>
+	{% else %}
+		<link rel="stylesheet" href="/lp/dist/main.css">
+		<script src="/lp/dist/main.js" type="module"></script>
+		<script>console.log("production");</script>
+	{% endif %}
+
+	{{ gtm.gtm_head() }}
+</head>
+<body class="{{ bodyClass }}">
+	{{ gtm.gtm_body() }}
+
+	<header class="s-header">
+		{% block header %}
+			{% include "Components/header.twig" %}
+		{% endblock %}
+	</header>
+
+	<main class="s-main">
+		{% block main %}
+			<div class="l-container">
+				<div class="l-inner">
+					{% block content %}
+						<p>default content</p>
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+		{% endblock %}
+	</main>
+
+	<footer class="s-footer">
+		{% block footer %}
+			{% include "Components/footer.twig" %}
+		{% endblock %}
+	</footer>
+
+	</main>
+</body>
+</html>

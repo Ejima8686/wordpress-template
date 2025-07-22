@@ -1,0 +1,84 @@
+{% extends "Layouts/layout.twig" %}
+
+{% set title = "LP - お問い合わせエラー" %}
+
+{% block main %}
+	<div class="l-container">
+		<div class="l-inner">
+			<h1 class="c-h1">送信中にエラーが発生しました</h1>
+			<div class="bg-off_white py-6 px-3 md:p-10">
+				<p class="c-p w-fit mx-auto">
+					お手数ですがしばらく時間をおいて再度お試しいただくか、<br class="hidden md:block">
+					メール（kondo-m@likg.co.jp）にてお問い合わせください。
+				</p>
+			</div>
+		</div>
+
+		{% if isDevelopment and error_info %}
+			<div class="l-inner">
+				<div class="c-p mt-6 md:mt-10 border-text_orange border-2 rounded-lg py-2 px-4 mx-10">
+					<dl>
+						<div>
+							<dt class="text-text_orange text-[14px] font-bold">エラータイプ:</dt>
+							<dd class="text-text_orange text-[14px]">{{ error_info.type }}</dd>
+						</div>
+						<div class="mt-2">
+							<dt class="text-text_orange text-[14px] font-bold">エラーメッセージ:</dt>
+							<dd class="text-text_orange text-[14px]">{{ error_info.message }}</dd>
+						</div>
+						{% if error_info.error_detail %}
+							<div class="mt-2">
+								<dt class="text-text_orange text-[14px] font-bold">エラー詳細:</dt>
+								<dd class="text-text_orange text-[14px] whitespace-pre-line">
+									{{ error_info.error_detail }}
+								</dd>
+							</div>
+						{% endif %}
+						{% if error_info.data %}
+							<div class="mt-2">
+								<dt class="text-text_orange text-[14px] font-bold">送信データ:</dt>
+								<dd class="text-text_orange text-[14px]">
+									<ul class="list-disc pl-4">
+										{% for key, value in error_info.data %}
+											<li class="text-text_orange text-[14px]">
+												{{ key }}:
+												{% if value is iterable %}
+													{{ value|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}
+												{% else %}
+													{{ value }}
+												{% endif %}
+											</li>
+										{% endfor %}
+									</ul>
+								</dd>
+							</div>
+						{% endif %}
+						<div class="mt-2">
+							<dt class="text-text_orange text-[14px] font-bold">発生時刻:</dt>
+							<dd class="text-text_orange text-[14px]">
+								{{ error_info.timestamp|date('Y-m-d H:i:s') }}
+							</dd>
+						</div>
+					</dl>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="grid gap-6 mt-6">
+			{%
+				include "Components/btn-back.twig" with {
+				href: "../",
+				label: "お問い合わせフォームに戻る"
+				}
+			%}
+			<a
+				href="{{ project_domain }}/"
+				class="
+					underline text-[18px] leading-[1.5] text-cta_orange w-fit mx-auto
+					hover:text-theme_orange-2 transition-colors duration-300 ease-out
+				"
+				>トップページに戻る</a
+			>
+		</div>
+	</div>
+{% endblock %}

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . "/vendor/autoload.php";
 
 use Dotenv\Dotenv;
@@ -10,16 +11,6 @@ use Slim\Psr7\Factory\ResponseFactory;
 use Twig\Extension\DebugExtension;
 use App\Extensions\TwigExtension;
 use App\Models\ErrorInfo;
-
-/*
- * デバッグモードの設定
- */
-if (isset($_ENV["DEBUG_MODE"]) && $_ENV["DEBUG_MODE"] == 1) {
-	error_reporting(E_ALL);
-	ini_set("display_errors", 1);
-} else {
-	ini_set("display_errors", 0);
-}
 
 /**
  * 環境変数の読み込み
@@ -33,14 +24,39 @@ if (file_exists(__DIR__ . "/config/.env")) {
 }
 
 /**
+ * 定数の定義
+ */
+define("IS_DEVELOPMENT", getenv("IS_DEVELOPMENT") ?: $_ENV["IS_DEVELOPMENT"] ?? false);
+define("DEBUG_MODE", getenv("DEBUG_MODE") ?: $_ENV["DEBUG_MODE"] ?? false);
+define("ERROR_LOG_PATH", getenv("ERROR_LOG_PATH") ?: $_ENV["ERROR_LOG_PATH"] ?? "");
+define("PROJECT_DOMAIN", getenv("PROJECT_DOMAIN") ?: $_ENV["PROJECT_DOMAIN"] ?? "");
+
+/*
+ * デバッグモードの設定
+ */
+if (DEBUG_MODE) {
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
+} else {
+	ini_set("display_errors", 0);
+}
+
+/**
  * エラー出力先の設定
  */
-if (isset($_ENV["ERROR_LOG_PATH"]) && file_exists($_ENV["ERROR_LOG_PATH"])) {
-	ini_set("error_log", $_ENV["ERROR_LOG_PATH"]);
+if (ERROR_LOG_PATH !== "" && file_exists(ERROR_LOG_PATH)) {
+	ini_set("error_log", ERROR_LOG_PATH);
 	ini_set("log_errors", 1);
 } else {
 	/* エラー出力先がない場合は強制終了 */
 	echo "Error log path not found. Please set ERROR_LOG_PATH in .env file.";
+	exit(1);
+}
+
+/* プロジェクトドメインの設定 */
+if (PROJECT_DOMAIN == "") {
+	/* プロジェクトドメインがない場合は強制終了 */
+	echo "Project domain not found. Please set PROJECT_DOMAIN in .env file.";
 	exit(1);
 }
 
@@ -62,8 +78,8 @@ $container->set(Guard::class, function () {
 
 	// 開発環境かつデバッグモードではCSRF検証をスキップ
 	$skipCSRF =
-		filter_var($_ENV["IS_DEVELOPMENT"] ?? false, FILTER_VALIDATE_BOOLEAN) &&
-		filter_var($_ENV["DEBUG_MODE"] ?? false, FILTER_VALIDATE_BOOLEAN);
+		filter_var(IS_DEVELOPMENT, FILTER_VALIDATE_BOOLEAN) &&
+		filter_var(DEBUG_MODE, FILTER_VALIDATE_BOOLEAN);
 	if ($skipCSRF) {
 		$guard->setFailureHandler(function (
 			Psr\Http\Message\ServerRequestInterface $request,
@@ -83,9 +99,7 @@ $container->set(Guard::class, function () {
 			$_SESSION["error_info"] = $errorInfo->toArray();
 
 			$response = $responseFactory->createResponse();
-			return $response
-				->withHeader("Location", "/article-writing-service/request/error/")
-				->withStatus(302);
+			return $response->withHeader("Location", PROJECT_DOMAIN . "/error/")->withStatus(302);
 		});
 	}
 
@@ -101,8 +115,15 @@ $container->set(App\Controllers\FormController::class, function ($c) {
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+/* エラー出力の設定 */
+if (DEBUG_MODE) {
+	$app->addErrorMiddleware(true, true, true);
+} else {
+	$app->addErrorMiddleware(false, false, false);
+}
+
 /* ルーティングの設定 */
-$app->get("/", App\Controllers\FormController::class . ":request");
-$app->post("/", App\Controllers\FormController::class . ":request");
-$app->get("/confirm", App\Controllers\FormController::class . ":confirm");
-$app->post("/confirm", App\Controllers\FormController::class . ":confirm");
+require_once __DIR__ . "/src/Routes/web.php";
+require_once __DIR__ . "/src/Routes/api.php";
+
+$app->run();

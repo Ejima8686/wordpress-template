@@ -1,0 +1,31 @@
+{% import "Macros/input.twig" as input %}
+
+<div class="{{ className }}">
+	<label for="{{ key }}" class="flex gap-2 items-center">
+		{% if required %}
+			{{ input.required() }}
+		{% endif %}
+		<span class="text-[16px]">{{ label }}</span>
+	</label>
+	<input
+		type="tel"
+		id="{{ key }}"
+		name="{{ key }}"
+		class="border border-border bg-white text-[14px] pt-1 pb-0.5 px-2.5 mt-2 w-full"
+		{% if title %}
+			title="{{ title }}"
+		{% endif %}
+		{% if placeholder %}
+			placeholder="{{ placeholder }}"
+		{% endif %}
+		{% if value %}
+			value="{{ value }}"
+		{% endif %}
+		{% if pattern %}
+			pattern="{{ pattern }}"
+		{% endif %}
+		{% if required %}
+			required
+		{% endif %}
+	>
+</div>
