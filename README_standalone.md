@@ -16,6 +16,7 @@ WordPress外に設置する、独立したLPやフォームの開発環境です
 - [Mailpit（メール検証サーバー）](https://mailpit.axllent.org/)
 - [Vite（フロント開発環境）](https://vite.dev/guide/)
   - [TailwindCSS](https://v2.tailwindcss.com/docs)
+  - [AlpineJS](https://alpinejs.dev/)
 
 ## 初期設定
 
