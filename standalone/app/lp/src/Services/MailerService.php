@@ -12,7 +12,6 @@ class MailerService
 		$mail = new PHPMailer(true);
 		try {
 			$mail->isSMTP();
-			$mail->isSMTP();
 			$mail->Host = $_ENV["SMTP_HOST"];
 			$mail->SMTPAuth = filter_var($_ENV["SMTP_AUTH"] ?? false, FILTER_VALIDATE_BOOLEAN);
 			switch ($_ENV["SMTP_SECURE"]) {
