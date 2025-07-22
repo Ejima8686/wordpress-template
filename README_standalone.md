@@ -43,10 +43,10 @@ WordPress外に設置する、独立したLPやフォームの開発環境です
 `/standalone/app/lp/vite/` から `/standalone/lp/dist/` にビルドしたいので、以下のように設定します。
 
 ```typescript
-	build: {
-		outDir: "../../../lp/dist", // 出力先を指定
-		...
-	},
+build: {
+	outDir: "../../../lp/dist", // 出力先を指定
+	...
+},
 ```
 
 ### 環境変数の設定
