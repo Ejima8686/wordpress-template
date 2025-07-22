@@ -4,6 +4,19 @@ WordPress外に設置する、独立したLPやフォームの開発環境です
 
 アプリケーションはいくつでも増やせるようにしてあります。
 
+## 技術スタック
+
+- [Slim（PHPフレームワーク）](https://www.slimframework.com/docs/v4/)
+  - [CSRF（CSRF対策）](https://github.com/slimphp/Slim-Csrf)
+  - [Twig（テンプレートエンジン）](https://twig.symfony.com/doc/3.x/)
+- [PHP DI（依存性注入）](https://www.slimframework.com/docs/v4/concepts/di.html)
+- [Dotenv（環境変数）](https://github.com/vlucas/phpdotenv)
+- [Respect（バリデーション）](https://respect-validation.readthedocs.io/en/latest/)
+- [PHPMailer（メーラー）](https://github.com/PHPMailer/PHPMailer)
+- [Mailpit（メール検証サーバー）](https://mailpit.axllent.org/)
+- [Vite（フロント開発環境）](https://vite.dev/guide/)
+  - [TailwindCSS](https://v2.tailwindcss.com/docs)
+
 ## 初期設定
 
 ### docker-compose.ymlの調整
