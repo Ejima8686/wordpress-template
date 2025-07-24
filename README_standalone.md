@@ -105,12 +105,11 @@ $ composer install
 つづいて、viteのインストール。
 
 ```bash
-cd vite # standalone/app/lp/vite
-npm install
+$ cd vite # standalone/app/lp/vite
+$ npm install
 ```
 
 ※ Vite7系統ではNode20系以上が要求されるなどあるので、適宜メンテナンスが必要です。
-
 
 ### 開発環境の立ち上げ
 
