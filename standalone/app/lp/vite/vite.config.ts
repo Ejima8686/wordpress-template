@@ -25,9 +25,10 @@ export default defineConfig({
 	},
 	server: {
 		port: 5137,
+		host: true, // Dockerのポートバインドで外部から見えるようにする。
 		proxy: {
 			// Viteの内部ファイル以外をバックエンドに転送
-			"^(?!/@vite|__vite|/src|/node_modules|/dist|/images|/public).*": "http://localhost:8080",
+			"^(?!/@vite|__vite|/src|/node_modules|/dist|/images|/public).*": "http://localhost",
 		},
 	},
 });

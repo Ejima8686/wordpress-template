@@ -10,6 +10,7 @@ services:
       - mailpit
     ports:
       - 8080:80
+      - 5137:5137
     volumes:
       - "./.env:/var/www/html/.env"
       - "./auth.json:/var/www/html/auth.json"
