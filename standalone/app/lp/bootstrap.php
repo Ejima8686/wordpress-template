@@ -122,8 +122,68 @@ if (DEBUG_MODE) {
 	$app->addErrorMiddleware(false, false, false);
 }
 
+// CSRFミドルウェアを追加
+$app->add($container->get(Guard::class));
+
 /* ルーティングの設定 */
 require_once __DIR__ . "/src/Routes/web.php";
 require_once __DIR__ . "/src/Routes/api.php";
+
+// 404エラーハンドラーを追加
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+
+$errorHandler = $errorMiddleware->getDefaultErrorHandler();
+$errorHandler->forceContentType("application/json");
+
+// 404エラーハンドラー
+$errorMiddleware->setErrorHandler(\Slim\Exception\HttpNotFoundException::class, function (
+	\Psr\Http\Message\ServerRequestInterface $request,
+	\Throwable $exception,
+	bool $displayErrorDetails
+) use ($container) {
+	$returnJson =
+		filter_var(IS_DEVELOPMENT, FILTER_VALIDATE_BOOLEAN) &&
+		filter_var(DEBUG_MODE, FILTER_VALIDATE_BOOLEAN);
+	if ($returnJson) {
+		// 開発環境: 詳細なエラー情報をJSONで返す
+		$response = new \Slim\Psr7\Response();
+		$response->getBody()->write(
+			json_encode([
+				"error" => "Not Found",
+				"message" => "The requested resource was not found",
+				"path" => $request->getUri()->getPath(),
+				"development" => true,
+			])
+		);
+
+		return $response->withStatus(404)->withHeader("Content-Type", "application/json");
+	} else {
+		// 本番環境: シンプルな404ページを表示
+		$response = new \Slim\Psr7\Response();
+		$html = '<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - ページが見つかりません</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        h1 { color: #333; }
+        p { color: #666; }
+        a { color: #007cba; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>404 - ページが見つかりません</h1>
+    <p>お探しのページは存在しないか、移動または削除された可能性があります。</p>
+    <p><a href="/article-writing-service/">トップページに戻る</a></p>
+</body>
+</html>';
+
+		$response->getBody()->write($html);
+		return $response->withStatus(404)->withHeader("Content-Type", "text/html; charset=utf-8");
+	}
+});
 
 $app->run();
