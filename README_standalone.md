@@ -90,9 +90,31 @@ $bootstrap_candidates = [
 
 ## 開発環境の実行
 
-まず、親となるWebサーバーは通常のwordpress起動サーバーを使用しますので、いつも通りコンテナを立ち上げてください。
+まず、親となるWebサーバーは通常のwordpress起動サーバーを使用しますので、いつも通りコンテナを立ち上げてください。  
+ここからはDevcontainer内で作業を進めてOKです。
 
-つづいて、viteの開発環境を立ち上げますが、この時に開発したいアプリケーションのviteディレクトリまで移動します。
+### 開発環境のインストール（初回のみ）
+
+まず、composerのインストール。
+
+```bash
+$ cd standalone/app/lp
+$ composer install
+```
+
+つづいて、viteのインストール。
+
+```bash
+cd vite # standalone/app/lp/vite
+npm install
+```
+
+※ Vite7系統ではNode20系以上が要求されるなどあるので、適宜メンテナンスが必要です。
+
+
+### 開発環境の立ち上げ
+
+viteの開発環境を立ち上げますが、この時に開発したいアプリケーションのviteディレクトリまで移動します。
 
 ```bash
 $ cd standalone/app/lp/vite
