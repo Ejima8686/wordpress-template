@@ -183,14 +183,14 @@ class FormController
 		try {
 			$mailer->send(
 				$_ENV["MAIL_ADMIN"],
-				"記事作成代行サービスへのお問い合わせがありました。",
+				"お問い合わせがありました。",
 				$this->view->getEnvironment()->render("Mail/admin.twig", [
 					"data" => $data,
 				])
 			);
 			$mailer->send(
 				$data["email"],
-				"【株式会社LiKG】記事作成代行サービスへのお問い合わせありがとうございます。",
+				"【株式会社Nevers】お問い合わせありがとうございます。",
 				$this->view->getEnvironment()->render("Mail/client.twig", [
 					"data" => $data,
 				])
