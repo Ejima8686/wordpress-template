@@ -1,0 +1,29 @@
+/****************************************
+ * Site ヘッダーフッターなどの共通パーツ
+ * 接頭時： s-
+ *****************************************/
+
+.s-header {
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	@variant md {
+		padding-top: 16px;
+		padding-bottom: 16px;
+	}
+}
+
+.s-main {
+	margin-top: 45px;
+
+	@variant md {
+		margin-top: 100px;
+	}
+}
+
+.s-body-bg {
+	background-image: url("@public/images/bg.webp");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}

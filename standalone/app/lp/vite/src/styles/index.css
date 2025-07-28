@@ -1,0 +1,20 @@
+/* Tailwind CSS */
+@import "tailwindcss";
+
+/* テーマ: カラー、フォント、メディアクエリなど */
+@import "./theme.css";
+
+/* ファンデーション：ベーススタイル */
+@import "./foundation.css";
+
+/* サイト：ヘッダーフッターなどの共通パーツ */
+@import "./sites.css";
+
+/* レイアウト：コンテナやグリッドなど */
+@import "./layouts.css";
+
+/* コンポーネント：サイト内で共通して使用する部品 */
+@import "./components.css";
+
+/* テンプレートファイル */
+@source "../../../src/Views/**/*";

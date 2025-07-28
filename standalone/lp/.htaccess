@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# 既存のファイルやディレクトリへのアクセスは除外
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# すべてのリクエストをindex.phpにリダイレクト
+RewriteRule ^(.*)$ index.php [QSA,L]

@@ -16,7 +16,6 @@
 			]
 		}
 	},
-	"forwardPorts": [8080],
 	"remoteUser": "root",
 	"postCreateCommand": "cd /workspaces && npm install"
 }

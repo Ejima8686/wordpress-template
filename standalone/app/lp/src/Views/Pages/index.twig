@@ -1,0 +1,122 @@
+{% extends "Layouts/layout.twig" %}
+
+{% set title = "LP" %}
+
+{% block main %}
+	<div class="l-container">
+		<div class="l-inner">
+			{# 動作検証用　動作確認できたら除去してください
+			<div x-data="example">
+				<h3>alpinejsの動作検証用（動作確認できたら除去してください）</h3>
+				<button @click="toggle" class="border-2 border-border rounded-lg px-2 py-1">
+					Toggle
+				</button>
+				<div x-show="show" x-cloak>
+					<button @click="$store.counter.decrement()" class="border-2 border-border rounded-lg px-2 py-1">
+						-
+					</button>
+					<span x-text="$store.counter.count"></span>
+					<button @click="$store.counter.increment()" class="border-2 border-border rounded-lg px-2 py-1">
+						+
+					</button>
+				</div>
+			</div>
+			動作確認できたら除去してください　動作検証用 #}
+
+			{% if validationErrors|length == 0 %}
+				{# エラーがない場合 #}
+				<h1 class="c-h1">お問い合わせ</h1>
+				<p class="c-p w-fit mx-auto mt-6 md:mt-10">
+					以下のお問い合わせフォームに必要事項をご入力の上、お気軽にお問い合わせください。
+				</p>
+			{% else %}
+				{# エラーがある場合 #}
+				<h1 class="c-h1">お手数ですが再度ご入力ください</h1>
+				<p class="c-p w-fit mx-auto mt-6 md:mt-10">必須項目の未入力または入力内容に不備があります。<br class="hidden md:block">恐れ入りますが、内容をご確認のうえ、再度ご入力をお願いいたします。</p>
+				<div class="c-p mt-6 md:mt-10 border-text_orange border-2 rounded-lg py-2 px-4">
+					<ul class="list-disc pl-4">
+						{% for error in validationErrors %}
+							<li class="text-text_orange text-[14px]">{{ error }}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+		</div>
+
+
+		<div class="l-inner bg-off_white px-3 py-6 md:py-20 mt-6 md:mt-10">
+			<div class="max-w-[640px] mx-auto">
+				<form action="./confirm/" method="post">
+					{# CSRFトークン #}
+					<input type="hidden" name="{{ csrfNameKey}}" value="{{ csrfName }}">
+					<input type="hidden" name="{{ csrfValueKey }}" value="{{ csrfValue }}">
+
+					{# フォーム本体 #}
+					<div class="grid gap-8">
+						{%
+							include "Components/inputText.twig" with {
+								key: "name",
+								label: "ご担当者名",
+								title: "ご担当者名を入力",
+								placeholder: "山田 太郎",
+								value: formData.name|default(''),
+								required: true
+							}
+						%}
+						{%
+							include "Components/inputEmail.twig" with {
+								key: "email",
+								label: "メールアドレス",
+								title: "メールアドレスを入力（例：example@example.com）",
+								placeholder: "example@example.com",
+								value: formData.email|default(''),
+								required: true
+							}
+						%}
+						{%
+							include "Components/inputTel.twig" with {
+								key: "tel",
+								label: "電話番号",
+								title: "電話番号を入力、ハイフンなし（例：09012345678）",
+								placeholder: "09012345678",
+								pattern: "\\+?[0-9]{8,15}",
+								value: formData.tel|default('')
+							}
+						%}
+						{%
+							include "Components/inputTextarea.twig" with {
+								key: "message",
+								label: "お問い合わせ内容",
+								placeholder: "お問い合わせ内容を入力してください",
+								maxlength: 1000,
+								value: formData.message|default('')
+							}
+						%}
+						<div class="flex gap-2 items-center">
+							<input type="checkbox" id="privacy_policy" name="privacy_policy" class="appearance-none w-4 h-4 grid place-items-center border border-border rounded bg-white transition-colors checked:bg-theme_orange-2 checked:before:content-['✓'] checked:before:text-white checked:before:text-[12px] checked:before:font-bold checked:before:leading-none"
+							{% if formData.privacy_policy|default(false) %}
+								checked
+							{% endif %}
+							required>
+							<label for="privacy_policy">
+								<span class="text-[12px] md:text-[14px]">
+									上記を確認し、<a href="/privacy/" target="_blank" class="text-theme_blue underline">プライバシーポリシー</a>に同意する
+								</span>
+							</label>
+						</div>
+					</div>
+					<div class="grid place-items-center mt-14">
+						{% include "Components/btn-submit.twig" with {
+							label: "入力内容を確認する",
+							className: "w-full md:w-fit min-w-[284px]"
+						} %}
+					</div>
+				</form>
+
+			</div>
+			<p class="c-p mt-14 w-fit mx-auto">尚、営業目的のお問い合わせと判断した場合、日程調整のご連絡に応じられない場合がございます。<br>予め、日程のご調整についてご了承いただけますと幸いです。</p>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
