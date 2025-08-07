@@ -14,7 +14,7 @@ add_action("admin_enqueue_scripts", function () {
 	$IS_VITE_RUNNING = check_vite_connection();
 	global $pagenow;
 	if (
-		($_ENV["IS_DEVELOPMENT"] || $IS_VITE_RUNNING) &&
+		(isset($_ENV["IS_DEVELOPMENT"]) ? $_ENV["IS_DEVELOPMENT"] : false || $IS_VITE_RUNNING) &&
 		($pagenow === "post.php" || $pagenow === "post-new.php")
 	) {
 		echo '<script type="module" src="http://localhost:3000/@vite/client"></script>';
