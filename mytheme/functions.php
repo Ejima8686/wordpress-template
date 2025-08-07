@@ -23,9 +23,7 @@ if (!isset($content_width)) {
 /**
  * ログイン中かつ開発環境の場合、管理バー（Admin Bar）を非表示にする
  */
-if (is_user_logged_in() && is_dev()) {
-	add_filter("show_admin_bar", "__return_false");
-}
+// add_filter("show_admin_bar", "__return_false");
 
 /**
  * WordPressが自動的に出力する `global-styles-inline-css` を読み込みから除外する
