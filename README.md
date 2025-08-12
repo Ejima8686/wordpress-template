@@ -1,4 +1,4 @@
-# wordpress-template-v3
+# wordpress-template
 
 **Visual Studio Code の DevContainer 機能を活用した WordPress 開発環境テンプレート**です。
 
@@ -33,7 +33,6 @@ npm run setup:init
   - `.devcontainer/.env` の作成（THEME_NAME, VITE_THEME_NAME）
   - `auth.json` の作成（ACF PRO用ファイル）
  
-[弊社のACFキー](https://www.notion.so/ACF-23363dde3474804c930fdf39420470ba?v=c4c6c111eb58431ba4d62a9f416625f8&source=copy_link)
 
 ### 2. Dev Container の起動
 
