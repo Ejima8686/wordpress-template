@@ -12,20 +12,14 @@
 ■ メールアドレス
 {{ data.email }}
 
-■ 電話番号
-{% if data.tel %}
-{{ data.tel }}
+■ 電話番号{% if data.tel %}
+	{{ data.tel }}
 {% else %}
-未記入
-{% endif %}
-
-■ お問い合わせ内容
-{% if data.message %}
-{{ data.message }}
+	未記入
+{% endif %}■ お問い合わせ内容{% if data.message %}
+	{{ data.message }}
 {% else %}
-未記入
-{% endif %}
+	未記入
+{% endif %}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-問い合わせ日時: {{ "now"|date("Y-m-d H:i:s") }}
+問い合わせ日時: {{ 'now'|date('Y-m-d H:i:s') }}

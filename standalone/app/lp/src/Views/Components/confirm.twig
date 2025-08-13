@@ -1,4 +1,4 @@
-{% import "Macros/input.twig" as input %}
+{% import 'Macros/input.twig' as input %}
 
 <dl class="{{ className }}">
 	<dt class="flex gap-2 items-center">
@@ -7,7 +7,5 @@
 		{% endif %}
 		<span class="text-[16px]">{{ label }}</span>
 	</dt>
-	<dd class="c-p --l mt-2 font-bold">
-		{{ content | nl2br }}
-	</dd>
+	<dd class="c-p --l mt-2 font-bold">{{ content|nl2br }}</dd>
 </dl>

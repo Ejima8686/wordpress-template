@@ -8,7 +8,9 @@
 		cursor-pointer
 		border border-transparent
 		group
-		{{ className }}
+		{{
+	className
+	}}
 	"
 	style="
 		background-image:
@@ -19,11 +21,7 @@
 	"
 >
 	<span
-		class="
-			inline-block text-[24px] font-bold
-			text-cta_orange group-hover:text-theme_orange-2
-			transition-colors duration-300 ease-out
-		"
+		class="inline-block text-[24px] font-bold text-cta_orange group-hover:text-theme_orange-2 transition-colors duration-300 ease-out"
 	>
 		{{ label }}
 	</span>

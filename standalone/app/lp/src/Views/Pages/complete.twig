@@ -1,7 +1,7 @@
-{% extends "Layouts/layout.twig" %}
+{% extends 'Layouts/layout.twig' %}
 
-{% set title = "LP - お問い合わせ完了" %}
-{% set bodyClass = "s-body-bg" %}
+{% set title = 'LP - お問い合わせ完了' %}
+{% set bodyClass = 's-body-bg' %}
 
 {% block main %}
 	<div class="l-container">
@@ -9,18 +9,16 @@
 			<h1 class="c-h1">送信完了</h1>
 			<div class="bg-off_white py-6 px-3 md:p-10">
 				<p class="c-p w-fit mx-auto">
-					お問い合わせいただき、誠にありがとうございます。<br>
-					ご入力いただいたメールアドレス宛に自動返信メールをお送りいたしました。<br>
+					お問い合わせいただき、誠にありがとうございます。<br />
+					ご入力いただいたメールアドレス宛に自動返信メールをお送りいたしました。<br />
 					内容を確認のうえ、担当よりご連絡させていただきますので、今しばらくお待ちください。
 				</p>
 			</div>
 			<div class="grid gap-6 mt-6">
-				{%
-					include "Components/btn-back.twig" with {
-					href: projectDomain ~ "/",
-					label: "トップページに戻る"
-					}
-				%}
+				{% include 'Components/btn-back.twig' with {
+					href: projectDomain ~ '/',
+					label: 'トップページに戻る'
+				} %}
 			</div>
 		</div>
 	</div>
