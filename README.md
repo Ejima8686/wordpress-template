@@ -1,24 +1,36 @@
-# wordpress-template
+# WordPress Template
 
-**Visual Studio Code の DevContainer 機能を活用した WordPress 開発環境テンプレート**です。
+**Visual Studio Code の DevContainer 機能を活用した WordPress 開発環境テンプレート**
+
+## 目次
+
+- [必要なソフト・拡張機能](#必要なソフト・拡張機能)
+- [構成](#構成)
+- [導入](#導入)
+- [データの復元・エクスポート](#データの復元・エクスポート)
+- [開発コマンド](#開発コマンド)
+- [ブロックの作成](#ブロックの作成)
+- [SSHセットアップ](#sshセットアップ)
+- [コミットテンプレート](#コミットテンプレート)
 
 ## 必要なソフト・拡張機能
 
-以下をローカルにインストールしてください。
+以下をローカルにインストールしてください：
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js（v18 以上推奨）](https://nodejs.org/)
-- [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)<br>（VS Code で DevContainer を使用するために必須）
+- [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)（VS Code で DevContainer を使用するために必須）
 
 ## 構成
 
-| 項目          | 内容                                                    |
-| ------------- | ------------------------------------------------------- |
-| WordPress     | 最新版 + PHP 8.2 + Apache                               |
-| DB            | MariaDB                                                 |
-| Dev Container | `.devcontainer/` フォルダ                               |
-| Vite          | `source/` フォルダ内のCSS、JSのホットリロード及びビルド |
+| 項目               | 内容                               |
+| ------------------ | ---------------------------------- |
+| **CMS**            | WordPress最新版 + PHP 8.2 + Apache |
+| **DB**             | MariaDB                            |
+| **開発環境**       | Docker + Dev Container             |
+| **フロントエンド** | Vite + Tailwind CSS + Alpine.js    |
+| **開発ツール**     | WP-CLI、Composer、Node.js v20      |
 
 ## 導入
 
@@ -28,19 +40,22 @@
 npm run setup:init
 ```
 
-- `setup/init.mjs` が対話形式で以下を行います：
-  - テーマ名の確認（またはリネーム）
-  - `.devcontainer/.env` の作成（THEME_NAME, VITE_THEME_NAME）
-  - `auth.json` の作成（ACF PRO用ファイル）
+`setup/init.mjs` が対話形式で以下を行います：
+
+- テーマ名の確認（またはリネーム）
+- `.devcontainer/.env` の作成（THEME_NAME, VITE_THEME_NAME）
+- `auth.json` の作成（ACF PRO用ファイル）
 
 ### 2. Dev Container の起動
 
-VSCode を使用してコンテナを起動します。<br>
-`.devcontainer/init.sh` に基づいて、wordpress環境が構築されます。<br>
-開発を再開する場合もこちらを実行してください。
+VSCode を使用してコンテナを起動します。
 
-- コマンドパレット（`Cmd+Shift+P`）から
-  **"Dev Containers: Reopen in Container"** を選択
+`.devcontainer/init.sh` に基づいて、WordPress環境が構築されます。開発を再開する場合もこちらを実行してください。
+
+**手順：**
+
+1. コマンドパレット（`Cmd+Shift+P`）を開く
+2. **"Dev Containers: Reopen in Container"** を選択
 
 ### 3. Vite の起動
 
@@ -51,167 +66,190 @@ npm run i
 npm run dev
 ```
 
-[http://localhost:8080/](http://localhost:8080/)にアクセスしてください
+[http://localhost:8080/](http://localhost:8080/) にアクセスしてください
 
 ### 4. 開発スタート
 
 ブラウザから WordPressの管理画面にアクセスし、開発を開始してください。
 
-[http://localhost:8080/wp-admin](http://localhost:8080/wp-admin)<br>
+**管理画面URL：** [http://localhost:8080/wp-admin](http://localhost:8080/wp-admin)
 
-- ユーザー名: `admin`<br>
+**ログイン情報：**
+
+- ユーザー名: `admin`
 - パスワード: `password`
 
 ### 5. ローカル環境に戻る（Dev Container の終了）
 
 Dev Container 内での作業を終了し、VS Code がローカル環境に戻ります。
 
-- コマンドパレット（`Cmd+Shift+P`）を開き、
-  **"Dev Containers: Reopen Folder Locally"** を選択
+**手順：**
 
-## データの復元
+1. コマンドパレット（`Cmd+Shift+P`）を開く
+2. **"Dev Containers: Reopen Folder Locally"** を選択
+
+## データの復元・エクスポート
+
+### データの復元
 
 すでに他開発者がエクスポートしたデータがある場合、データの復元ができます。
-`services/wordpress/portal`に以下があることを確認し、コマンドを実行してください。
+
+**事前準備：**
+`services/wordpress/portal` に以下があることを確認してください：
 
 - `uploads.zip`（アップロードした画像等のファイル）
 - `wordpress.sql`（投稿された記事などのデータ）
+
+**実行コマンド：**
 
 ```bash
 npm run import
 ```
 
-## データのエクスポート
+### データのエクスポート
 
-Wordpressのデータをエクスポートできます。以下のデータが出力されます。
+WordPressのデータをエクスポートできます。
+
+**出力されるデータ：**
 
 - `uploads.zip`（アップロードした画像等のファイル）
 - `wordpress.sql`（投稿された記事などのデータ）
+
+**実行コマンド：**
 
 ```bash
 npm run export
 ```
 
-## 本番用ビルド
+## 開発コマンド
 
-次のコマンドを実行すると、ビルド済みのファイルが [テーマ名]/build ディレクトリに出力されます。
+### 本番用ビルド
+
+ビルド済みのファイルが `[テーマ名]/build` ディレクトリに出力されます。
 
 ```bash
 npm run build
 ```
 
-## フォーマット
+### フォーマット
+
+コードのフォーマットを実行します。
 
 ```bash
 npm run format
 ```
 
-## ブロックの作成の仕方
+## ブロックの作成
+
+### ACFブロックの作成
 
 ```bash
 npx scaffdog generate acf-block
 ```
 
-ACFPRO用のカスタムブロックを作成できます。<br>
-対話に沿って生成してください。
+ACF PRO用のカスタムブロックを作成できます。対話に沿って生成してください。
 
-- name
-  - ブロックの slug を入れてください
-- title
-  - エディタ側で表示する名前を入れてください。日本語でも OK です
-- description
-  - エディタ側で表示する詳細文を書いてください
-- icon
-  - エディタ側で表示するアイコンを書いてください
-  - [このサイト](https://developer.wordpress.org/resource/dashicons/)から選んください
-  - `dashicons-` というプレフィクスはのぞいて指定してください eg. `dashicons-menu-alt3` なら `menu-alt3`
-- category
-  - エディタ側で表示するカテゴリを指定してください。
-  - text
-  - media
-  - design
-  - widgets
-  - theme
-  - embed
-  - デフォルトは `text`
+**入力項目：**
 
-### 作成したブロックの登録の仕方
+| 項目            | 説明                                                                                                                                                                                     |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **name**        | ブロックの slug を入力                                                                                                                                                                   |
+| **title**       | エディタ側で表示する名前（日本語可）                                                                                                                                                     |
+| **description** | エディタ側で表示する詳細文                                                                                                                                                               |
+| **icon**        | エディタ側で表示するアイコン<br>[Dashicons](https://developer.wordpress.org/resource/dashicons/)から選択<br>`dashicons-` プレフィックスは除外（例：`dashicons-menu-alt3` → `menu-alt3`） |
+| **category**    | エディタ側で表示するカテゴリ<br>選択肢：`text`, `media`, `design`, `widgets`, `theme`, `embed`<br>デフォルト：`text`                                                                     |
 
-1. `mytheme/inc/blocks.php` の　`allowed_block_types_all`の中で、使用するブロックを配列に追加してください。使用できるブロックは[こちら](https://wphelpers.dev/blocks)から確認してください。
-2. ACFブロックを追加する場合は、nameに入力した値に `acf/` プレフィクスをつけたものを指定してください。eg. `heading` → `acf/heading`
+### 作成したブロックの登録
 
-## DevContainerでのGit操作のためのSSHセットアップ
+1. `mytheme/inc/blocks.php` の `allowed_block_types_all` で、使用するブロックを配列に追加
+   - 使用できるブロックは[こちら](https://wphelpers.dev/blocks)から確認
+2. ACFブロックを追加する場合は、nameに入力した値に `acf/` プレフィックスを付ける
+   - 例：`heading` → `acf/heading`
 
-ただコンテナを立ち上げても、ホストの持つ鍵情報はコンテナに共有されないため、SSH接続ができません。
-コンテナ内で`git push`等のGitリモート操作をSSH経由で行えるように設定できます。<br>
+## SSHセットアップ
 
-- セットアップは必須ではありません。コンテナで作業後、ローカル環境に戻ればGitリモート操作自体は可能です。
+コンテナ内で `git push` 等のGitリモート操作をSSH経由で行えるように設定できます。
 
-- また、このセットアップはGit側に公開鍵を登録済みであり、ホスト側に秘密鍵を所持していることが前提となります。
+> **注意：**
+>
+> - セットアップは必須ではありません。コンテナで作業後、ローカル環境に戻ればGitリモート操作自体は可能です
+> - このセットアップはGit側に公開鍵を登録済みであり、ホスト側に秘密鍵を所持していることが前提です
 
-以下のコマンドを実行してください。
+### セットアップ手順
+
+**1. セットアップコマンドの実行**
 
 ```bash
 npm run setup:git
 ```
 
-- `setup/github/ssh-init.mjs`により、対話形式で`ssh.env`を作成します。**githubの秘密鍵のパスが必要になります。**
-  <br>
-- `setup/github/ssh.sh`により、ssh-agent を起動し、SSH鍵を ssh-agent に登録します。
+**2. 実行される処理**
 
-セットアップ後、[コンテナを立ち上げ](#2-dev-container-の起動)、以下を実行してssh-agentの起動状況を確認してください。
+- `setup/github/ssh-init.mjs`：対話形式で `ssh.env` を作成（GitHubの秘密鍵のパスが必要）
+- `setup/github/ssh.sh`：ssh-agent を起動し、SSH鍵を ssh-agent に登録
+
+**3. 動作確認**
+[コンテナを立ち上げ](#2-dev-container-の起動)後、以下を実行してssh-agentの起動状況を確認：
 
 ```bash
 ssh-add -l
 ```
 
-出力例 → `3072 SHA256:xxxx... your-key-name (RSA)`
+**出力例：** `3072 SHA256:xxxx... your-key-name (RSA)`
 
 これでGitのリモート操作が可能になります。
 
-## コミットテンプレートのセットアップ
+## コミットテンプレート
 
-コミットメッセージの一貫性を保つ手段として、コミットメッセージのテンプレートを用意しています。
-使用するには、プロジェクトルートで以下のコマンドを実行し、`.github/.gitmessage.txt`をコミットの初期表示に設定します。
+コミットメッセージの一貫性を保つため、コミットメッセージのテンプレートを用意しています。
+
+### セットアップ
+
+プロジェクトルートで以下のコマンドを実行し、`.github/.gitmessage.txt` をコミットの初期表示に設定：
 
 ```bash
 git config commit.template .github/.gitmessage.txt
 ```
 
-`git commit`を実行すると、`.github/.gitmessage.txt`の内容が展開します。
-設定を削除する際は以下を実行してください。
+### 使用方法
+
+`git commit` を実行すると、`.github/.gitmessage.txt` の内容が展開されます。
+
+### 設定の削除
+
+設定を削除する際は以下を実行：
 
 ```bash
 git config --unset commit.template
 ```
 
-<br>
+---
 
 <details>
-<summary style="font-size: 16px; font-weight: bold;">※Cursor を使う場合のエディタ変更方法</summary>
+<summary><strong>💡 Cursor を使う場合のエディタ変更方法</strong></summary>
 
 デフォルトでは Vim が開くため、他のエディタに変更するには以下を実行します。
 
-1. アプリケーションまでのフルパスを取得する
+### 1. アプリケーションまでのフルパスを取得
 
 ```bash
 find /Applications -name "Cursor"
 ```
 
-2. 編集エディタを設定
+### 2. 編集エディタを設定
 
 ```bash
 git config --global core.editor "「アプリのフルパス」 --wait"
 ```
 
-既存設定を消してから再設定したい場合:
+### 3. 既存設定を消してから再設定（必要な場合）
 
 ```bash
 git config --global --unset-all core.editor
 git config --global core.editor "「アプリのフルパス」 --wait"
 ```
 
-設定確認:
+### 4. 設定確認
 
 ```bash
 git config --global --get-all core.editor
