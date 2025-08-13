@@ -1,6 +1,6 @@
 # YoastSEOでmetaを設定する
 
-関連記事: [YoastSEOで使える変数を追加する](YoastSEOで使える変数を追加する.md)
+関連記事: [YoastSEOで使える変数を追加する](14_YoastSEOで使える変数を追加する.md)
 
 ---
 
@@ -103,7 +103,7 @@ Settings > Content typeから、以下のコンテンツのメタ情報の設定
 
 `Title` … 記事、ページのタイトル
 
-`excerpt_description` … カスタム変数。これは記事の内容140文字の抜粋。作り方はこちら。[YoastSEOで使える変数を追加する](YoastSEOで使える変数を追加する.md)
+`excerpt_description` … カスタム変数。これは記事の内容140文字の抜粋。作り方はこちら。[YoastSEOで使える変数を追加する](14_YoastSEOで使える変数を追加する.md)
 
 **タクソノミーページの場合**
 

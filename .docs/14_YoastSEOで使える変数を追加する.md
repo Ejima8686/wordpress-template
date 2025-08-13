@@ -1,6 +1,6 @@
 # YoastSEOで使える変数を追加する
 
-関連記事: [YoastSEOでmetaを設定する](YoastSEOでmetaを設定する.md)
+関連記事: [YoastSEOでmetaを設定する](13_YoastSEOでmetaを設定する.md)
 
 ---
 
