@@ -1,18 +1,25 @@
-{% extends "Layouts/layout.twig" %}
+{% extends 'Layouts/layout.twig' %}
 
-{% set title = "LP - お問い合わせ確認" %}
+{% set title = 'LP - お問い合わせ確認' %}
 
 {% block main %}
 	<div class="l-container">
 		<div class="l-inner">
-			{% if validationErrors|length == 0 %}
+			{% if (validationErrors|length) == 0 %}
 				{# エラーがない場合 #}
 				<h1 class="c-h1">入力内容のご確認</h1>
-				<p class="c-p w-fit mx-auto mt-6 md:mt-10">ご入力いただいた内容をご確認のうえ、「送信する」ボタンをクリックしてください。<br>内容を修正される場合は「戻る」ボタンを押して、再度ご入力ください。</p>
+				<p class="c-p w-fit mx-auto mt-6 md:mt-10">
+					ご入力いただいた内容をご確認のうえ、「送信する」ボタンをクリックしてください。<br
+					/>内容を修正される場合は「戻る」ボタンを押して、再度ご入力ください。
+				</p>
 			{% else %}
 				{# エラーがある場合 #}
 				<h1 class="c-h1">お手数ですが再度ご入力ください</h1>
-				<p class="c-p w-fit mx-auto mt-6 md:mt-10">必須項目の未入力または入力内容に不備があります。<br class="hidden md:block">恐れ入りますが、内容をご確認のうえ、再度ご入力をお願いいたします。</p>
+				<p class="c-p w-fit mx-auto mt-6 md:mt-10">
+					必須項目の未入力または入力内容に不備があります。<br
+						class="hidden md:block"
+					/>恐れ入りますが、内容をご確認のうえ、再度ご入力をお願いいたします。
+				</p>
 				<div class="c-p mt-6 md:mt-10 border-text_orange border-2 rounded-lg py-2 px-4">
 					<ul class="list-disc pl-4">
 						{% for error in validationErrors %}
@@ -26,48 +33,49 @@
 		<div class="l-inner bg-off_white px-3 py-6 md:py-20 mt-6 md:mt-10">
 			<div class="max-w-[640px] mx-auto">
 				<div class="grid gap-8">
-					{% include "Components/confirm.twig" with {
-						label: "ご担当者名",
+					{% include 'Components/confirm.twig' with {
+						label: 'ご担当者名',
 						content: data.name|default(''),
 						required: true
 					} %}
-					{% include "Components/confirm.twig" with {
-						label: "メールアドレス",
+					{% include 'Components/confirm.twig' with {
+						label: 'メールアドレス',
 						content: data.email|default(''),
 						required: true
 					} %}
-					{% include "Components/confirm.twig" with {
-						label: "電話番号",
+					{% include 'Components/confirm.twig' with {
+						label: '電話番号',
 						content: data.tel|default(''),
 						required: false
 					} %}
-					{% include "Components/confirm.twig" with {
-						label: "お問い合わせ内容",
+					{% include 'Components/confirm.twig' with {
+						label: 'お問い合わせ内容',
 						content: data.message|default(''),
 						required: false
 					} %}
 				</div>
 				<div class="mt-14">
 					<form action="../send/" method="post" class="inline">
-						<input type="hidden" name="{{ csrfNameKey }}" value="{{ csrfName }}">
-						<input type="hidden" name="{{ csrfValueKey }}" value="{{ csrfValue }}">
+						<input type="hidden" name="{{ csrfNameKey }}" value="{{ csrfName }}" />
+						<input type="hidden" name="{{ csrfValueKey }}" value="{{ csrfValue }}" />
 						<div class="grid gap-14 md:flex md:gap-14 place-items-center">
-							{% include "Components/btn-back.twig" with {
-								href: "../",
-								label: "入力に戻る",
-								className: "w-full md:w-fit min-w-[284px]"
+							{% include 'Components/btn-back.twig' with {
+								href: '../',
+								label: '入力に戻る',
+								className: 'w-full md:w-fit min-w-[284px]'
 							} %}
-							{% include "Components/btn-submit.twig" with {
-								label: "入力内容を送信する",
-								className: "w-full md:w-fit min-w-[284px]"
+							{% include 'Components/btn-submit.twig' with {
+								label: '入力内容を送信する',
+								className: 'w-full md:w-fit min-w-[284px]'
 							} %}
 						</div>
 					</form>
 				</div>
-
 			</div>
-			<p class="c-p mt-14 w-fit mx-auto">尚、営業目的のお問い合わせと判断した場合、日程調整のご連絡に応じられない場合がございます。<br>予め、日程のご調整についてご了承いただけますと幸いです。</p>
-			</div>
+			<p class="c-p mt-14 w-fit mx-auto">
+				尚、営業目的のお問い合わせと判断した場合、日程調整のご連絡に応じられない場合がございます。<br
+				/>予め、日程のご調整についてご了承いただけますと幸いです。
+			</p>
 		</div>
 	</div>
 {% endblock %}

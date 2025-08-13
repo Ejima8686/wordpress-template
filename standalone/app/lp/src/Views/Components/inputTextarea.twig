@@ -1,4 +1,4 @@
-{% import "Macros/input.twig" as input %}
+{% import 'Macros/input.twig' as input %}
 
 <div class="{{ className }}">
 	<label for="{{ key }}" class="flex gap-2 items-center">
@@ -7,22 +7,20 @@
 		{% endif %}
 		<span class="text-[16px]">{{ label }}</span>
 	</label>
+	{% set titleAttr = title ? 'title="' ~ title ~ '"' : '' %}
+	{% set maxlengthAttr = maxlength ? 'maxlength="' ~ maxlength ~ '"' : '' %}
+	{% set placeholderAttr = placeholder ? 'placeholder="' ~ placeholder ~ '"' : '' %}
+	{% set requiredAttr = required ? 'required' : '' %}
 	<textarea
 		id="{{ key }}"
 		name="{{ key }}"
 		class="border border-border bg-white text-[14px] py-2 px-3 mt-2 w-full resize-none"
 		rows="{{ rows ? rows : 10 }}"
-		{% if title %}
-			title="{{ title }}"
-		{% endif %}
-		{% if maxlength %}
-			maxlength="{{ maxlength }}"
-		{% endif %}
-		{% if placeholder %}
-			placeholder="{{ placeholder }}"
-		{% endif %}
-		{% if required %}
-			required
-		{% endif %}
-	>{{ value ? value : '' }}</textarea>
+		{{ titleAttr }}
+		{{ maxlengthAttr }}
+		{{ placeholderAttr }}
+		{{ requiredAttr }}
+	>
+		{{ value ? value : '' }}
+	</textarea>
 </div>

@@ -1,4 +1,4 @@
-{% import "Macros/input.twig" as input %}
+{% import 'Macros/input.twig' as input %}
 
 <div class="{{ className }}">
 	<label for="{{ key }}" class="flex gap-2 items-center">
@@ -7,31 +7,24 @@
 		{% endif %}
 		<span class="text-[16px]">{{ label }}</span>
 	</label>
+	{% set valueAttr = value ? 'value="' ~ value ~ '"' : '' %}
+	{% set maxlengthAttr = maxlength ? 'maxlength="' ~ maxlength ~ '"' : '' %}
+	{% set minlengthAttr = minlength ? 'minlength="' ~ minlength ~ '"' : '' %}
+	{% set titleAttr = title ? 'title="' ~ title ~ '"' : '' %}
+	{% set placeholderAttr = placeholder ? 'placeholder="' ~ placeholder ~ '"' : '' %}
+	{% set patternAttr = pattern ? 'pattern="' ~ pattern ~ '"' : '' %}
+	{% set requiredAttr = required ? 'required' : '' %}
 	<input
 		type="text"
 		id="{{ key }}"
 		name="{{ key }}"
 		class="border border-border bg-white text-[14px] pt-1 pb-0.5 px-2 mt-2 w-full"
-		{% if value %}
-			value="{{ value }}"
-		{% endif %}
-		{% if maxlength %}
-			maxlength="{{ maxlength }}"
-		{% endif %}
-		{% if minlength %}
-			minlength="{{ minlength }}"
-		{% endif %}
-		{% if title %}
-			title="{{ title }}"
-		{% endif %}
-		{% if placeholder %}
-			placeholder="{{ placeholder }}"
-		{% endif %}
-		{% if pattern %}
-			pattern="{{ pattern }}"
-		{% endif %}
-		{% if required %}
-			required
-		{% endif %}
-	>
+		{{ valueAttr }}
+		{{ maxlengthAttr }}
+		{{ minlengthAttr }}
+		{{ titleAttr }}
+		{{ placeholderAttr }}
+		{{ patternAttr }}
+		{{ requiredAttr }}
+	/>
 </div>
