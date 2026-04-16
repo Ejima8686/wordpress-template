@@ -22,7 +22,7 @@ WordPress外に設置する、独立したLPやフォームの開発環境です
 
 ### docker-compose.ymlの調整
 
-まず、`.devcontainer/docker-compose.yml` にスタンドアロンアプリ用のディレクトリを切ります。デフォルトでは `lp` という名前で切ってあります。
+まず、`docker-compose.yml` にスタンドアロンアプリ用のディレクトリを切ります。デフォルトでは `lp` という名前で切ってあります。
 
 **この時、非公開領域に `app/lp` ディレクトリを配置し、公開領域に `lp` ディレクトリが配置されることに注意してください。**
 
@@ -32,8 +32,8 @@ WordPress外に設置する、独立したLPやフォームの開発環境です
 
 ```yml
 # WordPress外のサイトを配置
-- "../standalone/app:/var/www/app" # アプリケーション
-- "../standalone/lp:/var/www/html/lp" # フロントエンド（増やしていく）
+- "./standalone/app:/var/www/app" # アプリケーション
+- "./standalone/lp:/var/www/html/lp" # フロントエンド（増やしていく）
 ```
 
 ### vite.config.tsの調整
@@ -90,8 +90,7 @@ $bootstrap_candidates = [
 
 ## 開発環境の実行
 
-まず、親となるWebサーバーは通常のwordpress起動サーバーを使用しますので、いつも通りコンテナを立ち上げてください。  
-ここからはDevcontainer内で作業を進めてOKです。
+まず、親となるWebサーバーは通常のwordpress起動サーバーを使用しますので、いつも通りコンテナを立ち上げてください。
 
 ### 開発環境のインストール（初回のみ）
 
