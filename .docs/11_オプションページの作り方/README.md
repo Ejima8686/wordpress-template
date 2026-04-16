@@ -41,8 +41,6 @@
 ```php
 <?php
 
-namespace WordPressStarter\Theme;
-
 /**
  * ACF オプションページのセットアップ
  *

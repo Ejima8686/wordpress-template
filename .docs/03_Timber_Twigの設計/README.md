@@ -62,8 +62,6 @@ inc/
 ```php
 <?php
 
-namespace WordPressStarter\Theme;
-
 ...省略
 
 require_once __DIR__ . "/inc/vite-assets.php";
