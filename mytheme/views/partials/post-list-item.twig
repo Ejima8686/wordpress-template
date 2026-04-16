@@ -3,7 +3,7 @@
 		{% for term in post.terms({
 			taxonomy: taxonomy
 		}) %}
-			<a href="{{ term.link }}">{{ term.title }}</a>
+			<a href="{{ term.link }}">{{ term.name }}</a>
 		{% endfor %}
 	</div>
 	<a class="flex justify-between items-center gap-x-6 pt-3" href="{{ post.link }}">
