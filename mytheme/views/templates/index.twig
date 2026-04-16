@@ -25,7 +25,8 @@
 
 		{% set mytheme_news_posts =
 			get_posts({
-				post_type: 'mytheme_news'
+				post_type: 'mytheme_news',
+				posts_per_page: 3
 			})
 		%}
 		<ol class="mt-8 divide-y">
