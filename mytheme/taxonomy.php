@@ -5,8 +5,6 @@
  * @link https://developer.wordpress.org/themes/template-files-section/taxonomy-templates/
  */
 
-namespace App;
-
 use Timber\Timber;
 
 $context = Timber::context();

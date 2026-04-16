@@ -1,7 +1,5 @@
 <?php
 
-namespace WordPressStarter\Theme;
-
 add_action("init", function () {
 	register_post_type("mytheme_news", [
 		"label" => "お知らせ",

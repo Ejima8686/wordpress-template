@@ -8,8 +8,6 @@
  * Learn more: https://developer.wordpress.org/themes/basics/template-hierarchy/
  */
 
-namespace App;
-
 use Timber\Timber;
 
 $templates = ["templates/archive.twig", "templates/index.twig"];

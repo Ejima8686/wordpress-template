@@ -1,7 +1,5 @@
 <?php
 
-namespace WordPressStarter\Theme;
-
 use Timber\Timber;
 
 /**

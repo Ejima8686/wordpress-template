@@ -1,7 +1,5 @@
 <?php
 
-namespace WordPressStarter\Theme;
-
 /**
  * コメントページを削除
  */

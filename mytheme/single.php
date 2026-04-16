@@ -5,8 +5,6 @@
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  */
 
-namespace App;
-
 use Timber\Timber;
 
 $context = Timber::context();
