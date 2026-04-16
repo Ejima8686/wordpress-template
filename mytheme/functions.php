@@ -33,10 +33,6 @@ add_action("wp_enqueue_scripts", function () {
 	wp_dequeue_style("global-styles");
 });
 
-if (!isset($content_width)) {
-	$content_width = 1280;
-}
-
 /**
  * テーマ設定の初期化
  */
