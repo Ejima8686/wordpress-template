@@ -3,7 +3,7 @@ services:
   wordpress:
     container_name: wp-${THEME_NAME}
     build:
-      context: ./
+      context: .devcontainer/
       dockerfile: Dockerfile
     depends_on:
       - db
@@ -15,21 +15,21 @@ services:
       - "./.env:/var/www/html/.env"
       - "./auth.json:/var/www/html/auth.json"
 
-      - "../${THEME_NAME}:/var/www/html/wp-content/themes/${THEME_NAME}"
-      - "../plugins:/var/www/html/wp-content/plugins"
+      - "./${THEME_NAME}:/var/www/html/wp-content/themes/${THEME_NAME}"
+      - "./plugins:/var/www/html/wp-content/plugins"
 
-      - "../package.json:/var/www/html/package.json"
-      - "../package-lock.json:/var/www/html/package-lock.json"
-      - "../composer.json:/var/www/html/composer.json"
+      - "./package.json:/var/www/html/package.json"
+      - "./package-lock.json:/var/www/html/package-lock.json"
+      - "./composer.json:/var/www/html/composer.json"
 
-      - "../:/workspaces"
+      - ".:/workspaces"
 
-      - "../wordpress/wp-config.php:/var/www/html/wp-config.php"
-      - "../services/wordpress/portal:/var/www/html/portal"
+      - "./wordpress/wp-config.php:/var/www/html/wp-config.php"
+      - "./services/wordpress/portal:/var/www/html/portal"
 
       # WordPress外のサイトを配置
-      - "../standalone/app:/var/www/app" # アプリケーション
-      - "../standalone/lp:/var/www/html/lp" # フロントエンド（増やしていく）
+      - "./standalone/app:/var/www/app" # アプリケーション
+      - "./standalone/lp:/var/www/html/lp" # フロントエンド（増やしていく）
 
     environment:
       IS_DEVELOPMENT: 1 # Docker環境であることを示す
@@ -45,7 +45,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
       ACF_PRO_KEY: "${ACF_PRO_KEY}"
     env_file:
-      - ./.env
+      - .env
 
   db:
     container_name: db-${THEME_NAME}
