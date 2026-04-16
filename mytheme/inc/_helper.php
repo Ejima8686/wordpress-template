@@ -7,9 +7,11 @@ use Timber\Timber;
  */
 function is_dev(): bool
 {
+	// 1. Docker環境変数（明示的・確実）
 	if (isset($_ENV["IS_DEVELOPMENT"]) && $_ENV["IS_DEVELOPMENT"]) {
 		return true;
 	}
+	// 2. ホスト名（Docker不使用時のフォールバック）
 	$host = $_SERVER["HTTP_HOST"] ?? "";
 	return str_contains($host, "localhost") || str_contains($host, ".local");
 }
