@@ -4,8 +4,8 @@
 	"fields": [
 		{
 			"key": "field_61eab40d9c6fd",
-			"label": "Testiominal",
-			"name": "testiominal",
+			"label": "Testimonial",
+			"name": "testimonial",
 			"type": "text",
 			"instructions": "",
 			"required": 0,
