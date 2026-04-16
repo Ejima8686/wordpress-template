@@ -20,21 +20,21 @@
 ```
 .
 ├── .devcontainer
-│   ├── .env
-│   ├── auth.json
-│   ├── devcontainer.json
-│   ├── docker-compose.yml
 │   ├── Dockerfile
 │   └── init.sh
 ├── .github/
+├── .vscode
+│   └── extensions.json
 ├── mytheme/
 ├── node_modules/
 ├── plugins/
 ├── wordpress/
 │   └── wp-config.php
+├── .env
 ├── .gitignore
+├── auth.json
 ├── composer.json
-├── init.mjs
+├── docker-compose.yml
 ├── package-lock.json
 ├── package.json
 └── README.md
@@ -46,4 +46,4 @@
 | -------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **mytheme/**   | `/var/www/html/wp-content/themes/**mytheme**` | テーマのディレクトリです。<br/><br/>**セットアップ時に任意の名前に変更可能**で、Wordpressのオリジナルテーマをこの中で開発します。                                                                                                                                                                                                                                                                                                                                                                                  |
 | **plugins/**   | `/var/www/html/wp-content/**plugins**`        | プラグインのディレクトリです。<br/>wordpressにインストールしたプラグインファイルが入ります。<br/>また、プラグイン開発もこの中で開発します。                                                                                                                                                                                                                                                                                                                                                                        |
-| **wordpress/** | `docker-compose.yml` に記述                   | `/var/www/html/` 直下にあるWordpressのコアファイルを編集するためのディレクトリです。<br/>（例：wp-config.php , wp-login.php , .htaccess など。）<br/><br/>`docker-compose.yml` のvolumsに、`"../wordpress/[ ファイル名 ]:/var/www/html/[ ファイル名 ]"` のように書き同期させることで、コアファイルをこのディレクトリの中で編集できる様になります。<br/><br/>※ 同期させる場合は、**ホスト側に同名のファイルをあらかじめ生成しておく必要があります。**<br/>※ デフォルトでは**wp-config.phpを編集可能にしています。** |
+| **wordpress/** | `docker-compose.yml` に記述                   | `/var/www/html/` 直下にあるWordpressのコアファイルを編集するためのディレクトリです。<br/>（例：wp-config.php , wp-login.php , .htaccess など。）<br/><br/>`docker-compose.yml` のvolumsに、`"./wordpress/[ ファイル名 ]:/var/www/html/[ ファイル名 ]"` のように書き同期させることで、コアファイルをこのディレクトリの中で編集できる様になります。<br/><br/>※ 同期させる場合は、**ホスト側に同名のファイルをあらかじめ生成しておく必要があります。**<br/>※ デフォルトでは**wp-config.phpを編集可能にしています。** |
