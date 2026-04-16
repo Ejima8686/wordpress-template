@@ -1,6 +1,8 @@
 .env
 auth.json
 
+.worktrees/
+
 setup/**/*.env
 
 /node_modules/
