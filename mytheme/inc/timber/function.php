@@ -232,16 +232,23 @@ function check_vite_connection()
 		return false;
 	}
 
+	static $cache = null;
+	if ($cache !== null) {
+		return $cache;
+	}
+
 	$host = "host.docker.internal";
 	$port = 3000;
-	$connection = @fsockopen($host, $port, $errno, $errstr, 5); // 5秒タイムアウト
+	$connection = @fsockopen($host, $port, $errno, $errstr, 1); // 1秒タイムアウト
 
 	if ($connection) {
 		fclose($connection);
-		return true;
+		$cache = true;
 	} else {
-		return false;
+		$cache = false;
 	}
+
+	return $cache;
 }
 
 /**
