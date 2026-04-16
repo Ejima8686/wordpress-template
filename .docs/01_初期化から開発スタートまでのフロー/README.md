@@ -7,7 +7,7 @@
 ## 目次
 
 - [**1. 初期化スクリプトの実行**](#1-初期化スクリプトの実行)
-- [**2. Dev Container の起動**](#2-dev-container-の起動)
+- [**2. コンテナの起動**](#2-コンテナの起動)
   - [コンテナが立ち上がるまで。](#コンテナが立ち上がるまで)
 
 ---
@@ -36,38 +36,28 @@ npm run setup:init
 
 これでコンテナを立ち上げる前準備が整いました。
 
-## **2. Dev Container の起動**
+## **2. コンテナの起動**
 
-```plaintext
-コマンドパレット（`Cmd+Shift+P`）から
-  "Dev Containers: Reopen in Container" を選択
+```bash
+docker compose up
 ```
 
 <details open="">
 <summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">コンテナが立ち上がるまで。</summary>
 <div class="indented">
 
-1. **VS Codeで devcontainer を起動。**
-   👉 プロジェクトルートにある`.devcontainer/devcontainer.json` が自動的に検出されます。
+1. **プロジェクトルートで `docker compose up` を実行する。**
+   👉 `docker-compose.yml` が自動的に検出されます。
 
-2. **devcontainer.jsonを読み、docker-compose.yml の サービスを確認。**
-
-```json
-"dockerComposeFile": "docker-compose.yml",
-"service": "wordpress"
-```
-
-👉 dockerの**「wordpress」サービスを**devcontainerの**起動対象として使用します。**
-
-3. **Dockerfile を参照して WordPress イメージをビルド**
+2. **`docker-compose.yml` のビルドセクションを参照して WordPress イメージをビルド**
 
 ```yaml
 build:
-  context: ./
+  context: .devcontainer/
   dockerfile: Dockerfile　⇦ Dokerfileを参照し、カスタムしたコンテナを作るという指示
 ```
 
-👉 **Dockerfile の内容（PHPやNode.js入り）に基づいて、独自の WordPress 開発用イメージをビルドします。**
+👉 **`.devcontainer/Dockerfile` の内容（PHPやNode.js入り）に基づいて、独自の WordPress 開発用イメージをビルドします。**
 
 ```yaml
 COPY init.sh /usr/local/bin/　⇦ コンテナ内にinit.shをコピー
@@ -78,9 +68,9 @@ ENTRYPOINT ["/usr/local/bin/init.sh"]　⇦ コンテナ起動時に絶対に実
 
 **👉 コンテナの/usr/local/bin に init.shをコピーします**
 
-4. **docker-compose.yml を参照して WordPressコンテナとDBコンテナ（MariaDB）を起動**
-   - サービス名：wordpress、db
-   - wordpressポート 8080 → コンテナの 80 にマッピング
+3. **docker-compose.yml を参照して WordPress コンテナ・DB コンテナ（MariaDB）・Mailpit を起動**
+   - サービス名：wordpress、db、mailpit
+   - wordpress ポート 8080 → コンテナの 80 にマッピング
 
 ```yaml
     depends_on: ⇦ DBをdbコンテナと繋ぎ込み
@@ -89,8 +79,8 @@ ENTRYPOINT ["/usr/local/bin/init.sh"]　⇦ コンテナ起動時に絶対に実
       - 8080:80
 ```
 
-5. **/usr/local/bin/init.shの処理が実行される。**
-   主にwp-config.phpの初期化を行います。
+4. **/usr/local/bin/init.sh の処理が実行される。**
+   主に wp-config.php の初期化を行います。
 
 **この過程がないと、wordpressの初期設定を管理画面で行わなければならず、スムーズに開発に移ることができない＆開発者によって設定がバラついてしまいます。**
 
@@ -98,6 +88,7 @@ ENTRYPOINT ["/usr/local/bin/init.sh"]　⇦ コンテナ起動時に絶対に実
 - WordPress のインストールと初期設定（パーマリンク、日本語化など）
 - よく使うプラグインのインストール
 - ACF PROのアクティベート
+- `npm install` の実行（`/workspaces`）
 
 **Wordpress関連の処理には**[wp-cli](https://wp-cli.org/ja/)**を使用しています。**
 
@@ -109,42 +100,7 @@ ENTRYPOINT ["/usr/local/bin/init.sh"]　⇦ コンテナ起動時に絶対に実
 | wp core install …                                                                       | オプションで指定している通りの初期セットアップを行います。                                                                                                    |
 | echo "define( 'ACF_PRO_LICENSE', '${ACF_PRO_KEY}' );" >> "$root_path/wp-config.php"     | [ACF PROのライセンスをアクティベートする](https://www.advancedcustomfields.com/resources/how-to-activate/#activating-acf-pro-in-wp-configphp)ための記述です。 |
 
-6. **devcontainer.jsonのworkspaceFolderのディレクトリを作業ディレクトリとしてVS Codeが開く**
-
-```yaml
-"workspaceFolder": "/workspaces",
-```
-
-👉 VS Codeの初期ファイルビューやターミナルの初期地点が`/workspaces` になります。
-
-7. **devcontainer.jsonに記述された拡張機能が自動インストールされる**
-
-```json
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "adrianwilczynski.alpine-js-intellisense",
-                "csstools.postcss",
-                "esbenp.prettier-vscode",
-                "bradlc.vscode-tailwindcss",
-                "mblode.twig-language-2"
-            ]
-        }
-    },
-```
-
-8. **devcontainer.jsonの**`"postCreateCommand"`** のコマンドを実行**
-
-```javascript
-  ...
-
-	"postCreateCommand": "cd /workspaces && npm install"
-```
-
-念の為ワークスペースに移動し、パッケージインストールをしています。
-**viteの都合上、コンテナビルド後に**`npm i`**をする必要があります。**
-
-9. **🚗💨 http://localhost:8080 にアクセスして WordPress にログイン！**
+5. **🚗💨 http://localhost:8080 にアクセスして WordPress にログイン！**
 
 </div>
 </details>
