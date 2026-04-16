@@ -228,7 +228,7 @@ function debug($obj, $label = "")
  */
 function check_vite_connection()
 {
-	if (!isset($_ENV["IS_DEVELOPMENT"]) || !$_ENV["IS_DEVELOPMENT"]) {
+	if (!is_dev()) {
 		return false;
 	}
 

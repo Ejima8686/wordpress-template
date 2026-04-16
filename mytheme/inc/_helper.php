@@ -7,6 +7,9 @@ use Timber\Timber;
  */
 function is_dev(): bool
 {
+	if (isset($_ENV["IS_DEVELOPMENT"]) && $_ENV["IS_DEVELOPMENT"]) {
+		return true;
+	}
 	$host = $_SERVER["HTTP_HOST"] ?? "";
 	return str_contains($host, "localhost") || str_contains($host, ".local");
 }
@@ -44,7 +47,7 @@ function render_timber_templates($templates, $context)
  */
 function logger($var)
 {
-	if (!$_ENV["IS_DEVELOPMENT"]) {
+	if (!is_dev()) {
 		return false;
 	}
 	$traces = debug_backtrace();
