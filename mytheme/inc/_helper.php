@@ -22,9 +22,9 @@ function render_timber_templates($templates, $context)
 	$IS_DEVELOPMENT = $context["IS_DEVELOPMENT"];
 	$render = Timber::compile($templates, $context);
 
-	if (!isset($_SERVER["HTTP_HOST"]) || (!is_admin() && $IS_DEVELOPMENT)) {
+	if (isset($_SERVER["HTTP_HOST"]) && !is_admin() && $IS_DEVELOPMENT) {
 		$hostname = $_SERVER["HTTP_HOST"];
-		if ($IS_DEVELOPMENT && str_contains($hostname, "localhost")) {
+		if (str_contains($hostname, "localhost")) {
 			$hostname = parse_url($hostname, PHP_URL_HOST);
 		}
 		if (strpos($hostname, ":") !== false) {
