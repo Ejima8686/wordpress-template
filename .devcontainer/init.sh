@@ -47,16 +47,22 @@ if [ ! -e "$root_path/index.php" ]; then
 fi
 
 cd $root_path
-composer config --no-plugins allow-plugins.composer/installers true
-composer install
 
 # https://www.advancedcustomfields.com/resources/how-to-activate/#activating-acf-pro-in-wp-configphp
-if ! grep -q "ACF_PRO_LICENSE" "$root_path/wp-config.php"; then
-	echo "ACF PRO activate!!"
-	echo "define( 'ACF_PRO_LICENSE', '${ACF_PRO_KEY}' );" >> "$root_path/wp-config.php"
-fi
+if [ -n "$ACF_PRO_KEY" ]; then
+	echo "ACF PRO key found. Installing ACF PRO..."
+	composer config --no-plugins allow-plugins.composer/installers true
+	composer install
 
-wp plugin activate advanced-custom-fields-pro --allow-root
+	if ! grep -q "ACF_PRO_LICENSE" "$root_path/wp-config.php"; then
+		echo "define( 'ACF_PRO_LICENSE', '${ACF_PRO_KEY}' );" >> "$root_path/wp-config.php"
+	fi
+
+	wp plugin activate advanced-custom-fields-pro --allow-root
+else
+	echo "⚠️ ACF_PRO_KEY が未設定のため、無料版 ACF をインストールします。"
+	wp plugin install advanced-custom-fields --activate --allow-root
+fi
 
 cd $theme_path
 composer install --no-plugins --no-scripts &
