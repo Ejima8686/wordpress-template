@@ -24,10 +24,10 @@
 	"type": "module",
 	"private": true,
 	"dependencies": {
-		"@alpinejs/collapse": "^3.14.9",
-		"@alpinejs/focus": "^3.14.9",
-		"@alpinejs/ui": "^3.14.9",
+		"@alpinejs/collapse": "^3.15.11",
+		"@alpinejs/focus": "^3.15.11",
+		"@alpinejs/ui": "^3.15.11",
 		"@zackad/prettier-plugin-twig": "^0.16.0",
-		"alpinejs": "^3.14.9"
+		"alpinejs": "^3.15.11"
 	}
 }
