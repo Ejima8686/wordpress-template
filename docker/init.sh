@@ -44,6 +44,7 @@ if [ ! -e "$root_path/index.php" ]; then
 	wp plugin install query-monitor --activate --allow-root
 	wp plugin update --all --allow-root
 
+	wp theme activate "$WORDPRESS_THEME_NAME" --allow-root
 	wp theme delete twentytwentyfive twentytwentyfour twentytwentythree --allow-root
 fi
 
@@ -53,5 +54,8 @@ touch my-errors.log
 
 cd $root_path
 wp theme activate "$WORDPRESS_THEME_NAME" --allow-root
+
+mkdir -p /var/www/html/wp-content/upgrade /var/www/html/wp-content/uploads
+chown www-data:www-data /var/www/html/wp-content/upgrade /var/www/html/wp-content/uploads
 
 wait
