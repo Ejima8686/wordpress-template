@@ -5,7 +5,6 @@
 # - wp-config.php の自動生成
 # - WordPress のインストールと初期設定（パーマリンク、日本語化など）
 # - よく使うプラグインのインストールと有効化
-# - ACF PROのアクティベート
 # ========================================
 
 root_path="/var/www/html"
@@ -44,24 +43,6 @@ if [ ! -e "$root_path/index.php" ]; then
 	wp plugin install wp-multibyte-patch --activate --allow-root
 	wp plugin install query-monitor --activate --allow-root
 	wp plugin update --all --allow-root
-fi
-
-cd $root_path
-
-# https://www.advancedcustomfields.com/resources/how-to-activate/#activating-acf-pro-in-wp-configphp
-if [ -n "$ACF_PRO_KEY" ]; then
-	echo "ACF PRO key found. Installing ACF PRO..."
-	composer config --no-plugins allow-plugins.composer/installers true
-	composer install
-
-	if ! grep -q "ACF_PRO_LICENSE" "$root_path/wp-config.php"; then
-		echo "define( 'ACF_PRO_LICENSE', '${ACF_PRO_KEY}' );" >> "$root_path/wp-config.php"
-	fi
-
-	wp plugin activate advanced-custom-fields-pro --allow-root
-else
-	echo "⚠️ ACF_PRO_KEY が未設定のため、無料版 ACF をインストールします。"
-	wp plugin install advanced-custom-fields --activate --allow-root
 fi
 
 cd $theme_path
