@@ -1,0 +1,4 @@
+@custom-variant en (html[lang='en'] &);
+@custom-variant ja (html[lang='ja'] &);
+@custom-variant theme-dark (html[data-theme='dark'] &);
+@custom-variant theme-light (html[data-theme='light'] &);

@@ -1,7 +1,19 @@
 @import "tailwindcss";
-@import "./base/base.css";
-@import "./alpinejs.css";
 
-@theme {
-	--color-base: #333333;
-}
+/* base */
+@import "./base/base.css" layer(base);
+@import "./base/alpine.css" layer(base);
+
+/* components */
+@import "./components/prose.css" layer(components);
+@import "./components/wrapper.css" layer(components);
+
+/* utilities */
+@import "./utilities/kerning.css";
+@import "./utilities/transition.css";
+@import "./utilities/clip.css";
+@import "./utilities/aspect.css";
+@import "./utilities/word-break.css";
+
+@import "./variables.css";
+@import "./variant.css";

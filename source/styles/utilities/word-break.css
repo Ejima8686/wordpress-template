@@ -1,0 +1,4 @@
+@utility word-break-balance {
+	text-wrap: balance;
+	word-break: auto-phrase;
+}

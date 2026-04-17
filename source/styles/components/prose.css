@@ -1,0 +1,48 @@
+.prose {
+	/* ブロック共通 */
+	:where(* + *) {
+		margin-top: --spacing(4);
+	}
+
+	/* 見出し */
+	:where(h1, h2, h3, h4) {
+		margin-top: --spacing(12);
+		color: theme(--color-black);
+		font-weight: 500;
+		line-height: 1.2;
+
+		@variant md {
+			margin-top: --spacing(14);
+		}
+	}
+
+	/* 箇条書き・順序リスト */
+	:where(ul),
+	:where(ol) {
+		margin-left: 1.5em;
+	}
+
+	:where(ul) {
+		list-style: disc;
+	}
+	:where(ol) {
+		list-style: decimal;
+	}
+
+	:where(:is(ol, ul) :is(ol, ul)) {
+		margin-top: 0.3em;
+		margin-left: 2.1em;
+	}
+	:where(:is(ol, ul) :is(li)) {
+		margin-top: 0.3em;
+	}
+
+	:where(ul > li),
+	:where(ol > li) {
+		padding-left: 0.2em;
+		&::marker {
+			color: theme(--color-black);
+			font-size: 1em;
+		}
+	}
+}

@@ -1,0 +1,9 @@
+.contents-wrapper {
+	box-sizing: content-box;
+	margin-inline: auto;
+	padding-inline: --spacing(3.5);
+
+	@variant md {
+		padding-inline: --spacing(4);
+	}
+}

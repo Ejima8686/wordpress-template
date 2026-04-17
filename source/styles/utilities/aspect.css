@@ -1,0 +1,3 @@
+@utility aspect-window {
+	aspect-ratio: var(--window-width) / var(--window-height);
+}

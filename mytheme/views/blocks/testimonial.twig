@@ -35,7 +35,10 @@ is_preview
 				{{ text|e('html') }}
 			</p>
 		</blockquote>
-		<figcaption class="mt-6 text-right opacity-90" style="color: {{ fields.text_color|e('html_attr') }};">
+		<figcaption
+			class="mt-6 text-right opacity-90"
+			style="color: {{ fields.text_color|e('html_attr') }};"
+		>
 			<span class="block font-bold">{{ author|e('html') }}</span>
 			<span class="block text-sm">{{ author_role|e('html') }}</span>
 		</figcaption>
