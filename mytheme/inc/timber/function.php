@@ -76,10 +76,6 @@ function get_breadcrumb_items($post_id)
 		}
 	}
 
-	if (!empty($breadcrumbs) && $breadcrumbs[0]["slug"] === "service") {
-		array_shift($breadcrumbs);
-	}
-
 	$breadcrumbs[] = [
 		"name" => get_post($post_id)->post_title,
 	];

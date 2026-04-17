@@ -3,7 +3,7 @@
 /**
  * 管理画面のメニュー・サブメニューを制御
  */
-add_action("admin_menu", function () {
+// add_action("admin_menu", function () {
 	// remove_submenu_page("index.php", "update-core.php"); // ダッシュボード > 更新
 	// remove_menu_page("edit.php"); // 投稿メニュー
 	// remove_menu_page("edit.php?post_type=page"); // 固定ページメニュー
@@ -65,24 +65,24 @@ add_action("admin_menu", function () {
 	//   remove_submenu_page("options-general.php", "options-permalink.php"); // 設定 / パーマリンク
 	//   remove_submenu_page("options-general.php", "privacy.php"); // 設定 / プライバシー
 	// }
-});
+// });
 
 /**
  * 更新通知・メンテナンス通知を削除
  */
-add_action("admin_init", function () {
-	// remove_action('admin_notices', 'maintenance_nag', 10); // メンテナンスモード通知
-	// remove_action("admin_notices", "update_nag", 3); // バージョンアップ通知
-});
+// add_action("admin_init", function () {
+// 	remove_action('admin_notices', 'maintenance_nag', 10); // メンテナンスモード通知
+// 	remove_action("admin_notices", "update_nag", 3); // バージョンアップ通知
+// });
 
 /**
  * ダッシュボードの各パネル（ウィジェット）を削除
  */
-add_action("wp_dashboard_setup", function () {
-	// remove_meta_box("dashboard_site_health", "dashboard", "normal"); // サイトヘルス
-	// remove_meta_box("dashboard_right_now", "dashboard", "normal"); // 概要
-	// remove_meta_box("dashboard_activity", "dashboard", "normal"); // アクティビティ
-	// remove_meta_box("dashboard_quick_press", "dashboard", "side"); // クイックドラフト
-	// remove_meta_box("dashboard_primary", "dashboard", "side"); // WordPressニュース
-	// remove_action("welcome_panel", "wp_welcome_panel"); // ようこそパネル
-});
+// add_action("wp_dashboard_setup", function () {
+// 	remove_meta_box("dashboard_site_health", "dashboard", "normal"); // サイトヘルス
+// 	remove_meta_box("dashboard_right_now", "dashboard", "normal"); // 概要
+// 	remove_meta_box("dashboard_activity", "dashboard", "normal"); // アクティビティ
+// 	remove_meta_box("dashboard_quick_press", "dashboard", "side"); // クイックドラフト
+// 	remove_meta_box("dashboard_primary", "dashboard", "side"); // WordPressニュース
+// 	remove_action("welcome_panel", "wp_welcome_panel"); // ようこそパネル
+// });

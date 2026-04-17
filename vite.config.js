@@ -1,17 +1,8 @@
 import { defineConfig, loadEnv } from "vite";
 import tailwindcss from "@tailwindcss/vite";
-import path from "path";
-
-function mergeEnv(mode) {
-	const env = loadEnv(mode, path.resolve(process.cwd(), ".devcontainer"), "");
-
-	return {
-		...env,
-	};
-}
 
 export default defineConfig(({ mode }) => {
-	const env = mergeEnv(mode);
+	const env = loadEnv(mode, process.cwd(), "");
 
 	return {
 		plugins: [tailwindcss()],
