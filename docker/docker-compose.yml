@@ -22,8 +22,6 @@ services:
       - "../package-lock.json:/var/www/html/package-lock.json"
       - "../composer.json:/var/www/html/composer.json"
 
-      - "..:/workspaces"
-
       - "../wordpress/wp-config.php:/var/www/html/wp-config.php"
       - "../services/wordpress/portal:/var/www/html/portal"
 

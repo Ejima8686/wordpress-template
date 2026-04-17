@@ -73,6 +73,4 @@ wp theme activate "$WORDPRESS_THEME_NAME" --allow-root
 
 chown www-data:www-data -R /var/www/html/wp-content
 
-cd /workspaces && npm install
-
 wait

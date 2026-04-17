@@ -88,7 +88,6 @@ ENTRYPOINT ["/usr/local/bin/init.sh"]　⇦ コンテナ起動時に絶対に実
 - WordPress のインストールと初期設定（パーマリンク、日本語化など）
 - よく使うプラグインのインストール
 - ACF PROのアクティベート
-- `npm install` の実行（`/workspaces`）
 
 **Wordpress関連の処理には**[wp-cli](https://wp-cli.org/ja/)**を使用しています。**
 
