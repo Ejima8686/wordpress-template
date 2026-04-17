@@ -1,8 +1,8 @@
 {% extends 'layouts/base.twig' %}
 
 {% block content %}
-	<main>
-		<div class="mt-16 container max-w-[1280px] mx-auto">
+	<main class="max-w-4xl mx-auto">
+		<div class="mt-16">
 			{{
 				include(
 					'partials/breadcrumbs.twig',
@@ -12,19 +12,21 @@
 				)
 			}}
 		</div>
-		<article class="mt-16 container max-w-[1280px] mx-auto">
+		<article class="mt-16">
 			<div class="mb-2 flex flex-wrap gap-2">
 				{% for term in post.terms({
 					taxonomy: 'mytheme_news_category'
 				}) %}
-					<a href="{{ term.link }}">{{ term.name }}</a>
+					<a href="{{ term.link }}" class="border rounded-sm bg-black/50 text-white p-1">
+						{{ term.name }}
+					</a>
 				{% endfor %}
 			</div>
 			<header>
-				<h1 class="text-xl font-bold kerning">{{ post.title }}</h1>
 				<p class="mt-2 text-sm">
 					<time datetime="{{ post.date('Y-m-d H:i:s') }}">{{ post.date }}</time>
 				</p>
+				<h1 class="text-xl font-bold kerning">{{ post.title }}</h1>
 			</header>
 
 			<div class="mt-8 mb-12 border-t"></div>

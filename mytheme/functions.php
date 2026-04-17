@@ -29,13 +29,17 @@ if (!isset($content_width)) {
  * WordPressが自動的に出力する `global-styles-inline-css` を読み込みから除外する
  * - Tailwind CSS や base.css のスタイルを上書きしてしまうため
  */
-add_action('wp_enqueue_scripts', function() {
-	wp_dequeue_style('wp-block-library');
-	wp_dequeue_style('wp-block-library-theme');
-	wp_dequeue_style('wc-blocks-style');
-	wp_dequeue_style('classic-theme-styles');
-	wp_dequeue_style('global-styles');
-}, 100);
+add_action(
+	"wp_enqueue_scripts",
+	function () {
+		wp_dequeue_style("wp-block-library");
+		wp_dequeue_style("wp-block-library-theme");
+		wp_dequeue_style("wc-blocks-style");
+		wp_dequeue_style("classic-theme-styles");
+		wp_dequeue_style("global-styles");
+	},
+	100
+);
 
 /**
  * テーマ設定の初期化
