@@ -17,7 +17,8 @@
 
 ---
 
-> 本開発環境ではACFを活用してオプションページを作成・管理できます。
+> [!WARNING]
+> この機能は **ACF PRO** が必要です。ACF フリー版には `acf_add_options_page` 関数が含まれていないため、オプションページの登録が動作しません。
 >
 > https://www.advancedcustomfields.com/
 

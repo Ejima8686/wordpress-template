@@ -19,6 +19,9 @@
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - [Node.js（v18 以上推奨）](https://nodejs.org/)
 
+> [!NOTE]
+> **ACF PRO について：** ACFカスタムブロック（`npx scaffdog generate acf-block`）およびオプションページ（`acf_add_options_page`）は **ACF PRO** が必要です。フリー版では、ブロックのフィールド連携とオプションページが動作しません。
+
 ## 構成
 
 | 項目               | 内容                               |

@@ -15,8 +15,9 @@
 
 ---
 
+> [!WARNING]
 > 当開発環境では、**コマンド一つでカスタムブロックを生成できる機能**を実装しました。
-> この機能にはACFPROを利用しています。
+> この機能には **ACF PRO** が必要です。
 >
 > 参照：
 > https://www.advancedcustomfields.com/resources/create-your-first-acf-block/
