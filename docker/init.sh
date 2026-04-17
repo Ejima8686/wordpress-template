@@ -54,6 +54,4 @@ touch my-errors.log
 cd $root_path
 wp theme activate "$WORDPRESS_THEME_NAME" --allow-root
 
-chown www-data:www-data -R /var/www/html/wp-content
-
 wait
