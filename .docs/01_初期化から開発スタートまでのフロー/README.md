@@ -25,7 +25,7 @@ npm run setup:init
 
 1. `package.json` のscriptsの記述に基づき、`npm ci`が走ります。[@inquirer/prompts](https://www.npmjs.com/package/@inquirer/prompts)をインストールします。これはセットアップを対話式で出力するのに必要です。
 
-2. 続いて、`node init.mjs` により、`/init.mjs`の`main()`が実行されます。ターミナル上で対話式セットアップが開始されます。
+2. 続いて、`node setup/init.mjs` により、`setup/init.mjs`の`main()`が実行されます。ターミナル上で対話式セットアップが開始されます。
    セットアップは対話形式で、以下の順に処理が進みます。
 
 1. 初期化確認（Yes/No）
@@ -50,9 +50,9 @@ npm run docker:up
 <div class="indented">
 
 1. **プロジェクトルートで `npm run docker:up` を実行する。**
-   👉 `docker/docker-compose.yml` が読み込まれます。
+   👉 `docker-compose.yml` が読み込まれます。
 
-2. **`docker/docker-compose.yml` のビルドセクションを参照して WordPress イメージをビルド**
+2. **`docker-compose.yml` のビルドセクションを参照して WordPress イメージをビルド**
 
 ```yaml
 build:
@@ -71,7 +71,7 @@ ENTRYPOINT ["/usr/local/bin/init.sh"]　⇦ コンテナ起動時に絶対に実
 
 **👉 コンテナの/usr/local/bin に init.shをコピーします**
 
-3. **docker/docker-compose.yml を参照して WordPress コンテナ・DB コンテナ（MariaDB）・Mailpit を起動**
+3. **docker-compose.yml を参照して WordPress コンテナ・DB コンテナ（MariaDB）・Mailpit を起動**
    - サービス名：wordpress、db、mailpit
    - wordpress ポート 8080 → コンテナの 80 にマッピング
 
@@ -90,7 +90,6 @@ ENTRYPOINT ["/usr/local/bin/init.sh"]　⇦ コンテナ起動時に絶対に実
 - wp-config.php の自動生成
 - WordPress のインストールと初期設定（パーマリンク、日本語化など）
 - よく使うプラグインのインストール
-- ACF PROのアクティベート
 
 **Wordpress関連の処理には**[wp-cli](https://wp-cli.org/ja/)**を使用しています。**
 
@@ -100,7 +99,6 @@ ENTRYPOINT ["/usr/local/bin/init.sh"]　⇦ コンテナ起動時に絶対に実
 | wp core download [https://wordpress.org/latest.zip](https://wordpress.org/latest.zip) … | 最新バージョンのWordpressをダウンロード。                                                                                                                     |
 | wp config create …                                                                      | docker-entrypoint.shで作られたwp-config.phpを新たに上書き。<br/>これでカスタムセットアップが可能になります。                                                  |
 | wp core install …                                                                       | オプションで指定している通りの初期セットアップを行います。                                                                                                    |
-| echo "define( 'ACF_PRO_LICENSE', '${ACF_PRO_KEY}' );" >> "$root_path/wp-config.php"     | [ACF PROのライセンスをアクティベートする](https://www.advancedcustomfields.com/resources/how-to-activate/#activating-acf-pro-in-wp-configphp)ための記述です。 |
 
 5. **🚗💨 http://localhost:8080 にアクセスして WordPress にログイン！**
 
