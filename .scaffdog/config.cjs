@@ -1,11 +1,7 @@
 const { loadEnv } = require("vite");
 const path = require("path");
 
-const env = loadEnv(
-	process.env.NODE_ENV || "development",
-	path.resolve(process.cwd()),
-	"",
-);
+const env = loadEnv(process.env.NODE_ENV || "development", path.resolve(process.cwd()), "");
 
 module.exports = {
 	files: ["*"],

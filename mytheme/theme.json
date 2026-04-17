@@ -40,7 +40,13 @@
 		"color": {},
 		"spacing": {},
 		"typography": {},
-		"elements": {},
+		"elements": {
+			"link": {
+				"typography": {
+					"textDecoration": "none"
+				}
+			}
+		},
 		"blocks": {}
 	},
 	"customTemplates": [],

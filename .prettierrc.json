@@ -1,7 +1,7 @@
 {
 	"tabWidth": 2,
 	"printWidth": 100,
-	"tailwindConfig": "./tailwind.config.cjs",
+	"tailwindStylesheet": "./source/styles/main.css",
 	"plugins": [
 		"prettier-plugin-css-order",
 		"prettier-plugin-tailwindcss",

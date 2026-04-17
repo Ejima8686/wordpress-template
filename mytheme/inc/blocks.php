@@ -11,10 +11,7 @@ use Timber\Timber;
 add_action("admin_enqueue_scripts", function () {
 	$IS_VITE_RUNNING = check_vite_connection();
 	global $pagenow;
-	if (
-		($IS_VITE_RUNNING || is_dev()) &&
-		($pagenow === "post.php" || $pagenow === "post-new.php")
-	) {
+	if (($IS_VITE_RUNNING || is_dev()) && ($pagenow === "post.php" || $pagenow === "post-new.php")) {
 		echo '<script type="module" src="http://localhost:3000/@vite/client"></script>';
 		echo '<script type="module" src="http://localhost:3000/source/index.ts"></script>';
 	}

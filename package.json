@@ -21,7 +21,7 @@
 		"prettier-plugin-css-order": "^2.1.2",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"tailwindcss": "^4.2.2",
-		"vite": "^6.3.2"
+		"vite": "^7.3.2"
 	},
 	"type": "module",
 	"private": true,
