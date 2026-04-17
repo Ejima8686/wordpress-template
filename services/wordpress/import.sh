@@ -7,7 +7,6 @@
 
 PORTAL_PATH="/var/www/html/portal"
 UPLOADS_ZIP="$PORTAL_PATH/uploads.zip"
-SQL_GZ="$PORTAL_PATH/wordpress.sql.gz"
 SQL_FILE="$PORTAL_PATH/wordpress.sql"
 
 echo "⚠️ この処理を実行すると既存のuploadsとデータベースが上書きされます"
@@ -27,7 +26,6 @@ else
   exit 1
 fi
 
-gunzip -f "$SQL_GZ";
 if wp db import "$SQL_FILE" --allow-root --path=/var/www/html; then
   echo "✅ DBをインポートしました: $SQL_FILE"
 else
