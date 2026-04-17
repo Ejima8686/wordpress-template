@@ -41,7 +41,6 @@ npm run setup:init
 
 - テーマ名の確認（またはリネーム）
 - `.env` の作成（THEME_NAME, VITE_THEME_NAME）
-- `auth.json` の作成（ACF PRO用ファイル）
 
 ### 2. コンテナの起動
 
@@ -55,10 +54,10 @@ npm run docker:up
 
 ### 3. Vite の起動
 
-コンテナ内で、Viteを起動させます。
+依存パッケージをインストールし、Viteを起動します。
 
 ```bash
-npm run i
+npm install
 npm run dev
 ```
 
