@@ -39,17 +39,17 @@ npm run setup:init
 ## **2. コンテナの起動**
 
 ```bash
-docker compose up
+docker compose -f docker/docker-compose.yml up
 ```
 
 <details open="">
 <summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">コンテナが立ち上がるまで。</summary>
 <div class="indented">
 
-1. **プロジェクトルートで `docker compose up` を実行する。**
-   👉 `docker-compose.yml` が自動的に検出されます。
+1. **プロジェクトルートで `docker compose -f docker/docker-compose.yml up` を実行する。**
+   👉 `docker/docker-compose.yml` が読み込まれます。
 
-2. **`docker-compose.yml` のビルドセクションを参照して WordPress イメージをビルド**
+2. **`docker/docker-compose.yml` のビルドセクションを参照して WordPress イメージをビルド**
 
 ```yaml
 build:
@@ -68,7 +68,7 @@ ENTRYPOINT ["/usr/local/bin/init.sh"]　⇦ コンテナ起動時に絶対に実
 
 **👉 コンテナの/usr/local/bin に init.shをコピーします**
 
-3. **docker-compose.yml を参照して WordPress コンテナ・DB コンテナ（MariaDB）・Mailpit を起動**
+3. **docker/docker-compose.yml を参照して WordPress コンテナ・DB コンテナ（MariaDB）・Mailpit を起動**
    - サービス名：wordpress、db、mailpit
    - wordpress ポート 8080 → コンテナの 80 にマッピング
 

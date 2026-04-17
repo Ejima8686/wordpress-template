@@ -48,7 +48,7 @@ npm run setup:init
 プロジェクトルートで以下を実行します。
 
 ```bash
-docker compose up
+docker compose -f docker/docker-compose.yml up
 ```
 
 `docker/init.sh` に基づいて、WordPress環境が構築されます。開発を再開する場合もこちらを実行してください。
