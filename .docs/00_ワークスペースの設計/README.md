@@ -19,9 +19,6 @@
 
 ```
 .
-├── .devcontainer
-│   ├── Dockerfile
-│   └── init.sh
 ├── .github/
 ├── .vscode
 │   └── extensions.json
@@ -35,6 +32,8 @@
 ├── auth.json
 ├── composer.json
 ├── docker-compose.yml
+├── Dockerfile
+├── init.sh
 ├── package-lock.json
 ├── package.json
 └── README.md

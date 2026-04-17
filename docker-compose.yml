@@ -3,7 +3,7 @@ services:
   wordpress:
     container_name: wp-${THEME_NAME}
     build:
-      context: .devcontainer/
+      context: .
       dockerfile: Dockerfile
     depends_on:
       - db

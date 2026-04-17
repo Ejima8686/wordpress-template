@@ -53,11 +53,11 @@ docker compose up
 
 ```yaml
 build:
-  context: .devcontainer/
+  context: .
   dockerfile: Dockerfile　⇦ Dokerfileを参照し、カスタムしたコンテナを作るという指示
 ```
 
-👉 **`.devcontainer/Dockerfile` の内容（PHPやNode.js入り）に基づいて、独自の WordPress 開発用イメージをビルドします。**
+👉 **`Dockerfile` の内容（PHPやNode.js入り）に基づいて、独自の WordPress 開発用イメージをビルドします。**
 
 ```yaml
 COPY init.sh /usr/local/bin/　⇦ コンテナ内にinit.shをコピー
