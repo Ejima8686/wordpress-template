@@ -126,6 +126,6 @@ async function main() {
 		await updateEnvFile("VITE_THEME_NAME", themeName);
 	}
 
-	console.log("\n✅ 初期化が完了しました！docker compose up を実行して、開発を開始しましょう！");
+	console.log("\n✅ 初期化が完了しました！Dockerコンテナを立ち上げて、開発を開始しましょう！");
 }
 await main();
