@@ -2,12 +2,11 @@ import fs from "fs/promises";
 import f from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { input, password, confirm } from "@inquirer/prompts";
+import { input, confirm } from "@inquirer/prompts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
-const envSampleFilePath = path.resolve(root, ".env.sample");
 const envFilePath = path.resolve(root, ".env");
 
 /**
@@ -35,10 +34,6 @@ function getThemeDirName() {
  */
 async function generateEnvFile(themeName) {
 	const content = `THEME_NAME=${themeName}\nVITE_THEME_NAME=${themeName}`;
-	if (f.existsSync(envSampleFilePath)) {
-		f.unlinkSync(envSampleFilePath);
-		console.log("🗑️ .env.sample file deleted");
-	}
 	await fs.writeFile(envFilePath, content);
 	console.log("✅ .env file generated:", themeName);
 }
@@ -102,30 +97,10 @@ async function updateEnvFile(key, value) {
 }
 
 /**
- * ACF PRO用の auth.json を生成する。
- * @param {string} token - ACF PRO ライセンスキー
- * @returns {Promise<void>}
- */
-async function generateAuthJson(token) {
-	const authJsonFilePath = path.resolve(root, "auth.json");
-	const content = `{
-  "http-basic": {
-    "connect.advancedcustomfields.com": {
-      "username": "${token}",
-      "password": "https://example.com"
-    }
-  }
-}`;
-	await fs.writeFile(authJsonFilePath, content);
-	console.log("✅ auth.json generated");
-}
-
-/**
  * 対話的に初期化処理を実行するメイン関数。
- * テーマ名取得 → テーマのリネーム → style.css 生成 → .envとauth.jsonを生成。
+ * テーマ名取得 → テーマのリネーム → style.css 生成 → .env 生成。
  * @returns {Promise<void>}
  */
-// 対話的に初期化処理を実行するメイン関数
 async function main() {
 	console.log("\n🟦 ステップ1: 初期化");
 	const confirmInit = await confirm({ message: `初期化を開始しますか？`, default: false });
@@ -149,14 +124,6 @@ async function main() {
 		await generateThemeStyle(themeName);
 		await updateEnvFile("THEME_NAME", themeName);
 		await updateEnvFile("VITE_THEME_NAME", themeName);
-	}
-
-	console.log("\n🟦 ステップ3: ACF PRO ライセンスの設定");
-	const confirmAuth = await confirm({ message: `auth.jsonを新しく生成しますか？` });
-	if (confirmAuth) {
-		const token = await password({ message: "ACF PRO ライセンスキーを入力してください：" });
-		await generateAuthJson(token);
-		await updateEnvFile("ACF_PRO_KEY", token);
 	}
 
 	console.log("\n✅ 初期化が完了しました！docker compose up を実行して、開発を開始しましょう！");
