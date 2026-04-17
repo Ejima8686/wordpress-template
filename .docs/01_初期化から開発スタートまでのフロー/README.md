@@ -39,14 +39,14 @@ npm run setup:init
 ## **2. コンテナの起動**
 
 ```bash
-docker compose -f docker/docker-compose.yml up
+npm start
 ```
 
 <details open="">
 <summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">コンテナが立ち上がるまで。</summary>
 <div class="indented">
 
-1. **プロジェクトルートで `docker compose -f docker/docker-compose.yml up` を実行する。**
+1. **プロジェクトルートで `npm start` を実行する。**
    👉 `docker/docker-compose.yml` が読み込まれます。
 
 2. **`docker/docker-compose.yml` のビルドセクションを参照して WordPress イメージをビルド**

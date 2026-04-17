@@ -1,5 +1,8 @@
 {
 	"scripts": {
+		"start": "docker compose -f docker/docker-compose.yml up",
+		"down": "docker compose -f docker/docker-compose.yml down",
+		"build:docker": "docker compose -f docker/docker-compose.yml build",
 		"setup:init": "npm ci && node setup/init.mjs",
 		"import": "bash services/wordpress/import.sh",
 		"export": "bash services/wordpress/export.sh",
