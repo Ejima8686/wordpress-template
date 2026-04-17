@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "adrianwilczynski.alpine-js-intellisense",
+    "csstools.postcss",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "mblode.twig-language-2",
+    "bmewburn.vscode-intelephense-client"
+  ]
+}

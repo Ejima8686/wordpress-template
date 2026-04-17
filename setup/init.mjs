@@ -7,8 +7,8 @@ import { input, password, confirm } from "@inquirer/prompts";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
-const envSampleFilePath = path.resolve(root, ".devcontainer/.env.sample");
-const envFilePath = path.resolve(root, ".devcontainer/.env");
+const envSampleFilePath = path.resolve(root, ".env.sample");
+const envFilePath = path.resolve(root, ".env");
 
 /**
  * 現在のテーマディレクトリ名を取得する。
@@ -107,7 +107,7 @@ async function updateEnvFile(key, value) {
  * @returns {Promise<void>}
  */
 async function generateAuthJson(token) {
-	const authJsonFilePath = path.resolve(root, ".devcontainer/auth.json");
+	const authJsonFilePath = path.resolve(root, "auth.json");
 	const content = `{
   "http-basic": {
     "connect.advancedcustomfields.com": {
@@ -159,6 +159,6 @@ async function main() {
 		await updateEnvFile("ACF_PRO_KEY", token);
 	}
 
-	console.log("\n✅ 初期化が完了しました！Dev Container を起動して、開発を開始しましょう！");
+	console.log("\n✅ 初期化が完了しました！docker compose up を実行して、開発を開始しましょう！");
 }
 await main();

@@ -1,6 +1,6 @@
 # WordPress Template
 
-**Visual Studio Code の DevContainer 機能を活用した WordPress 開発環境テンプレート**
+**Docker Compose を使った WordPress 開発環境テンプレート**
 
 ## 目次
 
@@ -17,9 +17,7 @@
 以下をローカルにインストールしてください：
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
-- [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js（v18 以上推奨）](https://nodejs.org/)
-- [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)（VS Code で DevContainer を使用するために必須）
 
 ## 構成
 
@@ -27,7 +25,7 @@
 | ------------------ | ---------------------------------- |
 | **CMS**            | WordPress最新版 + PHP 8.2 + Apache |
 | **DB**             | MariaDB                            |
-| **開発環境**       | Docker + Dev Container             |
+| **開発環境**       | Docker + Docker Compose            |
 | **フロントエンド** | Vite + Tailwind CSS + Alpine.js    |
 | **開発ツール**     | WP-CLI、Composer、Node.js v20      |
 
@@ -42,19 +40,18 @@ npm run setup:init
 `setup/init.mjs` が対話形式で以下を行います：
 
 - テーマ名の確認（またはリネーム）
-- `.devcontainer/.env` の作成（THEME_NAME, VITE_THEME_NAME）
+- `.env` の作成（THEME_NAME, VITE_THEME_NAME）
 - `auth.json` の作成（ACF PRO用ファイル）
 
-### 2. Dev Container の起動
+### 2. コンテナの起動
 
-VSCode を使用してコンテナを起動します。
+プロジェクトルートで以下を実行します。
 
-`.devcontainer/init.sh` に基づいて、WordPress環境が構築されます。開発を再開する場合もこちらを実行してください。
+```bash
+npm run docker:up
+```
 
-**手順：**
-
-1. コマンドパレット（`Cmd+Shift+P`）を開く
-2. **"Dev Containers: Reopen in Container"** を選択
+`docker/init.sh` に基づいて、WordPress環境が構築されます。開発を再開する場合もこちらを実行してください。
 
 ### 3. Vite の起動
 
@@ -77,15 +74,6 @@ npm run dev
 
 - ユーザー名: `admin`
 - パスワード: `password`
-
-### 5. ローカル環境に戻る（Dev Container の終了）
-
-Dev Container 内での作業を終了し、VS Code がローカル環境に戻ります。
-
-**手順：**
-
-1. コマンドパレット（`Cmd+Shift+P`）を開く
-2. **"Dev Containers: Reopen Folder Locally"** を選択
 
 ## データの復元・エクスポート
 
