@@ -28,5 +28,6 @@ add_action("pre_get_posts", function ($query) {
 
 	if (is_post_type_archive("mytheme_news") || is_tax("mytheme_news_category")) {
 		$query->set("posts_per_page", 6);
+		$query->set("orderby", ["date" => "DESC", "ID" => "DESC"]);
 	}
 });

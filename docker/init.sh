@@ -38,7 +38,6 @@ if [ ! -e "$root_path/index.php" ]; then
 	wp language core install ja --allow-root
 	wp site switch-language ja --allow-root
 
-	wp plugin install intuitive-custom-post-order --activate --allow-root
 	wp plugin install wordpress-seo --activate --allow-root
 	wp plugin install wp-multibyte-patch --activate --allow-root
 	wp plugin install query-monitor --activate --allow-root
