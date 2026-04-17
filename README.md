@@ -51,7 +51,7 @@ npm run setup:init
 docker compose up
 ```
 
-`init.sh` に基づいて、WordPress環境が構築されます。開発を再開する場合もこちらを実行してください。
+`docker/init.sh` に基づいて、WordPress環境が構築されます。開発を再開する場合もこちらを実行してください。
 
 ### 3. Vite の起動
 
