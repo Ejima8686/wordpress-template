@@ -3,7 +3,7 @@ const path = require("path");
 
 const env = loadEnv(
 	process.env.NODE_ENV || "development",
-	path.resolve(process.cwd(), ".devcontainer"),
+	path.resolve(process.cwd()),
 	"",
 );
 
