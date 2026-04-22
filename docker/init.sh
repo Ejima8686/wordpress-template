@@ -41,6 +41,7 @@ if [ ! -e "$root_path/index.php" ]; then
 	wp plugin install wordpress-seo --activate --allow-root
 	wp plugin install wp-multibyte-patch --activate --allow-root
 	wp plugin install query-monitor --activate --allow-root
+	wp plugin install advanced-custom-fields --activate --allow-root
 	wp plugin update --all --allow-root
 
 	wp theme activate "$WORDPRESS_THEME_NAME" --allow-root
